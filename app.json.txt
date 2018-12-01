@@ -1,0 +1,7 @@
+{
+"name": "Node.js Getting Started",
+"description": "A barebones Node.js app using Express 4",
+"logo": "",
+"keywords": ["node","express","static"],
+"image": ""
+}

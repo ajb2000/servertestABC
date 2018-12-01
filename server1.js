@@ -27,8 +27,8 @@ const PORT = process.env.PORT || 5000
 
 // app.get('/', function(req,res) {
 app.get('/', function(req,res) {
-  // res.sendFile(__dirname + '/pictures/index.html');
-  res.send("this worked now!!!");
+  res.sendFile(__dirname + '/pictures/index.html');
+  // res.send("this worked now!!!");
 });
 // FINISH
 

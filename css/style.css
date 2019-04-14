@@ -15,7 +15,7 @@ h2 {
 .logo {
 	background: no-repeat url("Nina Brune.jpg");
 	height: 120px; */
-	background-size: contain ;
+	background-size: 80% ; */
 	background-position: center;
 }
 

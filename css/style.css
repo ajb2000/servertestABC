@@ -1,0 +1,80 @@
+
+.body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: #fff;
+}
+iframe{
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+h2 {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+/* li {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 16px;
+	line-height: 1.42857143;
+	color: #122454;
+	background-color: #fff;
+	font-stretch: expanded
+}
+ul {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 16px;
+	line-height: 1.42857143;
+	color: #122454;
+	background-color: #fff;
+	font-stretch: expanded
+} */
+.profile {
+    border-radius: 100%;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    position: relative;
+		background-image: url("Nina Brune.jpg");
+		display: table;
+    background-size: cover;
+    background-position: center center;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.35);
+    margin-bottom: 35px;
+    margin-top: 25px;
+}
+
+.card_text {
+    display: block;
+    margin: 10px 0;
+    color: #122454;
+    font-size: 16px;
+}
+
+.fa {
+	  padding: 20px 25px 20px 25px;
+    width: 30px;
+    border-radius: 50%;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+.nomarginbottom{
+	margin: 0rem;
+}
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.extraClass {
+    position: relative;
+}
+
+.extraClass ul {
+    position: absolute;
+    bottom: 0;
+}
+.hover {
+	cursor: pointer;
+}

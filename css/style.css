@@ -12,22 +12,21 @@ iframe{
 h2 {
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
-/* li {
-	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-	font-size: 16px;
-	line-height: 1.42857143;
-	color: #122454;
-	background-color: #fff;
-	font-stretch: expanded
+.logo {
+	background: no-repeat url("Brune Attorneys Logo.png");
+	height: 200px; */
+	background-size: contain ;
+	background-position: center;
 }
-ul {
-	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-	font-size: 16px;
-	line-height: 1.42857143;
-	color: #122454;
-	background-color: #fff;
-	font-stretch: expanded
-} */
+
+@media only screen and (min-width: 400px) {
+	.logo {
+		background: no-repeat url("Brune Attorneys Logo.png");
+		height: 200px; */
+		background-size: contain ;
+		background-position: center;
+	}
+}
 .profile {
     border-radius: 100%;
     width: 200px;

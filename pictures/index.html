@@ -7,14 +7,15 @@
 	<link rel="stylesheet" href="css/style.css" >
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
+
 .nav-pills .pill-1 .nav-link:not(.active) {
     background-color: #fff;
-		color: darkgrey;
+		color: #00608E;
 }
 /* active (faded) */
 .nav-pills .pill-1 .nav-link {
-    background-color: #d6d8d9;
-    color: black;
+    background-color: #00608E;
+    color: #fff;
 }
 .nav-tabs .pill-2 .nav-link:not(.active) {
     background-color: #fff;
@@ -25,149 +26,223 @@
     background-color: #00608E;
     color: #fff;
 }
-
-.iframe-container {
-  overflow: hidden;
-  padding-top: 56.25%;
-  position: relative;
-}
-
-.iframe-container iframe {
-   border: 0;
-   height: 100%;
-   left: 0;
-   position: absolute;
-   top: 0;
-   width: 100%;
-}
-.wrapper {
-  background-color: #fff;
-  border-radius: 1rem;
-  margin: 0 auto;
-  max-width: 1020px;
-  padding: 2rem;
-  width: 100%;
+.row {
+	margin-left: 0px;
+	margin-right: 0px;
 }
 </style>
 </head>
 <body>
-	<script src='js/pdfmake.min.js'></script>
-	<script src='js/vfs_fonts.js'></script>
+	<!-- <script src='js/pdfmake.min.js'></script>
+	<script src='js/vfs_fonts.js'></script> -->
 <div class="container" style="width: 100%">
-  <div class="row justify-content-md-center" style="width: 100%">
-		  <div class="col col-lg-12 col-md-12" style="width: 100%; padding-left: 15px; padding-right: 15px; ;">
-
-						<div class="row" style="margin-top: 10px; margin-bottom: 10px;width: 100%; padding-left: 0px; padding-right: 0px; margin-right: auto; margin-left: auto;">
-										<div class="col-md-12 col-sm-12 text-center" style="padding: 0px; margin: 0px; border: 0px">
-												<img style="" width=55% src="pictures/test1234.png">
+  <div class="row" style="width: 100%">
+		  <div class="col col-lg-12 col-md-12" style="width: 100%;">
+						<div class="row" style="margin-top: 10px; margin-bottom: 10px;width: 100%">
+										<div class="col-md-12 col-sm-12 text-center">
+												<img style="" width=60% src="pictures/Brune Attorneys Logo.png">
 										</div >
-							</div>
-							<!-- <div class="col-md-12 col-sm-12" style="padding: 0px; margin: 0px; border: 0px;margin-bottom: 15px">
-											<ul class="nav nav-tabs " id="myTab" role="tablist">
-											  <li class="auto nav-item pill-2"><a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a></li>
-											  <li class="auto nav-item pill-2"><a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">About Us</a></li>
-												<li class="auto nav-item pill-2"><a class="nav-link" id="profile-tab" data-toggle="tab" href="#services" role="tab" aria-controls="profile" aria-selected="false">Services</a></li>
-												<li class="auto nav-item pill-2"><a class="nav-link" id="profile-tab" data-toggle="tab" href="#transferprocess" role="tab" aria-controls="profile" aria-selected="false">The Transfer Process</a></li>
-												<li class="auto nav-item pill-2"><a class="nav-link" id="profile-tab" data-toggle="tab" href="#transferdutycalc" role="tab" aria-controls="profile" aria-selected="false">Transfer Cost Calculator</a></li>
-												<li class="auto nav-item pill-2"><a class="nav-link" id="profile-tab" data-toggle="tab" href="#fica" role="tab" aria-controls="profile" aria-selected="false">Fica requirements</a></li>
-											  <li class="auto nav-item pill-2"><a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a></li>
-											</ul>
-							</div> -->
+						</div>
+<!-- Navigation Bar  -->
 						<nav  class="navbar navbar-expand-lg navbar-light bg-light" style="; width:100%;padding-left: 0px;padding-right: 0px; background-color: #fff!important">
 										<button style="margin-left: auto" class="navbar-toggler float-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 										  <span class="navbar-toggler-icon"></span>
 										</button>
 									  <div style="width: 100%!important" class="collapse navbar-collapse" id="navbarNav">
-											<ul style="background-color: #fff;width: 100%" class="nav nav-tabs " id="myTab" role="tablist">
+											<ul style="background-color: #fff;width: 100%;border-bottom: 0px!important" class="nav nav-tabs " id="myTab" role="tablist">
 												<li class="auto nav-item pill-2"><a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a></li>
 												<li class="auto nav-item pill-2"><a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">About Us</a></li>
-												<li class="auto nav-item pill-2"><a class="nav-link" id="profile-tab" data-toggle="tab" href="#services" role="tab" aria-controls="profile" aria-selected="false">Services</a></li>
+												<li class="auto nav-item pill-2"><a class="nav-link" id="services-tab" data-toggle="tab" href="#services" role="tab" aria-controls="profile" aria-selected="false">Services</a></li>
 												<li class="auto nav-item pill-2"><a class="nav-link" id="profile-tab" data-toggle="tab" href="#transferprocess" role="tab" aria-controls="profile" aria-selected="false">The Transfer Process</a></li>
-												<li class="auto nav-item pill-2"><a class="nav-link" id="profile-tab" data-toggle="tab" href="#transferdutycalc" role="tab" aria-controls="profile" aria-selected="false">Transfer Cost Calculator</a></li>
-												<li class="auto nav-item pill-2"><a class="nav-link" id="profile-tab" data-toggle="tab" href="#fica" role="tab" aria-controls="profile" aria-selected="false">Fica requirements</a></li>
-												<li class="auto nav-item pill-2"><a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a></li>
+												<li class="auto nav-item pill-2"><a class="nav-link" id="calc-tab" data-toggle="tab" href="#transferdutycalc" role="tab" aria-controls="profile" aria-selected="false">Transfer Fee Calculator</a></li>
+												<li class="auto nav-item pill-2"><a class="nav-link" id="profile-tab" data-toggle="tab" href="#fica" role="tab" aria-controls="profile" aria-selected="false">Fica Requirements</a></li>
+												<li class="auto nav-item pill-2"><a class="nav-link" id="contacts-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact Us</a></li>
+												<li style="display: none" class="auto nav-item pill-2"><a class="nav-link" id="disclaimer-tab" data-toggle="tab" href="#disclaimer" role="tab" aria-controls="disclaimer" aria-selected="false">Disclaimer</a></li>
 											</ul>
 									  </div>
 						  </nav>
 
 						<div class="tab-content" id="myTabContent" style="width: 100%">
-									  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" style="margin-top: 0px; margin-left: 0px">
-													<img style="margin-top: 0px; margin-left: 0px:; margin-right: 0px; margin-bottom: 20px" width=100% height=140px src="pictures/picture7.jpg">
-													<!-- <p><strong style="font-size: 30px">Brune Attorneys</strong> is a small firm specialising in Property Law. We are situated in the Silver Lakes area in the east of Pretoria</p> -->
-													<h3 style="text-align: center">BRUNE ATTORNEYS . . .</h3>
-													<p style="text-align: center">is a small firm specialising in Property Law. We are situated in the Silver Lakes area in the east of Pretoria</p>
-													<h3 style="text-align: center">OUR MISSION . . .</h3>
-													<p style="text-align: center">
-													is to provide a stress free, fast, efficient and accurate property transfer for the benefit of our clients each and every time.</p>
-													<h3 style="text-align: center">OUR VISION . . .</h3>
-													<p style="text-align: center">
-													is to become a respected and valued name where we can work with the professionals in our industry to do the best job that we can, so that our clients never have to settle for anything less.</p>
-													<h3 style="text-align: center">WE WILL ACHIEVE OUR MISSION AND VISION BY . . .</h3>
-													<p style="text-align: center">providing individual, personal attention to each of our clients
-													being accountable for each step of the process and paying particular attention to detail;
-													believing that honesty is the foundation to all strong relationships;
-													focusing on the individual needs of our clients by understanding that each and every transaction is different;
-													communicating in plain English, not complicated legal terms, that are difficult to understand; and
-													taking care of our client’s transactions as if they are our own.
-													</p>
-														<!-- <div class="row">
-														<div class="col-md-3"><button onclick="filliframe()">Test</button></div>
-														<div class="col-md-9" style="padding: 0px">
-																											<div class="iframe-container">
-																											<iframe id="pdfV" src=""></iframe>
-														</div>
-														</div>
-														</div> -->
-										</div>
-									  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab" style="margin-top: 0px; margin-left: 0px">
+<!--  Home Tab -->
+									  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+													<img style="margin-top: 10px;margin-bottom: 20px" width=100% src="pictures/Brune Attorneys.jpg">
+													<p style="border: solid 3px orange;text-transform: uppercase;color: #00608E;font-size: 24px;text-align: center;padding: 10px"><strong>Brune Attorneys is a firm specialising in property and notarial law. We are situated in the Silver Lakes area, in the east of Pretoria.</strong></p>
+													<div class="row ">
+															 <div class="col-sm-10 col-md-6" style="text-align: left; padding-top: 15px">
+																		 <p style="text-align: center"><strong style="color: #00608E; font-size: 24px">What can we do for you?</strong></p >
+																			 <div style="" class="">
+																						 <div style="text-align: center">
+																						 </div>
+																				 <div class="card_text">
+																					 <p style="text-align: justify;font-size: 18px">We offer a stress free, fast, efficient and accurate property transfer process for the benefit of our clients, each and every time.  We are a respected and valued name, we work with professionals in our industry so that our clients never have to settle for anything less than perfect.</p>
+																				 </div>
+																			 </div>
+															 </div>
+															 <div class="col-sm-10 col-md-6" style="text-align: left; padding-top: 15px">
+																		  <p style="text-align: center"><strong style="color: #00608E; font-size: 24px">How do we add value?</strong></p >
+																			 <div style="" class="">
+																						 <div style="text-align: center">
+																						 </div>
+																				 <div class="card_text">
+																					 <p style="text-align: justify;font-size: 18px">We provide individual, personal attention to each of our clients.
+																					We believe that honesty and regular communication is the foundation of a strong relationship.
+																					</p>
+																				 </div>
+																			 </div>
+															 </div>
+														 </div>
+														 <div class="row ">
+															 <div class="col-sm-12 col-md-12" style="text-align: left; padding-left: 0px; padding-right: 0px;padding-top: 15px">
+																	 <p style="color: #00608E; font-size: 24px; text-align: center"><strong>Our undertaking to you!</strong></p>
+																	 <ul  style="font-size: 18px">
+																		 <li >We focus on the individual need of our client by understanding that each and every transaction is different.</li>
+																		 <li >We communicate in plain English.</li>
+																		 <li >We take care of your transaction as if it were our own.</li>
+																	 </ul>
+															 </div>
+													 	</div>
+													<div class="row ">
+															<div class="col-sm-10 col-md-2" style="text-align: left; padding-top: 15px">
+																	<div style="" class="">
+																				<div style="text-align: center">
+																						<div><img  width=100% src="pictures/Cost Calculator.png" class="" alt="" ></div>
+																				</div>
 
-																<h3 style="margin-top: 25px; margin-left: 0px">Nina Brune</h3>
-																<p>
+																		<div id="text3" style=""class="hover" onclick="document.getElementById('calc-tab').click()">
+																				<p style="text-align: center"><strong style="color: #00608E; font-size: 22px">Cost Calculator</strong></p >
+
+																		</div>
+																	</div>
+															</div>
+															<div class="col-sm-10 col-md-2" style="text-align: left; padding-top: 15px">
+																	<div style="" class="">
+																				<div style="text-align: center">
+																						<div><img  width=100% src="pictures/Property Transfer.png" class="" alt="" ></div>
+																				</div>
+
+																		<div id="text2" style=""class="hover" onclick="document.getElementById('services-tab').click()">
+																				<p style="text-align: center"><strong style="color: #00608E; font-size: 22px">Property Transfers</strong></p >
+
+																		</div>
+
+																	</div>
+															</div>
+															<div class="col-sm-10 col-md-2" style="text-align: left; padding-top: 15px">
+																				 <div>
+																							 <div style="text-align: center">
+																									 <div><img  width=100% src="pictures/Notarial Seal.png" class="" alt="" ></div>
+																							 </div>
+																							 <div id="text4" style=""class="hover" onclick="document.getElementById('services-tab').click()">
+																									 <p style="text-align: center"><strong style="color: #00608E; font-size: 22px">Notarial Work</strong></p >
+																							 </div>
+																				 </div>
+															 </div>
+															 <div class="col-sm-10 col-md-2" style="text-align: left; padding-top: 15px">
+																 <div style="" class="">
+																			 <div style="text-align: center">
+																					 <div><img  width=100% src="pictures/Contracts.png" class="" alt="" ></div>
+																			 </div>
+
+																	 <div id="text5" style=""class="hover" onclick="document.getElementById('services-tab').click()">
+																			 <p style="text-align: center"><strong style="color: #00608E; font-size: 22px">Drafting of Contracts</strong></p >
+																	 </div>
+																 </div>
+														  </div>
+												 		  <div class="col-sm-10 col-md-2" style="text-align: left; padding-top: 15px">
+																		 <div  class="" >
+																					 <div style="text-align: center">
+																							 <div><img width=100% src="pictures/Wills and Estates.png"  alt="" ></div>
+																					 </div>
+																			 <div id="text1" onclick="document.getElementById('services-tab').click()">
+																					 <p class="hover" style="text-align: center"><strong style="color: #00608E; font-size: 22px">Wills, Trusts and Estates</strong></p >
+																			 </div>
+																		 </div>
+														  </div>
+														  <div class="col-sm-10 col-md-2" style="text-align: left; padding-top: 15px">
+ 																		 <div  class="" >
+ 																					 <div style="text-align: center">
+ 																							 <div><img width=100% src="pictures/Contact.png" class="" alt="" ></div>
+ 																					 </div>
+ 																			 <div id="text6" style="" class="hover" onclick="document.getElementById('contacts-tab').click()">
+ 																					 <p style="text-align: center"><strong style="color: #00608E; font-size: 22px">Contact Us</strong></p >
+ 																			 </div>
+ 																		 </div>
+ 														  </div>
+														</div>
+													<div style="background: #00608E; padding-bottom: 4px">
+															<div class="row" style="padding-left: 15px;padding-right:15px; padding-top:15px">
+																	<div class="col-sm-12 col-md-4">
+																	<h6 style="color: white"><strong>Brune Attorneys, © 2019</strong></h6>
+																	</div>
+																	<div style="text-align: center;color: white"class="col-sm-12 col-md-4">
+																	<h6><strong>084 548 4808</strong></h6>
+																	</div>
+																	<div style="text-align: right;color: white"class="col-sm-12 col-md-4">
+																	<h6><strong>nina@brune.co.za</strong></h6>
+																	</div>
+															</div>
+																	<h6>&nbsp &nbsp</h6>
+																	<h6 class="hover" style="text-align: center;font-size: 12px;color: white" onclick="document.getElementById('disclaimer-tab').click()"><strong>Disclaimer</strong></h6>
+											 	  </div>
+										</div>
+<!--  About Us Tab -->
+										<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+												<div class="row">
+													<div class="col-md-3 col-sm-12 text-center">
+																	<div id="nina_photo" class="profile" style="">
+																			<div id="ee_photo_dashed_border"style="" class="">
+																				<label></label>
+																			</div>
+																</div>
+													</div>
+													<div class="col-md-9 col-sm-12">
+																<h3 style="margin-top: 25px">Nina Brune</h3>
+																<p style="text-align: justify">
 																Nina Brune obtained a BA (English and Philosophy) degree in 1993 and a LLB degree in 1996 from the University of Stellenbosch and was admitted as an attorney of the High Court of South Africa in 1998.
-																She obtained LLM degree at the University of Pretoria in 2001.
-																Nina did her articles at Webbers Attorneys Bloemfontein. She opened her own practice in Kwa-Zulu Natal in 2006. Nina relocated to Pretoria in 2015 and continues to practice for her own account.
+															</p>
+															<p style="text-align: justify">Nina did her articles at Webbers Attorneys in Bloemfontein. She obtained her LLM degree at the University of Pretoria in 2001.
+																</p><p style="text-align: justify">She opened her own practice in Kwa-Zulu Natal in 2006. Nina relocated to Pretoria in 2015 and continues to practice for her own account.
 																She specialises in all aspects of property law, notarial work, contracts, trusts and estates.
 																Nina is an avid runner and enjoys baking, cooking and reading.
 																Nina lives in Pretoria with her husband, Anton and three children.
 																</p>
+													</div>
+												</div>
 										</div>
-										<div class="tab-pane fade" id="transferdutycalc" role="tabpanel" aria-labelledby="transferdutycalc" style="margin-top: 0px; margin-left: 0px">
-													<!-- <h1 style="text-align: center" >Transfer Cost Calculator</h1> -->
-
+<!--  Transfer Fee Calculator Tab -->
+										<div class="tab-pane fade" id="transferdutycalc" role="tabpanel" aria-labelledby="transferdutycalc">
+														<div style="text-align: center">
+													 <img  width=25% src="pictures/Cost Calculator.png" class="" alt="">
+												 </div>
 													<div class="form-group col-md-4" style="margin-top: 30px">
-															<!-- <label class="control-label" for="textinput">Purchace Price</label> -->
-															<input id="purchaseprice" name="textinput" type="number" min="1" max="5000000"placeholder="purchase price between 1 and 5 000 000" class="form-control input-md" required>
+															<input id="purchaseprice" name="textinput" type="number" min="1" max="5000000"placeholder="Purchase Price" class="form-control input-md" required>
 													</div>
 													<div class="col-md-4">
-														<button id="submitbutton1" onclick="showandpopulate()" class="btn btn-secondary" >Submit</button>
-														<button id="clearbutton1" onclick="clearcalc()" class="btn btn-secondary">Clear</button>
+														<button id="submitbutton1" onclick="showandpopulate()" class="btn btn-secondary" style="background-color: #00608E!important">Submit</button>
+														<button id="clearbutton1" onclick="clearcalc()" class="btn btn-secondary" style="background-color: #00608E!important">Clear</button>
 													</div>
 													<div id="displaycal" style="display: none; margin-top: 30px">
 																		<div class="row" >
-																						<div class="col-1" ></div>
-																						<div class="col-6" >
+																						<!-- <div class="col-sm-1 col-md-1" ></div> -->
+																						<div class="col-sm-12 col-md-6" >
 																													<style type="text/css">
 																													.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
 																													.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 35px 10px 20px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
-																													.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 10px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
+																													.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 10px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#8bb6cb;}
 																													.tg .tg-1wig{font-weight:bold;text-align:right;vertical-align:top;padding:10px 35px 10px 20px}
 																													.tg .tg-1wig1{font-weight:bold;text-align:left;vertical-align:top;padding:10px 35px 10px 20px}
-																													.tg .tg-buh4{background-color:#f9f9f9;text-align:right;vertical-align:top}
-																													.tg .tg-buh41{background-color:#f9f9f9;text-align:left;vertical-align:top}
+																													.tg .tg-buh4{background-color:#8bb6cb;text-align:right;vertical-align:top}
+																													.tg .tg-buh41{background-color:#8bb6cb;text-align:left;vertical-align:top}
 																													.tg .tg-0lax{text-align:right;vertical-align:top}
 																													.tg .tg-0lax1{text-align:left;vertical-align:top}
 																													</style>
-																									<h4><strong>Transfer Cost Estimation</strong></h4>
+																									<h4 style="color: #00608E; font-size: 30px"><strong>TRANSFER FEES</strong></h4>
 																									<h4 id="purchace_price">Purchase Price:</h4 style="padding-bottom: 25px">
 																									<table class="tg">
 																									  <tr>
 																									    <th class="tg-1wig1">Item</th>
 																									    <th class="tg-1wig">Amount</th>
 																									  </tr>
-																									  <!-- <tr>
-																									    <td class="tg-buh4"><strong>Purchace Price</strong></td>
-																									    <td id="purchace_price" class="tg-buh4"></td>
-																									  </tr> -->
 																									  <tr>
 																									    <td class="tg-0lax1">Transfer Duty</td>
 																									    <td id="transfer_duty" class="tg-0lax"></td>
@@ -195,31 +270,33 @@
 																									</table>
 
 																						</div>
-																						<div class="col-5">
-																							<h4>The following charges are not included in the estimation and we recommend a formal quotation be requested for 100% accuracy:</h4>
-																							<ul>
-																								<li>Levy Clearance Certificate charge for Sectional Title Transfer</li>
-																								<li>Home Owner Association clearance charge (if applicable)</li>
-																								<li>Electronic Facilitation Fees</li>
-																								<li>FICA compliance (dependent on the no. of persons and the type of transaction)</li>
-																								<li>Provision for levies / HOA consent and rates</li>
-																								<li>No Allowance has been made for the transfer of Sectional Title Exclusive Use Areas
-																									(i.e. parking bays, gardens or garages) where notarial title deeds have been issued therefor.</li>
-																							</ul>
-																							<h6>Although every effort has been made to ensure the accuracy of the content, Brune Attorneys accepts no liability in respect of any errors contained herein.
-																								 Under no circumstances will Brune Attorneys be liable for any loss of damages whatsoever arising from the use of this calculator.</h6>
-																						</div>
-																			</div>
 
+																			</div>
+																			<div >
+																				<p style="font-size: 11px; padding-top: 30px">The following charges are not included in the fee calculation and we recommend a formal quotation be requested for 100% accuracy:</p>
+																				<ul style="font-size: 11px">
+																					<li>Levy clearance certificate fee charge for Sectional Title Transfer</li>
+																					<li>Home Owner Association clearance charge (if applicable)</li>
+																					<li>Provision for levies / HOA consent and rates</li>
+																					<li>No Allowance has been made for the transfer of Sectional Title exclusive use areas
+																						(i.e. parking bays, gardens or garages).</li>
+																				</ul>
+																				<p style="text-align: justify">Although every effort has been made to ensure the accuracy of the content, Brune Attorneys accepts no liability in respect of any errors contained herein.
+																					 Under no circumstances will Brune Attorneys be liable for any loss of damages whatsoever arising from the use of this calculator.</p>
+																			</div>
 													</div>
 										</div>
-										<div class="tab-pane fade" id="transferprocess" role="tabpanel" aria-labelledby="profile-tab" style="margin-top: 0px; margin-left: 0px">
-																<h2 style="text-align: center" >The Transfer Process</h2>
+<!--  Transfer Process Tab -->
+										<div class="tab-pane fade" id="transferprocess" role="tabpanel" aria-labelledby="profile-tab">
+																 <div style="text-align: center">
+																<img  width=25% src="pictures/Transfer House.png" class="" alt="">
+															</div>
+																<h2 style="color: #00608E;text-align: center" >THE TRANSFER PROCESS</h2>
 																<p >
 																<ol>
-																<li><strong>Seller and Purchaser sign the offer to purchase and it is received by the transferring attorney</strong></li>
+																<li style="color: #00608E; font-size: 24px">Seller and Purchaser sign the offer to purchase and it is received by the transferring attorney</li>
 
-																<li><strong>Transferring attorney</strong></li>
+																<li style="color: #00608E; font-size: 24px">Transferring attorney</li>
 																<ul>
 																	<li>Requests the title deed from seller/bondholder</li>
 																	<li>Requests bond cancellation figures from the existing bondholder</li>
@@ -228,14 +305,14 @@
 																	<li>Requests levy clearance figures from body corporate/HOA or managing agent</li>
 																</ul>
 
-																<li><strong>Fulfillment of suspensive conditions:</strong></li>
+																<li style="color: #00608E; font-size: 24px">Fulfillment of suspensive conditions:</li>
 																<ul>
 																<li>Purchaser receives the bond grant</li>
 																<li>Transferring attorney receives cancellation figures and the title deed</li>
 																<li>Transferring attorney draws transfer documents</li>
 																</ul>
 
-																<li><strong>Payment of costs & signature of documents</strong></li>
+																<li style="color: #00608E; font-size: 24px">Payment of costs & signature of documents</li>
 																<ul>
 																<li>Transferring attorney requests payment of deposit in terms of the deeds of sale</li>
 																<li>Transferring attorney furnishes bond attorney with copy of title deed and Guarantee requirements</li>
@@ -246,19 +323,19 @@
 																<li>Transferring attorney receives clearance figures</li>
 																<li>Transferring attorney pays local authority and receives clearance certificate</li>
 																</ul>
-																<li><strong>Guarantees</strong></li>
+																<li style="color: #00608E; font-size: 24px">Guarantees</li>
 																<ul>
 																<li>Transferring attorney receives guarantees from bond attorney</li>
 																<li>Transferring attorney sends guarantee to bond cancellation attorney</li>
 															  </ul>
 
-																<li><strong>Lodgment at deeds office</strong></li>
+																<li style="color: #00608E; font-size: 24px">Lodgment at deeds office</li>
 																<ul>
 																<li>Transferring attorney arranges with bond & cancellation attorney to lodge at Deeds office</li>
 																<li>Document examination process at deeds office takes approx 8-10 working days</li>
 																</ul>
 
-																<li><strong>Registration</strong></li>
+																<li style="color: #00608E; font-size: 24px">Registration</li>
 																<ul>
 																<li>the transfer of property, registration of purchasers new bond and cancellation of sellers bond is registered simultaneously</li>
 																<li>guarantees electronically paid for payment</li>
@@ -267,95 +344,60 @@
 															</ol>
 																</p>
 										</div>
-										<div class="tab-pane fade" id="services" role="tabpanel" aria-labelledby="profile-tab" style="margin-top: 0px; margin-left: 0px">
-														<img style="margin-top: 0px; margin-bottom: 10px" width=100% height="140px"src="pictures/picture6.png">
-														<div class="row" style="margin-top: 0px; margin-left: 0px; margin-right: 0px">
-
-																					<div class="col-sm-12 col-md-12" style="padding-left: 0px; padding-right: 0px; padding-top: 15px">
-																						 <div class="row ">
-
-																									<div class="col-sm-10 col-md-6 roundedcor aligncenter" style="text-align: left">
-																											<div style="background-color: rgb(240, 240, 240)" class="roundedcor">
-																														<div>
-																																<div><img width=100% height=60px src="pictures/picture1.jpg" class="roundedcor" alt="" ></div>
-																														</div>
-
-																												<div class="card_text">
-																														<p style="text-align: center"><strong>Property Law</strong></p >
-																														<ul><li>Freehold & sectional title transfers</li>
-																															<li>Residential & commercial property transfers</li>
-																															 <li>Opening of sectional title registers</li>
-																																  <li>Private bonds</li>
-																														 <li>Drafting of offer to purchase</li>
+<!-- Services Tab -->
+										<div class="tab-pane fade" id="services" role="tabpanel" aria-labelledby="profile-tab">
+														<div class="row">
+																		<div class="col-sm-12 col-md-6" style="text-align: left; padding-top: 15px">
+																														<img width=50% src="pictures/Property Transfer.png" class="" alt="">
+																														<div class="col-sm-12 col-md-12">
+																																<p><strong style="color: #00608E; font-size: 24px">Property Transfers</strong></p>
+																													  </div>
+																														<ul>
+																																<li>Freehold & sectional title transfers</li>
+																																<li>Residential & commercial property transfers</li>
+																																<li>Opening of sectional title registers</li>
+																																<li>Private bonds</li>
+																															  <li>Drafting of offer to purchase</li>
 																														 </ul>
-																														<!-- <p><a href="#">READ MORE</a></p> -->
-																												</div>
-
-																											</div>
 																									</div>
-
-																									<div class="col-sm-10 col-md-6  roundedcor aligncenter" style="text-align: left">
-																											<div style="background-color: rgb(240, 240, 240)" class="roundedcor">
-																														<div>
-																																<div><img width=100% height=60px src="pictures/picture2.jpg" class="roundedcor" alt="" ></div>
-																														</div>
-
-																												<div class="card_text">
-																														<p style="text-align: center"><strong>Notarial Work</strong></p>
-																														<ul><li>Antenuptial contracts</li>
-																														<li>Servitudes</li>
-																													<li>General & special notarial bonds</li>
-																														<li>Certification of documents & Apostille Certificates</li>
-																												</ul>
-																														<!-- <p><a href="#">READ MORE</a></p> -->
-																												</div>
-
-																											</div>
+																		<div class="col-sm-10 col-md-6" style="text-align: left; padding-top: 15px">
+																																<img width=50% src="pictures/Notarial Seal.png" class="" alt="" >
+																																<div class="col-sm-12 col-md-12">
+																																		<p style=""><strong style="color: #00608E; font-size: 24px">Notarial Work</strong></p >
+																																</div>
+																														<ul>
+																															<li>Antenuptial contracts</li>
+																														  <li>Servitudes</li>
+																													    <li>General & special notarial bonds</li>
+																												  		<li>Certification of documents & Apostille Certificates</li>
+																													  	<li>Authentication of documents</li>
+																													  	<li>Legalisation of documents for use in non Hague Convention countries</li>
+																												    </ul>
 																									</div>
-
-																									<div class="col-sm-10 col-md-6 roundedcor aligncenter" style="text-align: left">
-																											<div style="background-color: rgb(240, 240, 240)" class="roundedcor">
-																														<div>
-																																<div><img width=100% height=60px src="pictures/picture4.jpg" class="roundedcor" alt="" ></div>
-																														</div>
-
-																												<div class="card_text">
-																														<p style="text-align: center"><strong>Wills and Estates</strong></p>
-																														<ul><li>Drafting of wills, winding up of estates, and registration of Trusts</li></ul>
-																														<!-- <p><a href="#">READ MORE</a></p> -->
-																												</div>
-
-																											</div>
+																		<div class="col-sm-10 col-md-6" style="text-align: left; padding-top: 15px">
+																																<img width=50% src="pictures/Wills and Estates.png" class="" alt="" >
+																																<div class="col-sm-12 col-md-12">
+																																		<p style=""><strong style="color: #00608E; font-size: 24px">Wills, Trusts and Estates</strong></p >
+																																</div>
+																																<ul>
+																																	  <li>Drafting of wills, winding up of estates, and registration of trusts</li>
+																																</ul>
 																									</div>
-
-																									<div class="col-sm-10 col-md-6 roundedcor aligncenter" style="text-align: left">
-																											<div style="background-color: rgb(240, 240, 240)" class="roundedcor">
-																														<div>
-																																<div><img width=100% height=60px src="pictures/picture5.jpg" class="roundedcor" alt="" ></div>
-																														</div>
-
-																												<div class="card_text">
-																														<p style="text-align: center"><strong>Contractual Law</strong></p>
-																														<ul><li>Negotiation, drafting, and vetting of contracts</li></ul>
-																														<!-- <p><a href="#">READ MORE</a></p> -->
-																												</div>
-
-																											</div>
+																		<div class="col-sm-10 col-md-6" style="text-align: left; padding-top: 15px">
+																																<img width=50% src="pictures/Contracts.png" class="" alt="" >
+																																<div class="col-sm-12 col-md-12">
+																																		<p style=""><strong style="color: #00608E; font-size: 24px">Drafting of Contracts</strong></p >
+																																</div>
+																																<ul>
+																																	 <li>Negotiation, drafting, and vetting of contracts</li>
+																																</ul>
 																									</div>
-
-																						 </div>
-																					</div>
-																					<!-- <div class="col-sm-2 col-md-4" style="padding-left: 15px; padding-right: 15px; padding-top: 15px">
-																									<p>side contents here 111</p>
-																									<p>side contents here 222</p>
-																					</div> -->
 														</div>
-
-
 									  </div>
-										<div class="tab-pane fade" id="fica" role="tabpanel" aria-labelledby="fica-tab" style="margin-top: 0px; margin-left: 0px">
-													<img style="margin-top: 0px; margin-bottom: 20px" width=100% height=140px src="pictures/picture3.jpg">
-													<h3 style="text-align: center;">	Fica Requirements</h3>
+<!--  Fica Requirements Tab -->
+										<div class="tab-pane fade" id="fica" role="tabpanel" aria-labelledby="fica-tab">
+													<h2 style="color: #00608E;text-align: center;">FICA REQUIREMENTS</h2>
+													<!--  Fica Internal Nav Bar -->
 													<ul class="nav nav-pills nav-fill" id="pills-tab" role="tablist" >
 															  <li class="nav-item pill-1"><a style="padding-right: 12px; padding-left: 12px" class="nav-link active" id="pills-individual-tab" data-toggle="pill" href="#pills-individual" role="tab" aria-controls="pills-home" aria-selected="true">Individual</a></li>
 																<li class="nav-item pill-1"><a style="padding-right: 12px; padding-left: 12px" class="nav-link" id="pills-minor-tab" data-toggle="pill" href="#pills-minor" role="tab" aria-controls="pills-profile" aria-selected="false">Minor</a></li>
@@ -366,203 +408,211 @@
 																<li class="nav-item pill-1"><a style="padding-right: 12px; padding-left: 12px" class="nav-link" id="pills-closecorporation-tab" data-toggle="pill" href="#pills-closecorporation" role="tab" aria-controls="pills-contact" aria-selected="false">Close Corporation</a></li>
 																<li class="nav-item pill-1"><a style="padding-right: 12px; padding-left: 12px" class="nav-link" id="pills-partnership-tab" data-toggle="pill" href="#pills-partnership" role="tab" aria-controls="pills-contact" aria-selected="false">Partnership</a></li>
 																<li class="nav-item pill-1"><a style="padding-right: 12px; padding-left: 12px" class="nav-link" id="pills-unincorporatedentities-tab" data-toggle="pill" href="#pills-unincorporatedentities" role="tab" aria-controls="pills-contact" aria-selected="false">Unincorporated Entities</a></li>
-															</ul>
-															<div style="padding-top: 15px"class="tab-content" id="pills-tabContent">
-															  <div class="tab-pane fade show active" id="pills-individual" role="tabpanel" aria-labelledby="pills-home-tab">
-																	<h3>Individual</h3>
-																	<li>Copy of ID document (SA Citizens) / Passport (Foreign Nationals)</li>
-																	<li>Proof of address less than three months old (for example utility bill, store account statement, bank statement with address, DSTV account, municipal letter)</li>
-																	<li>Should you not have proof of address in your name, you may provide a declaration by a third party confirming that you share an address with them and provide the third party’s proof of ID and proof of address (less than three months old)</li>
-																	<li>Copy of SARS document confirming income tax number</li>
-																	<li>Copy of bank statement confirming individual banking details (less than three months old)</li>
-																	<li>If married, marriage certificate</li>
-																	<li>If married out of community of property, antenuptial contract</li>
-																</div>
-															  <div class="tab-pane fade" id="pills-minor" role="tabpanel" aria-labelledby="pills-profile-tab">
-																	<h3>Minor</h3>
-																	<li>Copy of the birth certificate (abridged or unabridged)</li>
-																	<li>In the case of a guardian, provide documents confirming legal guardianship.</li>
-																	<li>Copy of SARS document confirming income tax number of minor</li>
-																	<li>Proof of address less than three months old</li>
-																	<li>As the parent / guardian, you may provide a declaration confirming that:</li>
-																	<li>You share an address with the minor</li>
-																	<li>The minor does not have a tax number</li>
-																	<li>Copy of ID document (SA Citizens) / Passport (Foreign Nationals) of parent / guardian</li>
-																	<li>Copy of bank statement confirming parent / guardian banking details (less than three months old)</li>
-																</div>
-															  <div class="tab-pane fade" id="pills-nonresident" role="tabpanel" aria-labelledby="pills-contact-tab">
-																	<h3>Non-Resident Individual</h3>
-																	<li>Copy of foreign ID / passport</li>
-																	<li>Proof of address less than three months old</li>
-																	<li>Should you not have proof of address in your name, you may provide a declaration by a third party confirming that you share an address with them and provide the third party’s proof of ID and proof of address (less than three months old).</li>
-																	<li>Document confirming tax registration number</li>
-																	<li>Copy of bank statement confirming foreign bank details of individual (less than three months old)</li>
-																	<li>If married out of community of property, antenuptial contract</li>
-																</div>
-																<div class="tab-pane fade" id="pills-estatelate" role="tabpanel" aria-labelledby="pills-contact-tab">
-																	<h3>Estate Late</h3>
-																	<li>For the deceased we require the following:</li>
-																	<li>Certified copy of death certificate</li>
-																	<li>Copy of ID</li>
-																	<li>Bank details of estate late account</li>
-																	<li>Resolution (if more than one executor)</li>
-																	<li>For the executor/s we require the following:</li>
-																	<li>Copy of ID</li>
-																	<li>Certified letter of Executorship / Authority</li>
-																	<li>Proof of address (less than three months old)</li>
-																</div>
-																<div class="tab-pane fade" id="pills-trust" role="tabpanel" aria-labelledby="pills-contact-tab">
-																	<h3>Trust</h3>
-																	<li>Copy of Trust deed (if applicable, any deeds of amendment of Trust Deed)</li>
-																	<li>Copy of Letter of Authority</li>
-																	<li>Copy of SARS document confirming Income tax / VAT registration number for trust</li>
-																	<li>Resolution signed by all Trustees nominating authorised signatory / representative</li>
-																	<li>Copy of bank statement confirming trust account banking details (less than three months old)</li>
-																	<li>For the authorised signatory / representative, each trustee, beneficiary and founder of the trust we require the following:</li>
-																	<li>Copy of ID</li>
-																	<li>Proof of address (less than three months old)</li>
-																</div>
-																<div class="tab-pane fade" id="pills-company" role="tabpanel" aria-labelledby="pills-contact-tab">
-																				<h3>Company</h3>
-																			<li>Company registration documents</li>
-																			<li>CM1- Certificate of Incorporation</li>
-																			<li>CM2- Memorandum of Association</li>
-																			<li>CM22- Notice of Registered Office</li>
-																			<li>If applicable, CM9 or Certificate of Recognition (CoR) (CoR 18.1 and 18.3 for conversion from CC and CoR 15.1 for name changes)</li>
-																			<li>Latest CM29 – Contents of Registrar of Directors, Auditors and Officers Business name if different from registered name</li>
-																			<li>Proof of address (less than three months old)</li>
-																			<li>Copy of SARS document confirming Income tax / VAT registration number for company</li>
-																			<li>Resolution on company letterhead signed by all directors nominating authorised signatory / representative</li>
-																			<li>Copy of bank statement confirming company banking details (less than three months old)</li>
-																			<li>For the authorised signatory / representative and / or CEO, each director and each person or corporation with shareholding of 25% or more in the company, we require the following:</li>
-																			<li>Copy of ID</li>
-																			<li>Proof of address (less than three months old)</li>
-																</div>
-																<div class="tab-pane fade" id="pills-closecorporation" role="tabpanel" aria-labelledby="pills-contact-tab">
-																	<h3>Close Corporation</h3>
-																	<li>Copy of Founding Statement (CK 1) and Certificate of Incorporation (if applicable, CK2 for any amendments to the Founding Statement)</li>
-																	<li>Business address if different from registered address</li>
-																	<li>Proof of address of the company (less than three months old)</li>
-																	<li>Copy of SARS document confirming Income tax / VAT registration number for the CC</li>
-																	<li>Resolution on the CC letterhead signed by all members nominating one signatory / representative</li>
-																	<li>Copy of bank statement confirming bank details of the company (less than three months old)</li>
-																	<li>For the authorised signatory / representative and each member we require the following:</li>
-																	<li>Copy of ID</li>
-																	<li>Proof of address (less than three months old)</li>
-																</div>
-																<div class="tab-pane fade" id="pills-partnership" role="tabpanel" aria-labelledby="pills-contact-tab">
-																	<h3>Partnership Account</h3>
-																	<li>Copy of partnership agreement</li>
-																	<li>Proof of address (less than three months old)</li>
-																	<li>Resolution signed by all members nominating authorised signatory / representative</li>
-																	<li>Copy of SARS document confirming Income tax / VAT registration number for the partnership</li>
-																	<li>Copy of bank statement confirming banking details of partnership account (less than three months old)</li>
-																	<li>For the authorised signatory / representative and each partner, we require the following:</li>
-																	<li>Copy of ID</li>
-																	<li>Proof of address (less than three months old)</li>
-																</div>
-																<div class="tab-pane fade" id="pills-unincorporatedentities" role="tabpanel" aria-labelledby="pills-contact-tab">
-																	<h3>Unincorporated Entities (e.g. Clubs, Churches)</h3>
-																	<li>Copy of document confirming list of all active members</li>
-																	<li>Resolution signed by all members nominating authorised signatory / representative (a note to be made of bank details and possible tax implications for the nominated person)</li>
-																	<li>Proof of address (less than three months old)</li>
-																	<li>Copy of SARS document confirming Income tax / VAT registration number for the entity</li>
-																	<li>Copy of bank statement confirming banking details of partnership account (less than three months old)</li>
-																	<li>For the authorised signatory / representative and each member or partner, we require the following:</li>
-																	<li>Copy of ID</li>
-																	<li>Proof of address (less than three months old)</li>
-																</div>
-															</div>`
+													</ul>
+													<!--  Fica Tab Content -->
+													<div style="padding-top: 15px"class="tab-content" id="pills-tabContent">
+																	  <div class="tab-pane fade show active" id="pills-individual" role="tabpanel" aria-labelledby="pills-home-tab">
+																					<h3 style="color: #00608E">Individual</h3>
+																					<li>Copy of ID document (SA Citizens) / Passport (Foreign Nationals)</li>
+																					<li>Proof of address less than three months old (for example utility bill, store account statement, bank statement with address, DSTV account, municipal letter)</li>
+																					<li>Should you not have proof of address in your name, you may provide a declaration by a third party confirming that you share an address with them and provide the third party’s proof of ID and proof of address (less than three months old)</li>
+																					<li>Copy of SARS document confirming income tax number</li>
+																					<li>Copy of bank statement confirming individual banking details (less than three months old)</li>
+																					<li>If married, marriage certificate</li>
+																					<li>If married out of community of property, antenuptial contract</li>
+																		</div>
+																	  <div class="tab-pane fade" id="pills-minor" role="tabpanel" aria-labelledby="pills-profile-tab">
+																					<h3 style="color: #00608E">Minor</h3>
+																					<li>Copy of the birth certificate (abridged or unabridged)</li>
+																					<li>In the case of a guardian, provide documents confirming legal guardianship.</li>
+																					<li>Copy of SARS document confirming income tax number of minor</li>
+																					<li>Proof of address less than three months old</li>
+																					<li>As the parent / guardian, you may provide a declaration confirming that:</li>
+																					<li>You share an address with the minor</li>
+																					<li>The minor does not have a tax number</li>
+																					<li>Copy of ID document (SA Citizens) / Passport (Foreign Nationals) of parent / guardian</li>
+																					<li>Copy of bank statement confirming parent / guardian banking details (less than three months old)</li>
+																		</div>
+																	  <div class="tab-pane fade" id="pills-nonresident" role="tabpanel" aria-labelledby="pills-contact-tab">
+																					<h3 style="color: #00608E">Non-Resident Individual</h3>
+																					<li>Copy of foreign ID / passport</li>
+																					<li>Proof of address less than three months old</li>
+																					<li>Should you not have proof of address in your name, you may provide a declaration by a third party confirming that you share an address with them and provide the third party’s proof of ID and proof of address (less than three months old).</li>
+																					<li>Document confirming tax registration number</li>
+																					<li>Copy of bank statement confirming foreign bank details of individual (less than three months old)</li>
+																					<li>If married out of community of property, antenuptial contract</li>
+																		</div>
+																		<div class="tab-pane fade" id="pills-estatelate" role="tabpanel" aria-labelledby="pills-contact-tab">
+																					<h3 style="color: #00608E">Estate Late</h3>
+																					<li>For the deceased we require the following:</li>
+																					<li>Certified copy of death certificate</li>
+																					<li>Copy of ID</li>
+																					<li>Bank details of estate late account</li>
+																					<li>Resolution (if more than one executor)</li>
+																					<li>For the executor/s we require the following:</li>
+																					<li>Copy of ID</li>
+																					<li>Certified letter of Executorship / Authority</li>
+																					<li>Proof of address (less than three months old)</li>
+																		</div>
+																		<div class="tab-pane fade" id="pills-trust" role="tabpanel" aria-labelledby="pills-contact-tab">
+																					<h3 style="color: #00608E">Trust</h3>
+																					<li>Copy of Trust deed (if applicable, any deeds of amendment of Trust Deed)</li>
+																					<li>Copy of Letter of Authority</li>
+																					<li>Copy of SARS document confirming Income tax / VAT registration number for trust</li>
+																					<li>Resolution signed by all Trustees nominating authorised signatory / representative</li>
+																					<li>Copy of bank statement confirming trust account banking details (less than three months old)</li>
+																					<li>For the authorised signatory / representative, each trustee, beneficiary and founder of the trust we require the following:</li>
+																					<li>Copy of ID</li>
+																					<li>Proof of address (less than three months old)</li>
+																		</div>
+																		<div class="tab-pane fade" id="pills-company" role="tabpanel" aria-labelledby="pills-contact-tab">
+																							<h3 style="color: #00608E">Company</h3>
+																							<li>Company registration documents</li>
+																							<li>CM1- Certificate of Incorporation</li>
+																							<li>CM2- Memorandum of Association</li>
+																							<li>CM22- Notice of Registered Office</li>
+																							<li>If applicable, CM9 or Certificate of Recognition (CoR) (CoR 18.1 and 18.3 for conversion from CC and CoR 15.1 for name changes)</li>
+																							<li>Latest CM29 – Contents of Registrar of Directors, Auditors and Officers Business name if different from registered name</li>
+																							<li>Proof of address (less than three months old)</li>
+																							<li>Copy of SARS document confirming Income tax / VAT registration number for company</li>
+																							<li>Resolution on company letterhead signed by all directors nominating authorised signatory / representative</li>
+																							<li>Copy of bank statement confirming company banking details (less than three months old)</li>
+																							<li>For the authorised signatory / representative and / or CEO, each director and each person or corporation with shareholding of 25% or more in the company, we require the following:</li>
+																							<li>Copy of ID</li>
+																							<li>Proof of address (less than three months old)</li>
+																		</div>
+																		<div class="tab-pane fade" id="pills-closecorporation" role="tabpanel" aria-labelledby="pills-contact-tab">
+																					<h3 style="color: #00608E">Close Corporation</h3>
+																					<li>Copy of Founding Statement (CK 1) and Certificate of Incorporation (if applicable, CK2 for any amendments to the Founding Statement)</li>
+																					<li>Business address if different from registered address</li>
+																					<li>Proof of address of the company (less than three months old)</li>
+																					<li>Copy of SARS document confirming Income tax / VAT registration number for the CC</li>
+																					<li>Resolution on the CC letterhead signed by all members nominating one signatory / representative</li>
+																					<li>Copy of bank statement confirming bank details of the company (less than three months old)</li>
+																					<li>For the authorised signatory / representative and each member we require the following:</li>
+																					<li>Copy of ID</li>
+																					<li>Proof of address (less than three months old)</li>
+																		</div>
+																		<div class="tab-pane fade" id="pills-partnership" role="tabpanel" aria-labelledby="pills-contact-tab">
+																					<h3 style="color: #00608E">Partnership Account</h3>
+																					<li>Copy of partnership agreement</li>
+																					<li>Proof of address (less than three months old)</li>
+																					<li>Resolution signed by all members nominating authorised signatory / representative</li>
+																					<li>Copy of SARS document confirming Income tax / VAT registration number for the partnership</li>
+																					<li>Copy of bank statement confirming banking details of partnership account (less than three months old)</li>
+																					<li>For the authorised signatory / representative and each partner, we require the following:</li>
+																					<li>Copy of ID</li>
+																					<li>Proof of address (less than three months old)</li>
+																		</div>
+																		<div class="tab-pane fade" id="pills-unincorporatedentities" role="tabpanel" aria-labelledby="pills-contact-tab">
+																					<h3 style="color: #00608E">Unincorporated Entities (e.g. Clubs, Churches)</h3>
+																					<li>Copy of document confirming list of all active members</li>
+																					<li>Resolution signed by all members nominating authorised signatory / representative (a note to be made of bank details and possible tax implications for the nominated person)</li>
+																					<li>Proof of address (less than three months old)</li>
+																					<li>Copy of SARS document confirming Income tax / VAT registration number for the entity</li>
+																					<li>Copy of bank statement confirming banking details of partnership account (less than three months old)</li>
+																					<li>For the authorised signatory / representative and each member or partner, we require the following:</li>
+																					<li>Copy of ID</li>
+																					<li>Proof of address (less than three months old)</li>
+																		</div>
+													</div>`
 										</div>
-									  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab" style="margin-top: 0px; margin-left: 0px">
-
-													<div class="row" style="margin-top: 10px; margin-left: 0px; margin-right: 0px; margin-bottom: 0px">
-
-																	<div class="col-sm-6" style="background-color: #fff;padding-left: 15px; padding-right: 15px; padding-top: 15px">
-																						<h4>Contact Details</h4>
-																						<p style="margin-bottom: -5px">&nbsp &nbsp</p>
-																				<div class="row">
-																						<div class="col-sm-6" style="border-right-style: solid">
-																						<h6>148/4 Trevor Crescent</h6>
-																						<h6>Silver Stream Estate</h6>
-																						<h6>Silver Lakes Road</h6>
-																						<h6>Silver Lakes</h6>
-																						<h6>Pretoria</h6>
-																						<h6>0081</h6>
-
-																				  	</div>
-																						<div class="col-sm-6">
-																							<h6>Postnet 246</h6>
-																							<h6>Private Bag X37</h6>
-																							<h6>Lynwood Ridge</h6>
-																							<h6>0040</h6>
-																						</div>
-																				</div>
-																							<h6>&nbsp &nbsp</h6>
-																							<h6>&nbsp &nbsp</h6>
-																							<h6>&nbsp &nbsp</h6>
-																						  <h6>084 548 4808 (c)</h6>
-																						  <h6>nina@brune.co.za</h6>
-
-																	</div>
-																	<div class="col-sm-6" style="background-color: #fff;margin-top:auto; margin-bottom: auto; padding-left: 15px; padding-right: 15px; padding-top: 15px">
-																		<form class="form-horizontal" action="https://formspree.io/nina.brune1@gmail.com" method="POST" >
-																		<fieldset>
-																						<h4>Contact Form</h4>
-																						<p style="margin-bottom: -5px">&nbsp &nbsp</p>
-																						<div class="row" >
-																									<div class="form-group col-md-6">
-																										<label class="control-label" for="textinput">Name</label>
-																										<input id="textinput" name="Name" type="text" placeholder="name" class="form-control input-md" required="">
-																									</div>
-																									<div class="form-group col-md-6">
-																										<label class="control-label" for="surname">Surname</label>
-																										<input id="surname" name="Surname" type="text" placeholder="surname" class="form-control input-md" required="">
-																									</div>
-																						</div>
-																						<div class="row">
-																									<div class="form-group col-md-6">
-																										<label class="control-label" for="email">Email Address</label>
-																										<input id="email" name="email" type="text" placeholder="email" class="form-control input-md" required="">
-																									</div>
-																									<div class="form-group col-md-6">
-																										<label class="control-label" for="telnum">Telephone No</label>
-																										<input id="telnum" name="telnumber" type="text" placeholder="telephone" class="form-control input-md" required="">
-																									</div>
-																				  	</div>
-																						<div class="row">
-																						<div class="form-group col-md-12">
-																									<label class="control-label" for="Message">Message</label>
-																									<textarea placeholder="message" class="form-control" id="message" name="Message"></textarea>
-																						</div>
-																				  	</div>
-																						<div class="form-group">
-																									<label class="col-md-4 control-label" for="submitbutton"></label>
-																									<div class="col-md-4">
-																										<button id="submitbutton" name="submitbutton" class="btn btn-secondary" >Submit</button>
-																									</div>
-																						</div>
-																		</fieldset>
-																		</form>
-																	</div>
-
-
+<!--  Contact Us Tab-->
+										<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+													<div class="row" style="margin-top: 10px">
+																<!--  Picture Col-->
+																<div class="col-sm-3" style="text-align: center">
+																			<img  width=85% src="pictures/Contact.png" class="" alt="">
+														    </div>
+																<!-- Contact Details Col -->
+																<div class="col-sm-3 nomarginbottom" style="background-color: #fff;padding-left: 15px; padding-right: 15px; padding-top: 15px">
+																								<h2 class="nomarginbottom" style="color: #00608E; font-size: 24px">CONTACT DETAILS</h2>
+																								<p class="nomarginbottom">&nbsp &nbsp</p>
+																								<p class="nomarginbottom">148/4 Trevor Crescent</p>
+																								<p class="nomarginbottom">Silver Stream Estate</p>
+																								<p class="nomarginbottom">Silver Lakes Road</p>
+																								<p class="nomarginbottom">Pretoria</p>
+																								<p class="nomarginbottom">0081</p>
+																								<p class="nomarginbottom">&nbsp &nbsp</p>
+																								<p class="nomarginbottom">Postnet 246</p>
+																								<p class="nomarginbottom">Private Bag X37</p>
+																								<p class="nomarginbottom">Lynwood Ridge</p>
+																								<p class="nomarginbottom">0040</p>
+																								<p class="nomarginbottom">&nbsp &nbsp</p>
+																						  	<p class="nomarginbottom">084 548 4808</p>
+																								<p class="nomarginbottom">nina@brune.co.za</p>
+																</div>
+																<!--  Contact Form Col -->
+																<div class="col-sm-6" style="background-color: #fff;margin-top:auto; margin-bottom: auto; padding-left: 15px; padding-right: 15px; padding-top: 15px">
+																				<form class="form-horizontal" action="https://formspree.io/nina.brune1@gmail.com" method="POST" >
+																				<fieldset>
+																								<h2 class="nomarginbottom" style="color: #00608E; font-size: 24px">CONTACT FORM</h2>
+																								<p style="margin-bottom: -5px">&nbsp &nbsp</p>
+																								<div class="row" >
+																											<div class="form-group col-md-6">
+																												<label class="control-label" for="textinput"><strong>Name</strong></label>
+																												<input id="textinput" name="Name" type="text" placeholder="name" class="form-control input-md" required="">
+																											</div>
+																											<div class="form-group col-md-6">
+																												<label class="control-label" for="surname"><strong>Surname</strong></label>
+																												<input id="surname" name="Surname" type="text" placeholder="surname" class="form-control input-md" required="">
+																											</div>
+																								</div>
+																								<div class="row">
+																											<div class="form-group col-md-6">
+																												<label class="control-label" for="email"><strong>Email Address</strong></label>
+																												<input id="email" name="email" type="text" placeholder="email" class="form-control input-md" required="">
+																											</div>
+																											<div class="form-group col-md-6">
+																												<label class="control-label" for="telnum"><strong>Telephone No</strong></label>
+																												<input id="telnum" name="telnumber" type="text" placeholder="telephone" class="form-control input-md" required="">
+																											</div>
+																						  	</div>
+																								<div class="row">
+																								<div class="form-group col-md-12">
+																											<label class="control-label" for="Message"><strong>Message</strong></label>
+																											<textarea placeholder="message" class="form-control" id="message" name="Message"></textarea>
+																								</div>
+																						  	</div>
+																								<div class="form-group">
+																											<label class="col-md-4 control-label" for="submitbutton"></label>
+																											<div class="col-md-4">
+																												<button id="submitbutton" name="submitbutton" class="btn btn-secondary" style="background-color: #00608E!important" >Submit</button>
+																											</div>
+																								</div>
+																				</fieldset>
+																				</form>
+																			</div>
 												  </div>
-													<div >
+													<div>
 														<div class="row text-center" style="margin-top: 15px; width: 100%; padding-left: 0px; padding-right: 0px; margin-right: auto; margin-left: auto;">
-																	<div class="col-md-4 col-sm-2"></div>
 																	<div class="col-md-1 col-sm-1" style="padding: 0px; margin: 0px; border: 0px; ">
-																			<a href="https://za.linkedin.com/in/nina-brune-4b288827" style="font-size: 3em" class="fa fa-linkedin" target="_new"></a>
+																			<a href="https://za.linkedin.com/in/nina-brune-4b288827" style="font-size: 2em" class="fa fa-linkedin" target="_new"></a>
 																	</div>
 																	<div class="col-md-1 col-sm-1" style="padding: 0px; margin: 0px; border: 0px; ">
-																			<a href="https://web.facebook.com/bruneattorneys/" class="fa fa-facebook-f" target="_new" style="font-size: 3em"></a>
+																			<a href="https://web.facebook.com/bruneattorneys/" class="fa fa-facebook-f" target="_new" style="font-size: 2em"></a>
 																	</div>
 																	<div class="col-md-2 col-sm-2">
-																			<iframe style="padding-top:35px" src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fweb.facebook.com%2Fbruneattorneys%2F&width=450&layout=standard&action=like&size=small&show_faces=false&share=true&height=35&appId" width="450" height="55" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+																			<iframe style="padding-top:25px" src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fweb.facebook.com%2Fbruneattorneys%2F&width=450&layout=standard&action=like&size=small&show_faces=false&share=true&height=35&appId" width="450" height="55" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
 																	</div>
-																	<div class="col-md-4 col-sm-2"></div>
 														</div>
 													</div>
+									  </div>
+<!--  Disclaimer -->
+										<div class="tab-pane fade" id="disclaimer" role="tabpanel" aria-labelledby="disclaimer-tab">
+																						<div class="row">
+
+																							<div style="padding-top: 15px"class="col-md-12 col-sm-12">
+																										<h2 style="color: #00608E" >DISCLAIMER</h2>
+																										<p style="text-align: justify">
+																										All information on this website is made available by Brune Attorneys for informational purposes only and nothing thereof should be construed as legal advice.
+																										The user is accordingly cautioned not to take any action based on the content of this website but to always consult a suitably qualified lawyer.
+																										Brune Attorneys does not accept liability that would or could arise as a result of the contents of the website and any such liability is hereby excluded to the fullest extent allowed by law.
+																										All information on the website is subject to change without any notice.
+																									</p>
+
+																							</div>
+																						</div>
 									  </div>
 						</div>
 		</div>
@@ -576,12 +626,14 @@
 var transfer_table = [{"purchase_price1":"0","purchase_price2":"100000","transfer_fees":"4800.00","post_and_petties":"1100.00","d_office_levy":"75.00","other_costs":"3150.00"},{"purchase_price1":"100001","purchase_price2":"150000","transfer_fees":"5535.00","post_and_petties":"1100.00","d_office_levy":"78.00","other_costs":"3150.00"},{"purchase_price1":"150001","purchase_price2":"200000","transfer_fees":"6270.00","post_and_petties":"1100.00","d_office_levy":"78.00","other_costs":"3150.00"},{"purchase_price1":"200001","purchase_price2":"250000","transfer_fees":"7005.00","post_and_petties":"1100.00","d_office_levy":"486.00","other_costs":"3150.00"},{"purchase_price1":"250001","purchase_price2":"300000","transfer_fees":"7740.00","post_and_petties":"1100.00","d_office_levy":"486.00","other_costs":"3150.00"},{"purchase_price1":"300001","purchase_price2":"350000","transfer_fees":"8475.00","post_and_petties":"1100.00","d_office_levy":"606.00","other_costs":"3150.00"},{"purchase_price1":"350001","purchase_price2":"400000","transfer_fees":"9210.00","post_and_petties":"1100.00","d_office_levy":"606.00","other_costs":"3150.00"},{"purchase_price1":"400001","purchase_price2":"450000","transfer_fees":"9945.00","post_and_petties":"1100.00","d_office_levy":"606.00","other_costs":"3150.00"},{"purchase_price1":"450001","purchase_price2":"500000","transfer_fees":"10680.00","post_and_petties":"1100.00","d_office_levy":"606.00","other_costs":"3150.00"},{"purchase_price1":"500001","purchase_price2":"600000","transfer_fees":"12150.00","post_and_petties":"1100.00","d_office_levy":"606.00","other_costs":"3150.00"},{"purchase_price1":"600001","purchase_price2":"700000","transfer_fees":"13620.00","post_and_petties":"1100.00","d_office_levy":"852.00","other_costs":"3150.00"},{"purchase_price1":"700001","purchase_price2":"800000","transfer_fees":"15090.00","post_and_petties":"1100.00","d_office_levy":"852.00","other_costs":"3150.00"},{"purchase_price1":"800001","purchase_price2":"900000","transfer_fees":"16560.00","post_and_petties":"1100.00","d_office_levy":"978.00","other_costs":"3150.00"},{"purchase_price1":"900001","purchase_price2":"1000000","transfer_fees":"18030.00","post_and_petties":"1100.00","d_office_levy":"978.00","other_costs":"3150.00"},{"purchase_price1":"1000001","purchase_price2":"1100000","transfer_fees":"18765.00","post_and_petties":"1100.00","d_office_levy":"1098.00","other_costs":"3150.00"},{"purchase_price1":"1100001","purchase_price2":"1200000","transfer_fees":"19500.00","post_and_petties":"1100.00","d_office_levy":"1098.00","other_costs":"3150.00"},{"purchase_price1":"1200001","purchase_price2":"1300000","transfer_fees":"20235.00","post_and_petties":"1100.00","d_office_levy":"1098.00","other_costs":"3150.00"},{"purchase_price1":"1300001","purchase_price2":"1400000","transfer_fees":"20970.00","post_and_petties":"1100.00","d_office_levy":"1098.00","other_costs":"3150.00"},{"purchase_price1":"1400001","purchase_price2":"1500000","transfer_fees":"21705.00","post_and_petties":"1100.00","d_office_levy":"1098.00","other_costs":"3150.00"},{"purchase_price1":"1500001","purchase_price2":"1600000","transfer_fees":"22440.00","post_and_petties":"1100.00","d_office_levy":"1098.00","other_costs":"3150.00"},{"purchase_price1":"1600001","purchase_price2":"1700000","transfer_fees":"23175.00","post_and_petties":"1100.00","d_office_levy":"1098.00","other_costs":"3150.00"},{"purchase_price1":"1700001","purchase_price2":"1800000","transfer_fees":"23910.00","post_and_petties":"1100.00","d_office_levy":"1098.00","other_costs":"3150.00"},{"purchase_price1":"1800001","purchase_price2":"1900000","transfer_fees":"24645.00","post_and_petties":"1100.00","d_office_levy":"1098.00","other_costs":"3150.00"},{"purchase_price1":"1900001","purchase_price2":"2000000","transfer_fees":"25380.00","post_and_petties":"1100.00","d_office_levy":"1098.00","other_costs":"3150.00"},{"purchase_price1":"2000001","purchase_price2":"2100000","transfer_fees":"26115.00","post_and_petties":"1100.00","d_office_levy":"1522.00","other_costs":"3150.00"},{"purchase_price1":"2100001","purchase_price2":"2200000","transfer_fees":"26850.00","post_and_petties":"1100.00","d_office_levy":"1522.00","other_costs":"3150.00"},{"purchase_price1":"2200001","purchase_price2":"2300000","transfer_fees":"27585.00","post_and_petties":"1100.00","d_office_levy":"1522.00","other_costs":"3150.00"},{"purchase_price1":"2300001","purchase_price2":"2400000","transfer_fees":"28320.00","post_and_petties":"1100.00","d_office_levy":"1522.00","other_costs":"3150.00"},{"purchase_price1":"2400001","purchase_price2":"2500000","transfer_fees":"29055.00","post_and_petties":"1100.00","d_office_levy":"1522.00","other_costs":"3150.00"},{"purchase_price1":"2500001","purchase_price2":"2600000","transfer_fees":"29790.00","post_and_petties":"1100.00","d_office_levy":"1522.00","other_costs":"3150.00"},{"purchase_price1":"2600001","purchase_price2":"2700000","transfer_fees":"30525.00","post_and_petties":"1100.00","d_office_levy":"1522.00","other_costs":"3150.00"},{"purchase_price1":"2700001","purchase_price2":"2800000","transfer_fees":"31260.00","post_and_petties":"1100.00","d_office_levy":"1522.00","other_costs":"3150.00"},{"purchase_price1":"2800001","purchase_price2":"2900000","transfer_fees":"31995.00","post_and_petties":"1100.00","d_office_levy":"1522.00","other_costs":"3150.00"},{"purchase_price1":"2900001","purchase_price2":"3000000","transfer_fees":"32730.00","post_and_petties":"1100.00","d_office_levy":"1522.00","other_costs":"3150.00"},{"purchase_price1":"3000001","purchase_price2":"3100000","transfer_fees":"33465.00","post_and_petties":"1100.00","d_office_levy":"1522.00","other_costs":"3150.00"},{"purchase_price1":"3100001","purchase_price2":"3200000","transfer_fees":"34200.00","post_and_petties":"1100.00","d_office_levy":"1522.00","other_costs":"3150.00"},{"purchase_price1":"3200001","purchase_price2":"3300000","transfer_fees":"34935.00","post_and_petties":"1100.00","d_office_levy":"1522.00","other_costs":"3150.00"},{"purchase_price1":"3300001","purchase_price2":"3400000","transfer_fees":"35670.00","post_and_petties":"1100.00","d_office_levy":"1522.00","other_costs":"3150.00"},{"purchase_price1":"3400001","purchase_price2":"3500000","transfer_fees":"36405.00","post_and_petties":"1100.00","d_office_levy":"1522.00","other_costs":"3150.00"},{"purchase_price1":"3500001","purchase_price2":"3600000","transfer_fees":"37140.00","post_and_petties":"1100.00","d_office_levy":"1522.00","other_costs":"3150.00"},{"purchase_price1":"3600001","purchase_price2":"3700000","transfer_fees":"37875.00","post_and_petties":"1100.00","d_office_levy":"1522.00","other_costs":"3150.00"},{"purchase_price1":"3700001","purchase_price2":"3800000","transfer_fees":"38610.00","post_and_petties":"1100.00","d_office_levy":"1522.00","other_costs":"3150.00"},{"purchase_price1":"3800001","purchase_price2":"3900000","transfer_fees":"39345.00","post_and_petties":"1100.00","d_office_levy":"1522.00","other_costs":"3150.00"},{"purchase_price1":"3900001","purchase_price2":"4000000","transfer_fees":"40080.00","post_and_petties":"1100.00","d_office_levy":"1522.00","other_costs":"3150.00"},{"purchase_price1":"4000001","purchase_price2":"4100000","transfer_fees":"40815.00","post_and_petties":"1100.00","d_office_levy":"1846.00","other_costs":"3150.00"},{"purchase_price1":"4100001","purchase_price2":"4200000","transfer_fees":"41550.00","post_and_petties":"1100.00","d_office_levy":"1846.00","other_costs":"3150.00"},{"purchase_price1":"4200001","purchase_price2":"4300000","transfer_fees":"42285.00","post_and_petties":"1100.00","d_office_levy":"1846.00","other_costs":"3150.00"},{"purchase_price1":"4300001","purchase_price2":"4400000","transfer_fees":"43020.00","post_and_petties":"1100.00","d_office_levy":"1846.00","other_costs":"3150.00"},{"purchase_price1":"4400001","purchase_price2":"4500000","transfer_fees":"43755.00","post_and_petties":"1100.00","d_office_levy":"1846.00","other_costs":"3150.00"},{"purchase_price1":"4500001","purchase_price2":"4600000","transfer_fees":"44490.00","post_and_petties":"1100.00","d_office_levy":"1846.00","other_costs":"3150.00"},{"purchase_price1":"4600001","purchase_price2":"4700000","transfer_fees":"45225.00","post_and_petties":"1100.00","d_office_levy":"1846.00","other_costs":"3150.00"},{"purchase_price1":"4700001","purchase_price2":"4800000","transfer_fees":"45960.00","post_and_petties":"1100.00","d_office_levy":"1846.00","other_costs":"3150.00"},{"purchase_price1":"4800001","purchase_price2":"4900000","transfer_fees":"46695.00","post_and_petties":"1100.00","d_office_levy":"1846.00","other_costs":"3150.00"},{"purchase_price1":"4900001","purchase_price2":"5000000","transfer_fees":"47430.00","post_and_petties":"1100.00","d_office_levy":"1846.00","other_costs":"3150.00"}]
 function showandpopulate(){
 	var purchaseprice = document.getElementById("purchaseprice").value
+	if (purchaseprice > 5000000){alert('Please enter an amount equal to or less than R 5 000 000');document.getElementById("purchaseprice").value = ''} else {
+
 	if (purchaseprice < 1){alert("Please enter a Number above 0")}
 	else if (purchaseprice > 5000000) {alert("Please enter a Number below 5 000 001")} else {
 	calctransferduty(purchaseprice)
 	document.getElementById("displaycal").style.display = "block"
 	document.getElementById("purchaseprice").value = ''
-}
+}}
 }
 function clearcalc(){
 	document.getElementById("displaycal").style.display = "none"
@@ -669,6 +721,10 @@ function exportpdf(docDefinition){
 		filliframe2(data2)
 });
 	// pdfMake.createPdf(docDefinition).open();
+}
+function showtext(number){
+
+	document.getElementById(number).style.display = 'block'
 }
 
 

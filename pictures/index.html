@@ -221,76 +221,152 @@
 														<div style="text-align: center">
 													 <img  width=25% src="pictures/Cost Calculator.png" class="" alt="">
 												 </div>
-													<div class="form-group col-md-4" style="margin-top: 30px">
-															<input id="purchaseprice" name="textinput" type="number" min="1" max="5000000"placeholder="Purchase Price" class="form-control input-md" required>
-													</div>
-													<div class="col-md-4">
-														<button id="submitbutton1" onclick="showandpopulate()" class="btn btn-secondary" style="background-color: #00608E!important">Submit</button>
-														<button id="clearbutton1" onclick="clearcalc()" class="btn btn-secondary" style="background-color: #00608E!important">Clear</button>
-													</div>
-													<div id="displaycal" style="display: none; margin-top: 30px">
-																		<div class="row" >
-																						<!-- <div class="col-sm-1 col-md-1" ></div> -->
-																						<div class="col-sm-12 col-md-6" >
-																													<style type="text/css">
-																													.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
-																													.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 35px 10px 20px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
-																													.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 10px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#8bb6cb;}
-																													.tg .tg-1wig{font-weight:bold;text-align:right;vertical-align:top;padding:10px 35px 10px 20px}
-																													.tg .tg-1wig1{font-weight:bold;text-align:left;vertical-align:top;padding:10px 35px 10px 20px}
-																													.tg .tg-buh4{background-color:#8bb6cb;text-align:right;vertical-align:top}
-																													.tg .tg-buh41{background-color:#8bb6cb;text-align:left;vertical-align:top}
-																													.tg .tg-0lax{text-align:right;vertical-align:top}
-																													.tg .tg-0lax1{text-align:left;vertical-align:top}
-																													</style>
-																									<h4 style="color: #00608E; font-size: 30px"><strong>TRANSFER FEES</strong></h4>
-																									<h4 id="purchace_price">Purchase Price:</h4 style="padding-bottom: 25px">
-																									<table class="tg">
-																									  <tr>
-																									    <th class="tg-1wig1">Item</th>
-																									    <th class="tg-1wig">Amount</th>
-																									  </tr>
-																									  <tr>
-																									    <td class="tg-0lax1">Transfer Duty</td>
-																									    <td id="transfer_duty" class="tg-0lax"></td>
-																									  </tr>
-																									  <tr>
-																									    <td class="tg-buh41">Postages and Petties</td>
-																									    <td id="post_and_petties" class="tg-buh4"></td>
-																									  </tr>
-																									  <tr>
-																									    <td class="tg-0lax1">Transfer Fees</td>
-																									    <td id="transfer_fees" class="tg-0lax"></td>
-																									  </tr>
-																									  <tr>
-																									    <td class="tg-buh41">Deeds Office Levy</td>
-																									    <td id="d_office_levy" class="tg-buh4"></td>
-																									  </tr>
-																									  <tr>
-																									    <td class="tg-0lax1">Other Costs</td>
-																									    <td id="other_costs" class="tg-0lax"></td>
-																									  </tr>
-																										<tr>
-																									    <td class="tg-buh41"><strong>Total</strong></td>
-																									    <td id="total" class="tg-buh4"></td>
-																									  </tr>
-																									</table>
+												 <div class="row">
 
-																						</div>
+													 <div class="col-sm-12 col-md-6 col-lg-6">
+														 <p style="color: #00608E; font-size: 24px">Transfer Cost Calculator</p>
+															<div class="form-group col-md-12" style="margin-top: 30px">
+																	<input id="purchaseprice" name="textinput" type="number" min="1" max="5000000"placeholder="Purchase Price" class="form-control input-md" required>
+															</div>
+															<div class="col-md-12">
+																<button id="submitbutton1" onclick="showandpopulate()" class="btn btn-secondary" style="background-color: #00608E!important">Submit</button>
+																<button id="clearbutton1" onclick="clearcalc()" class="btn btn-secondary" style="background-color: #00608E!important">Clear</button>
+															</div>
+															<div id="displaycal" style="display: none; margin-top: 30px">
+																				<div class="row" >
+																								<!-- <div class="col-sm-1 col-md-1" ></div> -->
+																								<div class="col-sm-12 col-md-12" >
+																															<style type="text/css">
+																															.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
+																															.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 35px 10px 20px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
+																															.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 10px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#8bb6cb;}
+																															.tg .tg-1wig{font-weight:bold;text-align:right;vertical-align:top;padding:10px 35px 10px 20px}
+																															.tg .tg-1wig1{font-weight:bold;text-align:left;vertical-align:top;padding:10px 35px 10px 20px}
+																															.tg .tg-buh4{background-color:#8bb6cb;text-align:right;vertical-align:top}
+																															.tg .tg-buh41{background-color:#8bb6cb;text-align:left;vertical-align:top}
+																															.tg .tg-0lax{text-align:right;vertical-align:top}
+																															.tg .tg-0lax1{text-align:left;vertical-align:top}
+																															</style>
+																											<h4 style="color: #00608E; font-size: 30px"><strong>TRANSFER FEES</strong></h4>
+																											<h4 id="purchace_price">Purchase Price:</h4 style="padding-bottom: 25px">
+																											<table class="tg">
+																											  <tr>
+																											    <th class="tg-1wig1">Item</th>
+																											    <th class="tg-1wig">Amount</th>
+																											  </tr>
+																											  <tr>
+																											    <td class="tg-0lax1">Transfer Duty</td>
+																											    <td id="transfer_duty" class="tg-0lax"></td>
+																											  </tr>
+																											  <tr>
+																											    <td class="tg-buh41">Postages and Petties</td>
+																											    <td id="post_and_petties" class="tg-buh4"></td>
+																											  </tr>
+																											  <tr>
+																											    <td class="tg-0lax1">Transfer Fees</td>
+																											    <td id="transfer_fees" class="tg-0lax"></td>
+																											  </tr>
+																											  <tr>
+																											    <td class="tg-buh41">Deeds Office Levy</td>
+																											    <td id="d_office_levy" class="tg-buh4"></td>
+																											  </tr>
+																											  <tr>
+																											    <td class="tg-0lax1">Other Costs</td>
+																											    <td id="other_costs" class="tg-0lax"></td>
+																											  </tr>
+																												<tr>
+																											    <td class="tg-buh41"><strong>Total</strong></td>
+																											    <td id="total" class="tg-buh4"></td>
+																											  </tr>
+																											</table>
 
-																			</div>
-																			<div >
-																				<p style="font-size: 11px; padding-top: 30px">The following charges are not included in the fee calculation and we recommend a formal quotation be requested for 100% accuracy:</p>
-																				<ul style="font-size: 11px">
-																					<li>Levy clearance certificate fee charge for Sectional Title Transfer</li>
-																					<li>Home Owner Association clearance charge (if applicable)</li>
-																					<li>Provision for levies / HOA consent and rates</li>
-																					<li>No Allowance has been made for the transfer of Sectional Title exclusive use areas
-																						(i.e. parking bays, gardens or garages).</li>
-																				</ul>
-																				<p style="text-align: justify">Although every effort has been made to ensure the accuracy of the content, Brune Attorneys accepts no liability in respect of any errors contained herein.
-																					 Under no circumstances will Brune Attorneys be liable for any loss of damages whatsoever arising from the use of this calculator.</p>
-																			</div>
+																								</div>
+
+																					</div>
+																					<div >
+																						<p style="font-size: 11px; padding-top: 30px">The following charges are not included in the fee calculation and we recommend a formal quotation be requested for 100% accuracy:</p>
+																						<ul style="font-size: 11px">
+																							<li>Levy clearance certificate fee charge for Sectional Title Transfer</li>
+																							<li>Home Owner Association clearance charge (if applicable)</li>
+																							<li>Provision for levies / HOA consent and rates</li>
+																							<li>No Allowance has been made for the transfer of Sectional Title exclusive use areas
+																								(i.e. parking bays, gardens or garages).</li>
+																						</ul>
+																						<p style="text-align: justify">Although every effort has been made to ensure the accuracy of the content, Brune Attorneys accepts no liability in respect of any errors contained herein.
+																							 Under no circumstances will Brune Attorneys be liable for any loss of damages whatsoever arising from the use of this calculator.</p>
+																					</div>
+															</div>
+														</div>
+
+														<div class="col-sm-12 col-md-6 col-lg-6">
+																	<p style="color: #00608E; font-size: 24px">Bond Cost Calculator</p>
+		 															<div class="form-group col-md-12" style="margin-top: 30px">
+		 																	<input id="bondamount" name="textinput" type="number" min="1" max="5000000"placeholder="Bond Amount" class="form-control input-md" required>
+		 															</div>
+		 															<div class="col-md-12">
+		 																<button id="submitbutton1_bond" onclick="showandpopulate_bond()" class="btn btn-secondary" style="background-color: #00608E!important">Submit</button>
+		 																<button id="clearbutton1_bond" onclick="clearcalc_bond()" class="btn btn-secondary" style="background-color: #00608E!important">Clear</button>
+		 															</div>
+ 																	<div id="displaycal_bond" style="display: none; margin-top: 30px">
+ 																				<div class="row" >
+ 																								<!-- <div class="col-sm-1 col-md-1" ></div> -->
+ 																								<div class="col-sm-12 col-md-12" >
+ 																															<style type="text/css">
+ 																															.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
+ 																															.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 35px 10px 20px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
+ 																															.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 10px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#8bb6cb;}
+ 																															.tg .tg-1wig{font-weight:bold;text-align:right;vertical-align:top;padding:10px 35px 10px 20px}
+ 																															.tg .tg-1wig1{font-weight:bold;text-align:left;vertical-align:top;padding:10px 35px 10px 20px}
+ 																															.tg .tg-buh4{background-color:#8bb6cb;text-align:right;vertical-align:top}
+ 																															.tg .tg-buh41{background-color:#8bb6cb;text-align:left;vertical-align:top}
+ 																															.tg .tg-0lax{text-align:right;vertical-align:top}
+ 																															.tg .tg-0lax1{text-align:left;vertical-align:top}
+ 																															</style>
+ 																											<h4 style="color: #00608E; font-size: 30px"><strong>BOND COST</strong></h4>
+ 																											<h4 id="bond_amount">Bond Amount:</h4 style="padding-bottom: 25px">
+ 																											<table class="tg">
+ 																											  <tr>
+ 																											    <th class="tg-1wig1">Item</th>
+ 																											    <th class="tg-1wig">Amount</th>
+ 																											  </tr>
+ 																											  <tr>
+ 																											    <td class="tg-0lax1">Conveancing Fee</td>
+ 																											    <td id="conveyancing_fee_bond" class="tg-0lax"></td>
+ 																											  </tr>
+ 																											  <tr>
+ 																											    <td class="tg-buh41">Postages and Petties</td>
+ 																											    <td id="posts_and_petties_bond" class="tg-buh4"></td>
+ 																											  </tr>
+ 																											  <tr>
+ 																											    <td class="tg-0lax1">VAT</td>
+ 																											    <td id="vat_bond" class="tg-0lax"></td>
+ 																											  </tr>
+ 																											  <tr>
+ 																											    <td class="tg-buh41">Deeds Office Levy</td>
+ 																											    <td id="deeds_office_fee_bond" class="tg-buh4"></td>
+ 																											  </tr>
+ 																												<tr>
+ 																											    <td class="tg-buh41"><strong>Total</strong></td>
+ 																											    <td id="total_bond" class="tg-buh4"></td>
+ 																											  </tr>
+ 																											</table>
+
+ 																								</div>
+
+ 																					</div>
+ 																					<div >
+ 																						<p style="font-size: 11px; padding-top: 30px">The following charges are not included in the fee calculation and we recommend a formal quotation be requested for 100% accuracy:</p>
+ 																						<ul style="font-size: 11px">
+ 																							<li>bond text goes here</li>
+ 																							<li>bond text goes here</li>
+ 																							<li>bond text goes here</li>
+ 																							<li>bond text goes here</li>
+ 																						</ul>
+ 																						<p style="text-align: justify">Although every effort has been made to ensure the accuracy of the content, Brune Attorneys accepts no liability in respect of any errors contained herein.
+ 																							 Under no circumstances will Brune Attorneys be liable for any loss of damages whatsoever arising from the use of this calculator.</p>
+ 																					</div>
+ 															</div>
+ 														</div>
 													</div>
 										</div>
 <!--  Transfer Process Tab -->
@@ -685,7 +761,396 @@ var transfer_table = [
 {"purchase_price1":"4700001","purchase_price2":"4800000","transfer_fees":"45960.00","post_and_petties":"1100.00","d_office_levy":"1926.00","other_costs":"3150.00"},
 {"purchase_price1":"4800001","purchase_price2":"4900000","transfer_fees":"46695.00","post_and_petties":"1100.00","d_office_levy":"1926.00","other_costs":"3150.00"},
 {"purchase_price1":"4900001","purchase_price2":"5000000","transfer_fees":"47430.00","post_and_petties":"1100.00","d_office_levy":"1926.00","other_costs":"3150.00"}]
-
+var bond_table = [
+        {
+            "bond_amount1": "0",
+            "bond_amount2": "150000",
+            "conveyancing_fee_bond": "5535.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "995.00",
+            "deeds_office_fee_bond": "392.00",
+            "total_bond": "8022.00"
+        },
+        {
+            "bond_amount1": "150001",
+            "bond_amount2": "200000",
+            "conveyancing_fee_bond": "6270.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "1106.00",
+            "deeds_office_fee_bond": "507.00",
+            "total_bond": "8983.00"
+        },
+        {
+            "bond_amount1": "200001",
+            "bond_amount2": "250000",
+            "conveyancing_fee_bond": "7005.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "1216.00",
+            "deeds_office_fee_bond": "507.00",
+            "total_bond": "9828.00"
+        },
+        {
+            "bond_amount1": "250001",
+            "bond_amount2": "300000",
+            "conveyancing_fee_bond": "7740.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "1326.00",
+            "deeds_office_fee_bond": "507.00",
+            "total_bond": "10673.00"
+        },
+        {
+            "bond_amount1": "300001",
+            "bond_amount2": "350000",
+            "conveyancing_fee_bond": "8475.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "1436.00",
+            "deeds_office_fee_bond": "632.00",
+            "total_bond": "11643.00"
+        },
+        {
+            "bond_amount1": "350001",
+            "bond_amount2": "400000",
+            "conveyancing_fee_bond": "9210.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "1547.00",
+            "deeds_office_fee_bond": "632.00",
+            "total_bond": "12489.00"
+        },
+        {
+            "bond_amount1": "400001",
+            "bond_amount2": "450000",
+            "conveyancing_fee_bond": "9945.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "1657.00",
+            "deeds_office_fee_bond": "632.00",
+            "total_bond": "13334.00"
+        },
+        {
+            "bond_amount1": "450001",
+            "bond_amount2": "500000",
+            "conveyancing_fee_bond": "10680.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "1767.00",
+            "deeds_office_fee_bond": "632.00",
+            "total_bond": "14179.00"
+        },
+        {
+            "bond_amount1": "500001",
+            "bond_amount2": "550000",
+            "conveyancing_fee_bond": "12150.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "1988.00",
+            "deeds_office_fee_bond": "632.00",
+            "total_bond": "15870.00"
+        },
+        {
+            "bond_amount1": "550001",
+            "bond_amount2": "600000",
+            "conveyancing_fee_bond": "12150.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "1988.00",
+            "deeds_office_fee_bond": "632.00",
+            "total_bond": "15870.00"
+        },
+        {
+            "bond_amount1": "600001",
+            "bond_amount2": "650000",
+            "conveyancing_fee_bond": "13620.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "2208.00",
+            "deeds_office_fee_bond": "889.00",
+            "total_bond": "17817.00"
+        },
+        {
+            "bond_amount1": "650001",
+            "bond_amount2": "700000",
+            "conveyancing_fee_bond": "13620.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "2208.00",
+            "deeds_office_fee_bond": "889.00",
+            "total_bond": "17817.00"
+        },
+        {
+            "bond_amount1": "700001",
+            "bond_amount2": "750000",
+            "conveyancing_fee_bond": "15090.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "2429.00",
+            "deeds_office_fee_bond": "889.00",
+            "total_bond": "19508.00"
+        },
+        {
+            "bond_amount1": "750001",
+            "bond_amount2": "800001",
+            "conveyancing_fee_bond": "15090.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "2429.00",
+            "deeds_office_fee_bond": "889.00",
+            "total_bond": "19508.00"
+        },
+        {
+            "bond_amount1": "800001",
+            "bond_amount2": "850000",
+            "conveyancing_fee_bond": "16560.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "2649.00",
+            "deeds_office_fee_bond": "1020.00",
+            "total_bond": "21329.00"
+        },
+        {
+            "bond_amount1": "850001",
+            "bond_amount2": "900000",
+            "conveyancing_fee_bond": "16560.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "2649.00",
+            "deeds_office_fee_bond": "1020.00",
+            "total_bond": "21329.00"
+        },
+        {
+            "bond_amount1": "900001",
+            "bond_amount2": "950000",
+            "conveyancing_fee_bond": "18030.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "2870.00",
+            "deeds_office_fee_bond": "1020.00",
+            "total_bond": "23020.00"
+        },
+        {
+            "bond_amount1": "950001",
+            "bond_amount2": "1000000",
+            "conveyancing_fee_bond": "18030.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "2870.00",
+            "deeds_office_fee_bond": "1020.00",
+            "total_bond": "23020.00"
+        },
+        {
+            "bond_amount1": "1000001",
+            "bond_amount2": "1100000",
+            "conveyancing_fee_bond": "18765.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "2980.00",
+            "deeds_office_fee_bond": "1146.00",
+            "total_bond": "23991.00"
+        },
+        {
+            "bond_amount1": "1100001",
+            "bond_amount2": "1200000",
+            "conveyancing_fee_bond": "19500.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "3090.00",
+            "deeds_office_fee_bond": "1146.00",
+            "total_bond": "24836.00"
+        },
+        {
+            "bond_amount1": "1200001",
+            "bond_amount2": "1300000",
+            "conveyancing_fee_bond": "20235.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "3200.00",
+            "deeds_office_fee_bond": "1146.00",
+            "total_bond": "25681.00"
+        },
+        {
+            "bond_amount1": "1300001",
+            "bond_amount2": "1400000",
+            "conveyancing_fee_bond": "20970.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "3311.00",
+            "deeds_office_fee_bond": "1146.00",
+            "total_bond": "26527.00"
+        },
+        {
+            "bond_amount1": "1400001",
+            "bond_amount2": "1500000",
+            "conveyancing_fee_bond": "21705.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "3421.00",
+            "deeds_office_fee_bond": "1146.00",
+            "total_bond": "27372.00"
+        },
+        {
+            "bond_amount1": "1500001",
+            "bond_amount2": "1600000",
+            "conveyancing_fee_bond": "22440.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "3531.00",
+            "deeds_office_fee_bond": "1146.00",
+            "total_bond": "28217.00"
+        },
+        {
+            "bond_amount1": "1600001",
+            "bond_amount2": "1700000",
+            "conveyancing_fee_bond": "23175.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "3641.00",
+            "deeds_office_fee_bond": "1146.00",
+            "total_bond": "29062.00"
+        },
+        {
+            "bond_amount1": "1700001",
+            "bond_amount2": "1800000",
+            "conveyancing_fee_bond": "23910.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "3752.00",
+            "deeds_office_fee_bond": "1146.00",
+            "total_bond": "29908.00"
+        },
+        {
+            "bond_amount1": "1800001",
+            "bond_amount2": "1900000",
+            "conveyancing_fee_bond": "24645.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "3862.00",
+            "deeds_office_fee_bond": "1146.00",
+            "total_bond": "30753.00"
+        },
+        {
+            "bond_amount1": "1900001",
+            "bond_amount2": "2000000",
+            "conveyancing_fee_bond": "25380.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "3972.00",
+            "deeds_office_fee_bond": "1146.00",
+            "total_bond": "31598.00"
+        },
+        {
+            "bond_amount1": "2000001",
+            "bond_amount2": "2200000",
+            "conveyancing_fee_bond": "26850.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "4193.00",
+            "deeds_office_fee_bond": "1588.00",
+            "total_bond": "33731.00"
+        },
+        {
+            "bond_amount1": "2200001",
+            "bond_amount2": "2400000",
+            "conveyancing_fee_bond": "28320.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "4413.00",
+            "deeds_office_fee_bond": "1588.00",
+            "total_bond": "35421.00"
+        },
+        {
+            "bond_amount1": "2400001",
+            "bond_amount2": "2600000",
+            "conveyancing_fee_bond": "29790.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "4634.00",
+            "deeds_office_fee_bond": "1588.00",
+            "total_bond": "37112.00"
+        },
+        {
+            "bond_amount1": "2600001",
+            "bond_amount2": "2800000",
+            "conveyancing_fee_bond": "31260.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "4854.00",
+            "deeds_office_fee_bond": "1588.00",
+            "total_bond": "38802.00"
+        },
+        {
+            "bond_amount1": "2800001",
+            "bond_amount2": "3000000",
+            "conveyancing_fee_bond": "32730.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "5075.00",
+            "deeds_office_fee_bond": "1588.00",
+            "total_bond": "40493.00"
+        },
+        {
+            "bond_amount1": "3000001",
+            "bond_amount2": "3200000",
+            "conveyancing_fee_bond": "34200.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "5295.00",
+            "deeds_office_fee_bond": "1588.00",
+            "total_bond": "42183.00"
+        },
+        {
+            "bond_amount1": "3200001",
+            "bond_amount2": "3400000",
+            "conveyancing_fee_bond": "35670.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "5516.00",
+            "deeds_office_fee_bond": "1588.00",
+            "total_bond": "43874.00"
+        },
+        {
+            "bond_amount1": "3400001",
+            "bond_amount2": "3600000",
+            "conveyancing_fee_bond": "37140.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "5736.00",
+            "deeds_office_fee_bond": "1588.00",
+            "total_bond": "45564.00"
+        },
+        {
+            "bond_amount1": "3600001",
+            "bond_amount2": "3800000",
+            "conveyancing_fee_bond": "38610.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "5957.00",
+            "deeds_office_fee_bond": "1588.00",
+            "total_bond": "47255.00"
+        },
+        {
+            "bond_amount1": "3800001",
+            "bond_amount2": "4000000",
+            "conveyancing_fee_bond": "40080.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "6177.00",
+            "deeds_office_fee_bond": "1588.00",
+            "total_bond": "48945.00"
+        },
+        {
+            "bond_amount1": "4000001",
+            "bond_amount2": "4200000",
+            "conveyancing_fee_bond": "41550.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "6398.00",
+            "deeds_office_fee_bond": "1926.00",
+            "total_bond": "50974.00"
+        },
+        {
+            "bond_amount1": "4200001",
+            "bond_amount2": "4400000",
+            "conveyancing_fee_bond": "43020.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "6618.00",
+            "deeds_office_fee_bond": "1926.00",
+            "total_bond": "52664.00"
+        },
+        {
+            "bond_amount1": "4400001",
+            "bond_amount2": "4600000",
+            "conveyancing_fee_bond": "44490.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "6839.00",
+            "deeds_office_fee_bond": "1926.00",
+            "total_bond": "54355.00"
+        },
+        {
+            "bond_amount1": "4600001",
+            "bond_amount2": "4800000",
+            "conveyancing_fee_bond": "45960.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "7059.00",
+            "deeds_office_fee_bond": "1926.00",
+            "total_bond": "56045.00"
+        },
+        {
+            "bond_amount1": "4800001",
+            "bond_amount2": "5000000",
+            "conveyancing_fee_bond": "47430.00",
+            "posts_and_petties_bond": "1100.00",
+            "vat_bond": "7280.00",
+            "deeds_office_fee_bond": "1926.00",
+            "total_bond": "57736.00"
+        }
+    ]
+// TRANSFER FEE JAVASCRIPT - STARTS
 function showandpopulate(){
 	var purchaseprice = document.getElementById("purchaseprice").value
 	if (purchaseprice > 5000000){alert('Please enter an amount equal to or less than R 5 000 000');document.getElementById("purchaseprice").value = ''} else {
@@ -701,6 +1166,7 @@ function clearcalc(){
 	document.getElementById("displaycal").style.display = "none"
 	document.getElementById("purchaseprice").value = ''
 }
+
 function calctransferduty(purprice){
 	var a = 0.00
 	if (purprice <= 900000) {var a = 0}
@@ -713,12 +1179,11 @@ function calctransferduty(purprice){
 	for (i = 0; i < transfer_table.length; i++) {
 		var temp = parseInt(purprice)
 	 if (temp >= transfer_table[i].purchase_price1 & temp <= transfer_table[i].purchase_price2){
-		 	console.log("row number "+i+" is a match")
 			var other_costs = transfer_table[i].other_costs
 		  var post_and_petties = transfer_table[i].post_and_petties
 	    var transfer_fees = transfer_table[i].transfer_fees
 			var d_office_levy = transfer_table[i].d_office_levy
-		} else {console.log("row number "+i+" is NOT a match")}
+		} else {}
 }
 transfer_duty1 = a.toFixed(2)
 var purprice1 = numberWithSpaces(purprice)
@@ -728,7 +1193,7 @@ var totalx = numberWithSpaces(totals)
 
 document.getElementById("transfer_duty").innerHTML = "R "+numberWithSpaces(transfer_duty1)
 document.getElementById("other_costs").innerHTML = "R "+numberWithSpaces(other_costs)
-document.getElementById("purchace_price").innerHTML = "Purchace Price: R "+numberWithSpaces(purprice1)+".00"
+document.getElementById("purchace_price").innerHTML = "Purchace Price: R "+numberWithSpaces(purprice1)
 document.getElementById("post_and_petties").innerHTML = "R "+numberWithSpaces(post_and_petties)
 document.getElementById("transfer_fees").innerHTML = "R "+numberWithSpaces(transfer_fees)
 document.getElementById("d_office_levy").innerHTML = "R "+numberWithSpaces(d_office_levy)
@@ -739,6 +1204,50 @@ function numberWithSpaces(x) {
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     return parts.join(".");
 }
+// TRANSFER FEE JAVASCRIPT - ENDS
+
+// BOND COST JAVASCRIPT - STARTS
+
+function clearcalc_bond(){
+	document.getElementById("displaycal_bond").style.display = "none"
+	document.getElementById("bondamount").value = ''
+}
+function showandpopulate_bond(){
+	var bondamount = document.getElementById("bondamount").value
+	if (bondamount > 5000000){alert('Please enter an amount equal to or less than R 5 000 000');document.getElementById("bondamount").value = ''} else {
+
+	if (bondamount < 1){alert("Please enter an amount above 0")}
+	else if (bondamount > 5000000) {alert("Please enter a Number below 5 000 001")} else {
+	calcbondcost(bondamount)
+	document.getElementById("displaycal_bond").style.display = "block"
+	document.getElementById("bondamount").value = ''
+}}
+}
+
+function calcbondcost(bondamount){
+
+	for (i = 0; i < bond_table.length; i++) {
+		var temp = parseInt(bondamount)
+	 if (temp >= bond_table[i].bond_amount1 & temp <= bond_table[i].bond_amount2){
+			var conveyancing_fee_bond = bond_table[i].conveyancing_fee_bond
+		  var posts_and_petties_bond = bond_table[i].posts_and_petties_bond
+	    var vat_bond = bond_table[i].vat_bond
+			var deeds_office_fee_bond = bond_table[i].deeds_office_fee_bond
+			var total_bond = bond_table[i].total_bond
+		} else {}
+}
+
+document.getElementById("bond_amount").innerHTML = "Bond Amount: "+"R "+numberWithSpaces(bondamount)
+document.getElementById("conveyancing_fee_bond").innerHTML = "R "+numberWithSpaces(conveyancing_fee_bond)
+document.getElementById("posts_and_petties_bond").innerHTML = "R "+numberWithSpaces(posts_and_petties_bond)
+document.getElementById("vat_bond").innerHTML = "R "+numberWithSpaces(vat_bond)
+document.getElementById("deeds_office_fee_bond").innerHTML = "R "+numberWithSpaces(deeds_office_fee_bond)
+document.getElementById("total_bond").innerHTML = "<strong>R "+numberWithSpaces(total_bond)+"</strong>"
+}
+
+// BOND COST JAVASCRIPT - ENDS
+
+// PDF MAKE JAVASCRIPT STARTS
 
 var dd =  {
 	content: [
@@ -770,6 +1279,7 @@ function exportpdf(docDefinition){
 
 var testpdf = 'data:text/html;base64,dGVzdGluZyB0aGUgYmFzZSA2NAplbmNvZGluZyBzeXN0ZW0KYW5kIGlucHV0dGlnbiBpdCBpbnRvIHRoZSBpZnJhbWU='
 
+// PDF MAKE JAVASCRIPT ENDS
 </script>
 
 </body>

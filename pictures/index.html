@@ -358,18 +358,71 @@
 
  																					</div>
  																					<div >
- 																						<p style="font-size: 11px; padding-top: 30px">The following charges are not included in the fee calculation and we recommend a formal quotation be requested for 100% accuracy:</p>
- 																						<ul style="font-size: 11px">
+ 																						<p style="font-size: 11px; padding-top: 30px">Please note that we do not do the registration of morgage bonds.
+																							This calculator is only intended to be a guideline to the bond registration fees. For accurate figures please contact your bond attorneys.</p>
+ 																						<!-- <ul style="font-size: 11px">
+ 																							<li></li>
  																							<li>bond text goes here</li>
  																							<li>bond text goes here</li>
  																							<li>bond text goes here</li>
- 																							<li>bond text goes here</li>
- 																						</ul>
- 																						<p style="text-align: justify">Although every effort has been made to ensure the accuracy of the content, Brune Attorneys accepts no liability in respect of any errors contained herein.
- 																							 Under no circumstances will Brune Attorneys be liable for any loss of damages whatsoever arising from the use of this calculator.</p>
+ 																						</ul> -->
+ 																						<!-- <p style="text-align: justify">Although every effort has been made to ensure the accuracy of the content, Brune Attorneys accepts no liability in respect of any errors contained herein.
+ 																							 Under no circumstances will Brune Attorneys be liable for any loss of damages whatsoever arising from the use of this calculator.</p> -->
  																					</div>
  															</div>
  														</div>
+														<div class="col-sm-12 col-md-6 col-lg-6">
+																	<p style="color: #00608E; font-size: 24px; padding-top: 30px">Bond Repayment Calculator</p>
+																	<div class="form-group col-md-12" style="margin-top: 30px">
+																			<input id="bond_amount_repayment" name="textinput" type="number" min="1" max="5000000"placeholder="Bond Amount" class="form-control input-md" required>
+																			<input id="interest_rate_repayment"  name="textinput" type="number" min="1" max="5000000"placeholder="Interest Rate" class="form-control input-md" required>
+																			<select id="term_repayment" name="textinput" type="select" min="1" max="5000000"placeholder="Term" class="form-control input-md" required>
+																					<option value=5>5 Years</option>
+																					<option value=10>10 Years</option>
+																					<option value=15>15 Years</option>
+																					<option value=20>20 Years</option>
+																					<option value=25>25 Years</option>
+																					<option value=30>30 Years</option>
+																			</select>
+																	</div>
+
+																	<div class="col-md-12">
+																		<button id="submitbutton1_repayment" onclick="submit_bond_repayment ()" class="btn btn-secondary" style="background-color: #00608E!important">Submit</button>
+																		<button id="clearbutton1_repayment" onclick="clearcalc_repayment()" class="btn btn-secondary" style="background-color: #00608E!important">Clear</button>
+																	</div>
+																	<div id="displaycal_bond_repayment" style="display: none; margin-top: 30px">
+ 																				<div class="row" >
+ 																								<!-- <div class="col-sm-1 col-md-1" ></div> -->
+																								<div class="col-sm-12 col-md-12" >
+																															<style type="text/css">
+																															.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
+																															.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 35px 10px 20px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
+																															.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 10px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#8bb6cb;}
+																															.tg .tg-1wig{font-weight:bold;text-align:right;vertical-align:top;padding:10px 35px 10px 20px}
+																															.tg .tg-1wig1{font-weight:bold;text-align:left;vertical-align:top;padding:10px 35px 10px 20px}
+																															.tg .tg-buh4{background-color:#8bb6cb;text-align:right;vertical-align:top}
+																															.tg .tg-buh41{background-color:#8bb6cb;text-align:left;vertical-align:top}
+																															.tg .tg-0lax{text-align:right;vertical-align:top}
+																															.tg .tg-0lax1{text-align:left;vertical-align:top}
+																															</style>
+																											<h4 style="color: #00608E; font-size: 30px"><strong>TRANSFER FEES</strong></h4>
+																											<h4 id="bond_amount_repayment"></h4 style="padding-bottom: 25px">
+																											<table class="tg">
+																											  <tr>
+																											    <th class="tg-1wig1">Monthly Bond Repayment</th>
+																											    <th id="result_repayment"class="tg-1wig"></th>
+																											  </tr>
+
+																											</table>
+
+																								</div>
+
+ 																					</div>
+ 																					<div >
+ 																						<p style="font-size: 11px; padding-top: 30px">Please note that we do not do the registration of morgage bonds.
+																							This calculator is only intended to be a guideline to the bond registration fees. For accurate figures please contact your bond attorneys.</p>
+ 																					</div>
+ 															  </div>
 													</div>
 										</div>
 <!--  Transfer Process Tab -->
@@ -1272,6 +1325,39 @@ document.getElementById("total_bond").innerHTML = "<strong>R "+numberWithSpaces(
 }
 
 // BOND COST JAVASCRIPT - ENDS
+
+// BOND REPAYMENT CALCULATOR JAVASCRIPT - STARTS
+function submit_bond_repayment (){
+		var bond_amount = document.getElementById("bond_amount_repayment").value
+    var interest_rate = document.getElementById("interest_rate_repayment").value
+	  var term = document.getElementById("term_repayment").value
+
+		if (bond_amount === ''||interest_rate === ''||term === '') { alert("Please complete all three fields.")} else {
+					var result = monthly_repayment (bond_amount, interest_rate, term)
+					// alert(result)
+					document.getElementById("bond_amount_repayment").innerHTML = "Monthly Repayment: "+"R "+numberWithSpaces(bond_amount)
+					document.getElementById("result_repayment").innerHTML = "R "+numberWithSpaces(result)
+					document.getElementById("displaycal_bond_repayment").style.display = "block"
+
+
+		}
+}
+function clearcalc_repayment(){
+	document.getElementById("displaycal_bond_repayment").style.display = "none"
+	document.getElementById("bond_amount_repayment").value = ''
+	document.getElementById("interest_rate_repayment").value = ''
+	document.getElementById("term_repayment").value = ''
+}
+function monthly_repayment (bond_amount, interest_rate, term){
+	var I = interest_rate/100/12
+	var A = 1 + I
+	var B = -1 * term*12
+	var R = 1 - Math.pow(A,B)
+	var T = bond_amount*(I/R)
+	return Math.round(T * 100) / 100
+}
+
+// BOND REPAYMENT CALCULATOR JAVASCRIPT - ENDS
 
 // PDF MAKE JAVASCRIPT STARTS
 

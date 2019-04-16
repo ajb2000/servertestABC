@@ -226,7 +226,10 @@
 													 <div class="col-sm-12 col-md-6 col-lg-6">
 														 <p style="color: #00608E; font-size: 24px">Transfer Cost Calculator</p>
 															<div class="form-group col-md-12" style="margin-top: 30px">
-																	<input id="purchaseprice" name="textinput" type="number" min="1" max="5000000"placeholder="Purchase Price" class="form-control input-md" required>
+																	<!-- <input id="purchaseprice" name="textinput" type="number" min="1" max="5000000"placeholder="Purchase Price" class="form-control input-md" required> -->
+																	<input id="purchaseprice"  onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" name="textinput" type="text" min="1" max="5000000"placeholder="Purchase Price" class="form-control input-md" required>
+
+
 															</div>
 															<div class="col-md-12">
 																<button id="submitbutton1" onclick="showandpopulate()" class="btn btn-secondary" style="background-color: #00608E!important">Submit</button>
@@ -1151,8 +1154,31 @@ var bond_table = [
         }
     ]
 // TRANSFER FEE JAVASCRIPT - STARTS
+var fnf = document.getElementById("purchaseprice");
+fnf.addEventListener('keyup', function(evt){
+
+		var tempA = fnf.value.replace(/\s+/g, '');
+		if (tempA == '') {} else{
+		var temp = parseInt(tempA)
+		console.log("event triggered")
+		// console.log(temp)
+    fnf.value = formatNum(temp)}
+ }, false);
+
+function formatNum(num) {
+	console.log(num)
+  var str = num.toLocaleString('en-US');
+	console.log(str)
+  // str = str.replace(/\./, fraction);
+	str = str.replace(/,/g, ' ')
+  if (str === NaN){return ''} else {return str}
+}
+
+// formatNum(12342.2, "a", "x");
+
 function showandpopulate(){
-	var purchaseprice = document.getElementById("purchaseprice").value
+	var purchasepriceA = document.getElementById("purchaseprice").value
+	var purchaseprice = purchasepriceA.replace(/\s+/g, '')
 	if (purchaseprice > 5000000){alert('Please enter an amount equal to or less than R 5 000 000');document.getElementById("purchaseprice").value = ''} else {
 
 	if (purchaseprice < 1){alert("Please enter a Number above 0")}

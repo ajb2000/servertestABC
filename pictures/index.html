@@ -221,7 +221,7 @@
 												 <div style="text-align: center">
 													 <img  width=25% src="pictures/Cost Calculator.png" class="" alt="">
 												 </div>
-												 <div class="form-group col-sm-12 col-md-06 col-lg-06">
+												 <div class="form-group col-sm-12 col-md-6 col-lg-6">
 	    								 	   <label>Please select calculator</label>
 													 <select id="calc_select" onchange="select_calc()" name="textinput" type="select" class="form-control input-md" required>
 															 <option value="transfer_calc">Transfer Cost Calculator</option>
@@ -237,113 +237,89 @@
 														if (selection == 'bond_calc'){document.getElementById('clearbutton1').click();document.getElementById('clearbutton1_repayment').click();document.getElementById('transfer_calc').style.display = 'none';document.getElementById('bond_calc').style.display = 'block';document.getElementById('repayment_calc').style.display = 'none'}
 														if (selection == 'repayment_calc'){document.getElementById('clearbutton1').click();document.getElementById('clearbutton1_bond').click();document.getElementById('transfer_calc').style.display = 'none';document.getElementById('bond_calc').style.display = 'none';document.getElementById('repayment_calc').style.display = 'block'}
 													}
-
-
-
-
 												 </script>
 												 <div class="row">
 													  <div id="transfer_calc" style="display: block" class="col-sm-12 col-md-12 col-lg-12">
-														   <p style="color: #00608E; font-size: 24px">Transfer Cost Calculator</p>
-															 <div class="form-group col-md-12" style="margin-top: 30px">
-																	<label>Purchase Price (Rands)</label>
-																	<input id="purchaseprice"  onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" name="textinput" type="text" min="1" max="5000000"placeholder="Purchase Price" class="form-control input-md" required>
-															 </div>
-														 	 <div class="col-md-12">
-																<button id="submitbutton1" onclick="showandpopulate()" class="btn btn-secondary" style="background-color: #00608E!important">Submit</button>
-																<button id="clearbutton1" onclick="clearcalc()" class="btn btn-secondary" style="background-color: #00608E!important">Clear</button>
-															</div>
-															 <div id="displaycal" style="display: none; margin-top: 30px">
-																				<div class="row" >
-																								<!-- <div class="col-sm-1 col-md-1" ></div> -->
-																								<div class="col-sm-12 col-md-12" >
-																															<style type="text/css">
-																															.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
-																															.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 35px 10px 20px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
-																															.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 10px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#8bb6cb;}
-																															.tg .tg-1wig{font-weight:bold;text-align:right;vertical-align:top;padding:10px 35px 10px 20px}
-																															.tg .tg-1wig1{font-weight:bold;text-align:left;vertical-align:top;padding:10px 35px 10px 20px}
-																															.tg .tg-buh4{background-color:#8bb6cb;text-align:right;vertical-align:top}
-																															.tg .tg-buh41{background-color:#8bb6cb;text-align:left;vertical-align:top}
-																															.tg .tg-0lax{text-align:right;vertical-align:top}
-																															.tg .tg-0lax1{text-align:left;vertical-align:top}
-																															</style>
-																											<h4 style="color: #00608E; font-size: 30px"><strong>TRANSFER FEES</strong></h4>
-																											<h4 id="purchace_price">Purchase Price:</h4 style="padding-bottom: 25px">
-																											<table class="tg">
-																											  <tr>
-																											    <th class="tg-1wig1">Item</th>
-																											    <th class="tg-1wig">Amount</th>
-																											  </tr>
-																											  <tr>
-																											    <td class="tg-0lax1">Transfer Duty</td>
-																											    <td id="transfer_duty" class="tg-0lax"></td>
-																											  </tr>
-																											  <tr>
-																											    <td class="tg-buh41">Postages and Petties</td>
-																											    <td id="post_and_petties" class="tg-buh4"></td>
-																											  </tr>
-																											  <tr>
-																											    <td class="tg-0lax1">Transfer Fees</td>
-																											    <td id="transfer_fees" class="tg-0lax"></td>
-																											  </tr>
-																											  <tr>
-																											    <td class="tg-buh41">Deeds Office Levy</td>
-																											    <td id="d_office_levy" class="tg-buh4"></td>
-																											  </tr>
-																											  <tr>
-																											    <td class="tg-0lax1">Other Costs</td>
-																											    <td id="other_costs" class="tg-0lax"></td>
-																											  </tr>
-																												<tr>
-																											    <td class="tg-buh41"><strong>Total</strong></td>
-																											    <td id="total" class="tg-buh4"></td>
-																											  </tr>
-																											</table>
+															 <div class="row">
+																	 <div class="form-group col-sm-12 col-md-6 col-lg-6" style="margin-top: 30px">
+																		  <p style="color: #00608E; font-size: 24px">Transfer Cost Calculator</p>
+																			<label>Purchase Price (Rands)</label>
+																			<input id="purchaseprice"  onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" name="textinput" type="text" min="1" max="5000000"placeholder="Purchase Price" class="form-control input-md" required>
+																			<button id="submitbutton1" onclick="showandpopulate()" class="btn btn-secondary" style="margin-top:10px;background-color: #00608E!important">Submit</button>
+																			<button id="clearbutton1" onclick="clearcalc()" class="btn btn-secondary" style="margin-top:10px;background-color: #00608E!important">Clear</button>
+																			<button id="downloadbutton1" onclick="download_pdf()" class="btn btn-secondary" style="margin-top:10px;background-color: #00608E!important">Download</button>
+																	 </div>
+																	 <div id="displaycal" class="col-sm-12 col-md-6 col-lg-6" style="margin-top: 30px;display: none">
+																																	<style type="text/css">
+																																	.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
+																																	.tg td{font-family:Arial, sans-serif;font-size:14px;padding:5px 35px 5px 20px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
+																																	.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 10px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#8bb6cb;}
+																																	.tg .tg-1wig{font-weight:bold;text-align:right;vertical-align:top;padding:10px 35px 10px 20px}
+																																	.tg .tg-1wig1{font-weight:bold;text-align:left;vertical-align:top;padding:10px 35px 10px 20px}
+																																	.tg .tg-buh4{background-color:#8bb6cb;text-align:right;vertical-align:top}
+																																	.tg .tg-buh41{background-color:#8bb6cb;text-align:left;vertical-align:top}
+																																	.tg .tg-0lax{text-align:right;vertical-align:top}
+																																	.tg .tg-0lax1{text-align:left;vertical-align:top}
+																																	</style>
+																							<p style="color: #00608E; font-size: 24px">Transfer Fees</p>
+																						  <h4 id="purchace_price">Purchase Price:</h4 style="padding-bottom: 25px">
+																							<table class="tg">
+																													  <tr>
+																													    <th class="tg-1wig1">Item</th>
+																													    <th class="tg-1wig">Amount</th>
+																													  </tr>
+																													  <tr>
+																													    <td class="tg-0lax1">Transfer Duty</td>
+																													    <td id="transfer_duty" class="tg-0lax"></td>
+																													  </tr>
+																													  <tr>
+																													    <td class="tg-buh41">Postages and Petties</td>
+																													    <td id="post_and_petties" class="tg-buh4"></td>
+																													  </tr>
+																													  <tr>
+																													    <td class="tg-0lax1">Transfer Fees</td>
+																													    <td id="transfer_fees" class="tg-0lax"></td>
+																													  </tr>
+																													  <tr>
+																													    <td class="tg-buh41">Deeds Office Levy</td>
+																													    <td id="d_office_levy" class="tg-buh4"></td>
+																													  </tr>
+																													  <tr>
+																													    <td class="tg-0lax1">Other Costs</td>
+																													    <td id="other_costs" class="tg-0lax"></td>
+																													  </tr>
+																														<tr>
+																													    <td class="tg-buh41"><strong>Total</strong></td>
+																													    <td id="total" class="tg-buh4"></td>
+																													  </tr>
+																													</table>
+																							<div>
+																										<p style="font-size: 11px; padding-top: 30px">The following charges are not included in the fee calculation and we recommend a formal quotation be requested for 100% accuracy:</p>
+																										<ul style="font-size: 11px">
+																											<li>Levy clearance certificate fee charge for Sectional Title Transfer</li>
+																											<li>Home Owner Association clearance charge (if applicable)</li>
+																											<li>Provision for levies / HOA consent and rates</li>
+																											<li>No Allowance has been made for the transfer of Sectional Title exclusive use areas
+																												(i.e. parking bays, gardens or garages).</li>
+																										</ul>
+																										<p style="text-align: justify">Although every effort has been made to ensure the accuracy of the content, Brune Attorneys accepts no liability in respect of any errors contained herein.
+																											 Under no circumstances will Brune Attorneys be liable for any loss of damages whatsoever arising from the use of this calculator.</p>
+																							</div>
 
-																								</div>
-
-																					</div>
-																					<div >
-																						<p style="font-size: 11px; padding-top: 30px">The following charges are not included in the fee calculation and we recommend a formal quotation be requested for 100% accuracy:</p>
-																						<ul style="font-size: 11px">
-																							<li>Levy clearance certificate fee charge for Sectional Title Transfer</li>
-																							<li>Home Owner Association clearance charge (if applicable)</li>
-																							<li>Provision for levies / HOA consent and rates</li>
-																							<li>No Allowance has been made for the transfer of Sectional Title exclusive use areas
-																								(i.e. parking bays, gardens or garages).</li>
-																						</ul>
-																						<p style="text-align: justify">Although every effort has been made to ensure the accuracy of the content, Brune Attorneys accepts no liability in respect of any errors contained herein.
-																							 Under no circumstances will Brune Attorneys be liable for any loss of damages whatsoever arising from the use of this calculator.</p>
-																					</div>
-															</div>
-														</div>
+																   </div>
+													  	</div>
+													  </div>
 														<div id="bond_calc" style="display: none" class="col-sm-12 col-md-12 col-lg-12">
-																	<p style="color: #00608E; font-size: 24px">Bond Cost Calculator</p>
-		 															<div class="form-group col-md-12" style="margin-top: 30px">
+																<div class="row">
+		 															<div class="form-group col-sm-12 col-md-6 col-lg-6" style="margin-top: 30px">
+																			<p style="color: #00608E; font-size: 24px">Bond Cost Calculator</p>
 																			<label>Bond Amount (Rands)</label>
 		 																	<input id="bondamount" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" name="textinput" type="text" min="1" max="5000000"placeholder="Bond Amount" class="form-control input-md" required>
-		 															</div>
-		 															<div class="col-md-12">
-		 																<button id="submitbutton1_bond" onclick="showandpopulate_bond()" class="btn btn-secondary" style="background-color: #00608E!important">Submit</button>
-		 																<button id="clearbutton1_bond" onclick="clearcalc_bond()" class="btn btn-secondary" style="background-color: #00608E!important">Clear</button>
-		 															</div>
- 																	<div id="displaycal_bond" style="display: none; margin-top: 30px">
- 																				<div class="row" >
- 																								<!-- <div class="col-sm-1 col-md-1" ></div> -->
- 																								<div class="col-sm-12 col-md-12" >
- 																															<style type="text/css">
- 																															.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
- 																															.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 35px 10px 20px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
- 																															.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 10px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#8bb6cb;}
- 																															.tg .tg-1wig{font-weight:bold;text-align:right;vertical-align:top;padding:10px 35px 10px 20px}
- 																															.tg .tg-1wig1{font-weight:bold;text-align:left;vertical-align:top;padding:10px 35px 10px 20px}
- 																															.tg .tg-buh4{background-color:#8bb6cb;text-align:right;vertical-align:top}
- 																															.tg .tg-buh41{background-color:#8bb6cb;text-align:left;vertical-align:top}
- 																															.tg .tg-0lax{text-align:right;vertical-align:top}
- 																															.tg .tg-0lax1{text-align:left;vertical-align:top}
- 																															</style>
- 																											<h4 style="color: #00608E; font-size: 30px"><strong>BOND COST</strong></h4>
+																			<button id="submitbutton1_bond" onclick="showandpopulate_bond()" class="btn btn-secondary" style="margin-top:10px;background-color: #00608E!important">Submit</button>
+																			<button id="clearbutton1_bond" onclick="clearcalc_bond()" class="btn btn-secondary" style="margin-top:10px;background-color: #00608E!important">Clear</button>
+																	</div>
+ 																	<div id="displaycal_bond" class="form-group col-sm-12 col-md-6 col-lg-6" style="display: none; margin-top: 30px">
+ 																											<p style="color: #00608E; font-size: 24px">Bond Cost</p>
  																											<h4 id="bond_amount">Bond Amount:</h4 style="padding-bottom: 25px">
  																											<table class="tg">
  																											  <tr>
@@ -371,38 +347,28 @@
  																											    <td id="total_bond" class="tg-buh4"></td>
  																											  </tr>
  																											</table>
-
- 																								</div>
-
- 																					</div>
  																					<div >
- 																						<p style="font-size: 11px; padding-top: 30px">Please note that we do not do the registration of morgage bonds.
+ 																						  <p style="font-size: 11px; padding-top: 30px">Please note that we do not do the registration of morgage bonds.
 																							This calculator is only intended to be a guideline to the bond registration fees. For accurate figures please contact your bond attorneys.</p>
- 																						<!-- <ul style="font-size: 11px">
- 																							<li></li>
- 																							<li>bond text goes here</li>
- 																							<li>bond text goes here</li>
- 																							<li>bond text goes here</li>
- 																						</ul> -->
- 																						<!-- <p style="text-align: justify">Although every effort has been made to ensure the accuracy of the content, Brune Attorneys accepts no liability in respect of any errors contained herein.
- 																							 Under no circumstances will Brune Attorneys be liable for any loss of damages whatsoever arising from the use of this calculator.</p> -->
  																					</div>
- 															</div>
+ 															    </div>
+																</div>
  														</div>
 														<div id="repayment_calc" style="display: none" class="col-sm-12 col-md-12 col-lg-12">
-																	<p style="color: #00608E; font-size: 24px">Bond Repayment Calculator</p>
-																	<div class="form-group col-md-12" style="margin-top: 30px">
-																		<div class="form-group col-sm-12 col-md-06 col-lg-06">
+															<div class="row">
+																	<div class="form-group col-sm-12 col-md-6 col-lg-6" style="margin-top: 30px">
+																		<p style="color: #00608E; font-size: 24px">Bond Repayment Calculator</p>
+																		<div class="form-group col-sm-12 col-md-6 col-lg-12">
 																		  <label>Bond Amount (Rands)</label>
 																			<input id="bond_amount_repayment" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" name="textinput" type="text" min="1" max="5000000"placeholder="Bond Amount" class="form-control input-md" required>
 																		</div>
-																		<div class="form-group col-sm-12 col-md-06 col-lg-06">
+																		<div class="form-group col-sm-12 col-md-12 col-lg-12">
 																			 <label>Interest Rate (Persentage)</label>
-																			<input id="interest_rate_repayment"  name="textinput" type="number" min="1" max="5000000"placeholder="Interest Rate" class="form-control input-md" required>
+																			<input id="interest_rate_repayment"  name="textinput" type="number" min="1" max="20" placeholder="Interest Rate" class="form-control input-md" required>
 																		</div>
-																		<div class="form-group col-sm-12 col-md-06 col-lg-06">
+																		<div class="form-group col-sm-12 col-md-12 col-lg-12">
 																			 <label>Repayment Term (Years)</label>
-																			<select id="term_repayment" name="textinput" type="select" min="1" max="5000000"placeholder="Term" class="form-control input-md" required>
+																			<select id="term_repayment" name="textinput" type="select" class="form-control input-md" required>
 																					<option value=5>5 Years</option>
 																					<option value=10>10 Years</option>
 																					<option value=15>15 Years</option>
@@ -410,36 +376,21 @@
 																					<option value=25>25 Years</option>
 																					<option value=30>30 Years</option>
 																			</select>
+																	  </div>
+																		<button id="submitbutton1_repayment" onclick="submit_bond_repayment ()" class="btn btn-secondary" style="margin-top:10px;background-color: #00608E!important">Submit</button>
+																		<button id="clearbutton1_repayment" onclick="clearcalc_repayment()" class="btn btn-secondary" style="margin-top:10px;background-color: #00608E!important">Clear</button>
 
 																	</div>
-
-																	<div class="col-md-12">
-																		<button id="submitbutton1_repayment" onclick="submit_bond_repayment ()" class="btn btn-secondary" style="background-color: #00608E!important">Submit</button>
-																		<button id="clearbutton1_repayment" onclick="clearcalc_repayment()" class="btn btn-secondary" style="background-color: #00608E!important">Clear</button>
-																	</div>
-																	<div id="displaycal_bond_repayment" style="display: none; margin-top: 30px">
+																	<div id="displaycal_bond_repayment"class="form-group col-sm-12 col-md-6 col-lg-6" style="display: none; margin-top: 30px">
  																				<div class="row" >
- 																								<!-- <div class="col-sm-1 col-md-1" ></div> -->
-																								<div class="col-sm-12 col-md-12" >
-																															<style type="text/css">
-																															.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
-																															.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 35px 10px 20px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
-																															.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 10px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#8bb6cb;}
-																															.tg .tg-1wig{font-weight:bold;text-align:right;vertical-align:top;padding:10px 35px 10px 20px}
-																															.tg .tg-1wig1{font-weight:bold;text-align:left;vertical-align:top;padding:10px 35px 10px 20px}
-																															.tg .tg-buh4{background-color:#8bb6cb;text-align:right;vertical-align:top}
-																															.tg .tg-buh41{background-color:#8bb6cb;text-align:left;vertical-align:top}
-																															.tg .tg-0lax{text-align:right;vertical-align:top}
-																															.tg .tg-0lax1{text-align:left;vertical-align:top}
-																															</style>
-																											<h4 style="color: #00608E; font-size: 30px"><strong>MONTHLY BOND REPAYMENT</strong></h4>
+																								<div class="col-sm-12 col-md-12 col-lg-12" >
+																											<p style="color: #00608E; font-size: 24px">Monthly Bond Repayment</p>
 																											<h4 id="bond_amount_repayment"></h4 style="padding-bottom: 25px">
-																											<table class="tg">
-																											  <tr>
-																											    <th class="tg-1wig1">Monthly Bond Repayment</th>
-																											    <th id="result_repayment"class="tg-1wig"></th>
-																											  </tr>
-
+																											<table class=" table-lg tg">
+																													  <tr>
+																													    <th class="tg-1wig1">Monthly Bond Repayment</th>
+																													    <th id="result_repayment"class="tg-1wig"></th>
+																													  </tr>
 																											</table>
 
 																								</div>
@@ -450,9 +401,8 @@
 																							This calculator is only intended to be a guideline to the bond registration fees. For accurate figures please contact your bond attorneys.</p>
  																					</div>
  															    </div>
-													  </div>
-										        </div>
-								  	</div>
+										          </div>
+								  	        </div>
 <!--  Transfer Process Tab -->
 										<div class="tab-pane fade" id="transferprocess" role="tabpanel" aria-labelledby="profile-tab">
 																 <div style="text-align: center">
@@ -872,51 +822,11 @@ var bond_table = [
         {            "bond_amount1": "1000001",            "bond_amount2": "1100000",            "conveyancing_fee_bond": "18765.00",            "posts_and_petties_bond": "1100.00",            "vat_bond": "2980.00",            "deeds_office_fee_bond": "1146.00",            "total_bond": "23991.00"        },
         {            "bond_amount1": "1100001",            "bond_amount2": "1200000",            "conveyancing_fee_bond": "19500.00",            "posts_and_petties_bond": "1100.00",            "vat_bond": "3090.00",            "deeds_office_fee_bond": "1146.00",            "total_bond": "24836.00"        },
         {            "bond_amount1": "1200001",            "bond_amount2": "1300000",            "conveyancing_fee_bond": "20235.00",            "posts_and_petties_bond": "1100.00",            "vat_bond": "3200.00",            "deeds_office_fee_bond": "1146.00",            "total_bond": "25681.00"        },
-        {
-            "bond_amount1": "1300001",
-            "bond_amount2": "1400000",
-            "conveyancing_fee_bond": "20970.00",
-            "posts_and_petties_bond": "1100.00",
-            "vat_bond": "3311.00",
-            "deeds_office_fee_bond": "1146.00",
-            "total_bond": "26527.00"
-        },
-        {
-            "bond_amount1": "1400001",
-            "bond_amount2": "1500000",
-            "conveyancing_fee_bond": "21705.00",
-            "posts_and_petties_bond": "1100.00",
-            "vat_bond": "3421.00",
-            "deeds_office_fee_bond": "1146.00",
-            "total_bond": "27372.00"
-        },
-        {
-            "bond_amount1": "1500001",
-            "bond_amount2": "1600000",
-            "conveyancing_fee_bond": "22440.00",
-            "posts_and_petties_bond": "1100.00",
-            "vat_bond": "3531.00",
-            "deeds_office_fee_bond": "1146.00",
-            "total_bond": "28217.00"
-        },
-        {
-            "bond_amount1": "1600001",
-            "bond_amount2": "1700000",
-            "conveyancing_fee_bond": "23175.00",
-            "posts_and_petties_bond": "1100.00",
-            "vat_bond": "3641.00",
-            "deeds_office_fee_bond": "1146.00",
-            "total_bond": "29062.00"
-        },
-        {
-            "bond_amount1": "1700001",
-            "bond_amount2": "1800000",
-            "conveyancing_fee_bond": "23910.00",
-            "posts_and_petties_bond": "1100.00",
-            "vat_bond": "3752.00",
-            "deeds_office_fee_bond": "1146.00",
-            "total_bond": "29908.00"
-        },
+        {            "bond_amount1": "1300001",            "bond_amount2": "1400000",            "conveyancing_fee_bond": "20970.00",            "posts_and_petties_bond": "1100.00",            "vat_bond": "3311.00",            "deeds_office_fee_bond": "1146.00",            "total_bond": "26527.00"        },
+        {            "bond_amount1": "1400001",            "bond_amount2": "1500000",            "conveyancing_fee_bond": "21705.00",            "posts_and_petties_bond": "1100.00",            "vat_bond": "3421.00",            "deeds_office_fee_bond": "1146.00",            "total_bond": "27372.00"        },
+        {            "bond_amount1": "1500001",            "bond_amount2": "1600000",            "conveyancing_fee_bond": "22440.00",            "posts_and_petties_bond": "1100.00",            "vat_bond": "3531.00",            "deeds_office_fee_bond": "1146.00",            "total_bond": "28217.00"        },
+        {            "bond_amount1": "1600001",            "bond_amount2": "1700000",            "conveyancing_fee_bond": "23175.00",            "posts_and_petties_bond": "1100.00",            "vat_bond": "3641.00",            "deeds_office_fee_bond": "1146.00",            "total_bond": "29062.00"        },
+        {            "bond_amount1": "1700001",            "bond_amount2": "1800000",            "conveyancing_fee_bond": "23910.00",            "posts_and_petties_bond": "1100.00",            "vat_bond": "3752.00",            "deeds_office_fee_bond": "1146.00",            "total_bond": "29908.00"        },
         {
             "bond_amount1": "1800001",
             "bond_amount2": "1900000",
@@ -1170,6 +1080,17 @@ function numberWithSpaces(x) {
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     return parts.join(".");
 }
+
+function download_pdf (){
+	var b =document.getElementById("transfer_duty").innerHTML
+	var f = document.getElementById("other_costs").innerHTML
+	var a = document.getElementById("purchace_price").innerHTML
+	var e = document.getElementById("post_and_petties").innerHTML
+	var c = document.getElementById("transfer_fees").innerHTML
+	var d = document.getElementById("d_office_levy").innerHTML
+	var g = document.getElementById("total").innerText
+	exportpdf(a,b,c,d,e,f,g)
+}
 // TRANSFER FEE JAVASCRIPT - ENDS
 
 // BOND COST JAVASCRIPT - STARTS
@@ -1250,10 +1171,9 @@ function monthly_repayment (bond_amount, interest_rate, term){
 
 // PDF MAKE JAVASCRIPT STARTS
 
-var dd =  {
+var transfer_doc =  {
 	content: [
-
-		{text: 'Purchace Price: R 2 345 867.00', fontSize: 14, bold: true, margin: [0, 20, 0, 8]},
+		{text: 'Purchace Price: ASDF_pur_price', fontSize: 14, bold: true, margin: [0, 20, 0, 8]},
 		{
 			style: 'tableExample',
 			table: {
@@ -1261,11 +1181,12 @@ var dd =  {
 				widths: [150, 100, 150,],
 				body: [
 					[{text: 'Item', style: 'tableHeader'}, {text: '', style: 'tableHeader'}, {text: 'Amount', style: 'tableHeader'}],
-					['Transfer Duty', '', 'R 23 456.00'],
-					['Transfer Fee', '', 'R 3 456.00'],
-					['Deeds Office Fees', '', 'R 11 000'],
-					['Postage And Pettys', '', 'R 234 567.00'],
-					['Total', '', 'R 345 678.00'],
+					['Transfer Duty', '', 'transfer_duty'],
+					['Transfer Fee', '', 'transfer_fee'],
+					['Deeds Office Fees', '', 'deeds_office_fee'],
+					['Postage And Petties', '', 'ASDF_postage'],
+					['Other Costs', '', 'ASDF_other'],
+					['Total', '', 'ASDF_total'],
 
 				]
 			},
@@ -1273,9 +1194,18 @@ var dd =  {
 		},
 	],}
 
+function exportpdf(a,b,c,d,e,f,g){
+	var myJSON = JSON.stringify(transfer_doc)
+	var myJSON = myJSON.replace('SDF_pur_price', a)
+	var myJSON = myJSON.replace('transfer_duty', b)
+	var myJSON = myJSON.replace('transfer_fee', c)
+	var myJSON = myJSON.replace('deeds_office_fee', d)
+	var myJSON = myJSON.replace('ASDF_postage', e)
+	var myJSON = myJSON.replace('ASDF_other', f)
+	var myJSON = myJSON.replace('ASDF_total', g)
+	var new_doc = JSON.parse(myJSON)
 
-function exportpdf(docDefinition){
-		pdfMake.createPdf(dd).download('Cost Calculation')
+	pdfMake.createPdf(new_doc).download('Cost Calculation')
 	}
 
 var testpdf = 'data:text/html;base64,dGVzdGluZyB0aGUgYmFzZSA2NAplbmNvZGluZyBzeXN0ZW0KYW5kIGlucHV0dGlnbiBpdCBpbnRvIHRoZSBpZnJhbWU='

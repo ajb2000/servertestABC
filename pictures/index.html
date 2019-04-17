@@ -244,10 +244,12 @@
 																	 <div class="form-group col-sm-12 col-md-6 col-lg-6" style="margin-top: 30px">
 																		  <p style="color: #00608E; font-size: 24px">Transfer Cost Calculator</p>
 																			<label>Purchase Price (Rands)</label>
+																			<div class="row">
 																			<input id="purchaseprice"  onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" name="textinput" type="text" min="1" max="5000000"placeholder="Purchase Price" class="form-control input-md" required>
-																			<button id="submitbutton1" onclick="showandpopulate()" class="btn btn-secondary" style="margin-top:10px;background-color: #00608E!important">Submit</button>
-																			<button id="clearbutton1" onclick="clearcalc()" class="btn btn-secondary" style="margin-top:10px;background-color: #00608E!important">Clear</button>
-																			<button id="downloadbutton1" onclick="download_pdf()" class="btn btn-secondary col-sm-0" style="margin-top:10px;background-color: #00608E!important">Download</button>
+																			<button id="submitbutton1" onclick="showandpopulate()" class="btn btn-secondary" style="margin-right:5px;margin-top:10px;background-color: #00608E!important">Submit</button>
+																			<button id="clearbutton1" onclick="clearcalc()" class="btn btn-secondary" style="margin-right:5px;margin-top:10px;background-color: #00608E!important">Clear</button>
+																			<button id="downloadbutton1" onclick="download_pdf()" class="btn btn-secondary col-sm-0" style="display: none;margin-top:10px;background-color: #00608E!important">Download</button>
+																			</div>
 																	 </div>
 																	 <div id="displaycal" class="col-sm-12 col-md-6 col-lg-6" style="margin-top: 30px;display: none">
 																																	<style type="text/css">
@@ -1035,12 +1037,16 @@ function showandpopulate(){
 	else if (purchaseprice > 5000000) {alert("Please enter a Number below 5 000 001")} else {
 	calctransferduty(purchaseprice)
 	document.getElementById("displaycal").style.display = "block"
+	document.getElementById("downloadbutton1").style.display = "block"
 	document.getElementById("purchaseprice").value = ''
 }}
 }
 function clearcalc(){
 	document.getElementById("displaycal").style.display = "none"
+	document.getElementById("downloadbutton1").style.display = "none"
 	document.getElementById("purchaseprice").value = ''
+
+	downloadbutton1
 }
 
 function calctransferduty(purprice){

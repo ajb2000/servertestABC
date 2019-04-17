@@ -1230,7 +1230,7 @@ var transfer_doc = {
 		},
 		{text: 'ASDF_date', fontSize: 14, bold: true,alignment: 'right', margin: [0, 20, 0, 8]},
 		{text: 'Transfer Fees Calculator ', fontSize: 14, bold: true,alignment: 'center', margin: [0, 20, 0, 8]},
-		{text: 'Purchace Price: ASDF_pur_price', fontSize: 14, bold: true, margin: [0, 20, 0, 8]},
+		{text: 'ASDF_pur_price', fontSize: 14, bold: true, margin: [0, 20, 0, 8]},
 		{
 			style: 'tableExample',
 			table: {
@@ -1283,7 +1283,7 @@ var transfer_doc = {
 	],}
 function exportpdf(a,b,c,d,e,f,g,h){
 	var myJSON = JSON.stringify(transfer_doc)
-	var myJSON = myJSON.replace('SDF_pur_price', a)
+	var myJSON = myJSON.replace('ASDF_pur_price', a)
 	var myJSON = myJSON.replace('transfer_duty', b)
 	var myJSON = myJSON.replace('transfer_fee', c)
 	var myJSON = myJSON.replace('deeds_office_fee', d)

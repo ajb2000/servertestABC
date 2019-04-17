@@ -1037,13 +1037,13 @@ function showandpopulate(){
 	else if (purchaseprice > 5000000) {alert("Please enter a Number below 5 000 001")} else {
 	calctransferduty(purchaseprice)
 	document.getElementById("displaycal").style.display = "block"
-	document.getElementById("downloadbutton1").style.display = "block"
+	if (mobilecheck() == false){document.getElementById("downloadbutton1").style.display = "block"}
 	document.getElementById("purchaseprice").value = ''
 }}
 }
 function clearcalc(){
 	document.getElementById("displaycal").style.display = "none"
-	if (mobilecheck() == false){document.getElementById("downloadbutton1").style.display = "none"} 
+	document.getElementById("downloadbutton1").style.display = "none"
 	document.getElementById("purchaseprice").value = ''
 
 	downloadbutton1

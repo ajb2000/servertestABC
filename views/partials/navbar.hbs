@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">WebApp</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Landing Page</a>
+            </li>
+            {{#if user}}
+            <li class="nav-item">
+                <a class="nav-link" href="/user_r/protectedRoute">Protected Route</a>
+            </li>
+            {{/if}}
+
+            {{#if user}}
+            {{#test user._id '5e575a8ae5d566fbe480bc23'}}
+            <li class="nav-item">
+                <a class="nav-link" href="/user_r/admin">Administration</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user_r/registerNewUser">Register New User</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/fileupload/fileUpload">File Upload</a>
+            </li>
+            {{else}}
+            {{/test}}
+            {{/if}}
+        </ul>
+        <ul class="navbar-nav navbar-right">
+          {{#if user}}
+            <li class="nav-item">
+                <a class="nav-link" href="/user_r/logout">Logout</a>
+            </li>
+          {{else}}
+            <li class="nav-item">
+                <a class="nav-link" href="/user_r/login">Login</a>
+            </li>
+          {{/if}}
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>

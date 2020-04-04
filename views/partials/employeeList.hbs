@@ -1,0 +1,7 @@
+{{#each employees}}
+<div iddocument="{{iddocument}}" workpermit="{{workpermit}}" contractofemployment_blank="{{contractofemployment_blank}}"
+    contractofemployment="{{contractofemployment}}" name="{{name}}" surname="{{surname}}" status="{{status}}"
+    employeeid="{{employeeid}}" idnumber="{{idnumber}}" address="{{address}}" jobtitle="{{jobtitle}}"
+    onclick="EMPclickmenu(EMPcard{{employeeid}})" id="EMPcard{{employeeid}}" class="emp card button_color_g col-sm-12"
+    style="padding-top: 2px; padding-right: 3px; padding-bottom: 2px; padding-left: 5px">{{name}} {{surname}}</div>
+{{/each}}

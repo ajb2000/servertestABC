@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>WebApp - Login</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+  {{> navbar}}
+
+  <h1 align="center">Login</h1>
+
+  {{> message}}
+  {{> validation_errors}}
+
+  <div class="container">
+
+    <form method="POST" action="/user_r/login">
+      <div class="form-row align-items-center">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">username</div>
+          </div>
+          <input type="text" class="form-control" name="username" placeholder="">
+        </div>
+      </div>
+      <br>
+      <div class="form-row align-items-center">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">password</div>
+          </div>
+          <input type="password" class="form-control" name="password" placeholder="">
+        </div>
+      </div>
+
+      <br>
+      <div class="form-row align-items-center">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+
+  </div>
+  <script>
+
+
+  </script>
+</body>
+
+</html>

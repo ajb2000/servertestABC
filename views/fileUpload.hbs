@@ -1,0 +1,58 @@
+<head>
+  <title>WebApp - Protected Route</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  {{> navbar}}
+  <h1 align="center">File Upload</h1>
+
+  {{> message}}
+  {{> validation_errors}}
+
+<div class="container">
+    <p>This is a protected route page. Only Admin User has access.</p>
+
+    <div class="row">
+        <div class="col-6">
+
+                  <form action='/fileupload/fileupload' method='POST' enctype="multipart/form-data">
+                      <div class="form-group">
+                        <label for="exampleFormControlFile1">Example file input</label>
+                        <input type="file" name='myImage' class="form-control-file">
+                      </div>
+                      <button type="submit" class="btn btn-secondary">Submit</button>
+                   </form>
+                   <div>
+                     <form action="/fileupload/displayDoc" method="POST">
+                     <div class="form-group">
+                       <label for="exampleFormControlFile1">Input Doc Number</label>
+                       <input id="doc_id" type="text" name='docNumber' class="form-control">
+                     </div>
+                     <button type="submit" class="btn btn-secondary">Show Document</button>
+                   </form>
+
+                 </div>
+          </div>
+    <div class="col-6" style="padding:10px; border: 1px solid black;height: 70vh">
+      {{>fileDisplaySection}}
+    </div>
+
+
+      </div>
+</div>
+
+
+
+  <script>
+
+
+
+  </script>
+</body>
+
+</html>

@@ -8,7 +8,7 @@ const fetch = require("node-fetch");
 const handlebars = require("handlebars");
 const hbs = require("hbs");
 const helpers = require("handlebars-helpers")();
-const PdfPrinter = require("pdfmake");
+// const PdfPrinter = require("pdfmake");
 const flash = require("express-flash");
 const session = require("express-session");
 const router = express.Router();
@@ -50,7 +50,7 @@ hbs.registerHelper("test", function(v1, v2, options) {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
-app.use("/pictures", express.static("pictures"));
+// app.use("/pictures", express.static("pictures"));
 app.use("/css", express.static("css"));
 app.use("/js", express.static("js"));
 app.use(express.static('./public'));

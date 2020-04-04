@@ -29,8 +29,6 @@
     "node-fetch": "^2.6.0",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
-    "pdf-parse": "^1.1.1",
-    "pdfmake": "^0.1.64",
     "pg": "^7.4.3",
     "session": "^0.1.0"
   },

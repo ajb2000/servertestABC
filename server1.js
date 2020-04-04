@@ -33,8 +33,8 @@ mongoose
   .catch(err => console.log(err));
 
 // IMPORTING CUSTOM SCRIPTS FROM JS FILES
-const reworkTheData = require("./js/testing.js");
-const formutateDocDefinition = require("./js/docDefinition");
+// const reworkTheData = require("./js/testing.js");
+// const formutateDocDefinition = require("./js/docDefinition");
 
 //RAW DATA (HERE FROM JS FILE)
 // var dataIncomming = require("./js/data.js");
@@ -99,7 +99,6 @@ app.use("/user_r", user_r);
 let fileupload = require("./routes/fileupload");
 app.use("/fileupload", fileupload);
 
-
 //HOME ROUTE
 app.get("/", (req, res) => {
   res.render("landingPage");
@@ -110,15 +109,6 @@ app.get("/redirect", (req, res) => {
   req.flash("danger", "Data has been successfully updated!");
   res.redirect("/");
 });
-
-
-
-
-
-
-
-
-
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));

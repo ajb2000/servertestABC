@@ -19,6 +19,9 @@ const passport = require("passport");
 //IMPORT USERS MODEL FOR MONGOOSE DB
 const User = require("./models/users.js");
 
+//IMPORT SHOPPINGLIST MODEL FOR MONGOOSE DB
+const Shoppinglist = require("./models/shoppinglist.js");
+
 // CONNECT TO MONGO DB
 let url =
   "mongodb+srv://admin:(mongodb)@cluster0-jnx5f.mongodb.net/test?retryWrites=true&w=majority";
@@ -98,6 +101,10 @@ app.use("/user_r", user_r);
 //SETTING UP THE ROUTE FOR THE /FILEUPLOAD ROUTE
 let fileupload = require("./routes/fileupload");
 app.use("/fileupload", fileupload);
+
+// SETTING UP THE ROUTE FOR THE /USHOPPINSLIST ROUTE
+// let user_r = require("./routes/shoppinglist");
+// app.use("/shoppinglist", shoppinglist);
 
 //HOME ROUTE
 app.get("/", (req, res) => {

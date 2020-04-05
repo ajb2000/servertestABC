@@ -5,20 +5,20 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style.css">
 </head>
 
 <body>
 
   {{> navbar}}
-  <h1 align="center">Protected Route</h1>
+  <h1 align="center">Shopping List</h1>
 
   {{> message}}
   {{> validation_errors}}
 
   <div class="container">
-    <p>This is our protected route page.Only logged in users have access.</p>
-
+    <!-- <p>This is our Shopping List.</p> -->
+      {{> shoppinglist}}
   </div>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

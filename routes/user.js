@@ -3,9 +3,14 @@ const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const bodyParser = require("body-parser");
 //IMPORT USERS MODEL FOR MONGOOSE DB
 const User = require("../models/users");
 const passport = require("passport");
+//IMPORT SHOPPINGLIST MODEL FOR MONGOOSE DB
+const Shoppinglist = require("../models/shoppinglist.js");
+
+
 
 function ensureAuthenticated(req, res, next){
   if(req.isAuthenticated()){
@@ -36,12 +41,69 @@ router.get("/registerNewUser",ensureAuthenticated, (req, res) => {
 });
 
 router.get("/protectedRoute",ensureAuthenticated, (req, res) => {
-  res.render("protectedRoute");
+  obj ={shopItem: [
+    {name: 'bread', number: 2, id: '35324213'},
+    {name: 'milk', number: 1, id: '234324324'},
+    {name: 'beans', number: 3, id: '24234454'}
+  ]}
+  res.render("protectedRoute", obj);
 });
 
 router.get("/admin",ensureAuthenticated, (req, res) => {
   res.render("admin");
 });
+
+router.get("/getShoppinglistItems",ensureAuthenticated, (req, res) => {
+  Shoppinglist.find({}, (err, docs)=>{
+    if (!err) {
+      obj = {shopItem: docs}
+
+      res.render("protectedRoute", obj);
+  }
+  else {
+      throw err;
+  }
+  })
+
+});
+
+router.post("/removeShoppingListItem",ensureAuthenticated, (req, res) => {
+  var idsToRemove = req.body
+  // console.log(idsToRemove)
+  idsToRemove.forEach((id) =>{
+    Shoppinglist.findByIdAndRemove(id, (err, result)=>{
+      if(err) console.log(err);
+      else console.log(result)
+    })
+  })
+  req.flash("success", "Item(s) have been removed");
+  res.redirect("/user_r/getShoppinglistItems/");
+})
+
+
+router.post("/addShoppingListItem",ensureAuthenticated, (req, res) => {
+  var item = req.body.item
+  var number = req.body.number
+
+  const newItem = new Shoppinglist({
+    _id: new mongoose.Types.ObjectId(),
+    name: item,
+    number: number
+  });
+
+  newItem
+    .save()
+    .then(result => {
+      // console.log(result);
+      req.flash("success", "New Item has been added");
+      res.redirect("/user_r/getShoppinglistItems/");
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
+})
+
 
 
 router.post(

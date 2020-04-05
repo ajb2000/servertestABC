@@ -1,0 +1,91 @@
+
+<ul>
+{{#each shopItem}}
+<!-- <li>{{name}} {{number}}</li> -->
+<div id="{{id}}" class="form-check">
+  <input class="form-check-input remItem" type="checkbox" name="exampleRadios" value="{{id}}">
+  <label class="form-check-label">
+    {{name}} [{{number}}]
+  </label>
+</div>
+{{/each}}
+</ul>
+
+<br>
+
+<form method="POST" action="/user_r/removeShoppingListItem">
+  <div class="col-12">
+<div class="col-12 input-group">
+    <button onclick="removeItems()" class="btn btn-secondary btn-md btn-block btn-danger">Remove Checked Items</button>
+</div>
+</div>
+</form>
+
+<br>
+
+<form method="POST" action="/user_r/addShoppingListItem">
+<div class="col-12">
+    <div class="col-12 input-group">
+        <input type="text" class="form-control" name="item" id="newItemName"></input>
+        <div class="input-group-append">
+          <label class="input-group-text" for="inputGroupSelect02">Item</label>
+        </div>
+    </div>
+    <br>
+    <div class="col-12 input-group">
+        <select class="custom-select" id="newItemNumber" name="number">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <div class="input-group-append">
+          <label class="input-group-text" for="inputGroupSelect02">Number</label>
+        </div>
+    </div>
+    <br>
+    <div class="col-12 input-group">
+        <button type="submit"  class="btn btn-secondary btn-md btn-block">Add New Item</button>
+    </div>
+</div>
+<script>
+
+function addItem(){
+   event.preventDefault()
+   var item = document.getElementById('newItemName').value
+   var number = document.getElementById('newItemNumber').value
+
+
+
+
+
+}
+
+function removeItems(){
+  event.preventDefault()
+  var itemsToRem = [];
+  var remItems = document.getElementsByClassName('remItem');
+  for(i = 0; i<remItems.length;i++){
+    if(remItems[i].checked === true){
+      itemsToRem.push(remItems[i].value)
+    } }
+
+    for(i = 0; i<itemsToRem.length;i++){
+    document.getElementById(itemsToRem[i]).remove()
+    }
+
+
+    // obj = {}
+    // obj['ids'] = itemsToRem
+    // console.log(obj)
+    fetch('/user_r/removeShoppingListItem', {
+    method: 'post',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(itemsToRem)
+  })
+    // SEND itemsToRem to server to remove from DB
+}
+
+</script>
+</form>

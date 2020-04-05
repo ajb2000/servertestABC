@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const path = require('path')
 const bodyParser = require("body-parser");
 
-const Shoppinglist = require("../models/shoppinglist");
+// const Shoppinglist = require("../models/shoppinglist");
 const passport = require("passport");
 
 

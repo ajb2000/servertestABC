@@ -8,7 +8,7 @@ const bodyParser = require("body-parser");
 const User = require("../models/users");
 const passport = require("passport");
 //IMPORT SHOPPINGLIST MODEL FOR MONGOOSE DB
-const Shoppinglist = require("../models/shoppinglist.js");
+const Shoppinglist = require("../models/shoppingList.js");
 
 
 

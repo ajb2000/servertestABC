@@ -76,15 +76,11 @@ function removeItems(){
     }
 
 
-    // obj = {}
-    // obj['ids'] = itemsToRem
-    // console.log(obj)
     fetch('/user_r/removeShoppingListItem', {
     method: 'post',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(itemsToRem)
   })
-    // SEND itemsToRem to server to remove from DB
 }
 
 </script>

@@ -20,7 +20,7 @@ const passport = require("passport");
 const User = require("./models/users.js");
 
 //IMPORT SHOPPINGLIST MODEL FOR MONGOOSE DB
-const Shoppinglist = require("./models/shoppinglist.js");
+const Shoppinglist = require("./models/shoppingList.js");
 
 // CONNECT TO MONGO DB
 let url =

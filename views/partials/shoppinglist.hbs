@@ -48,18 +48,16 @@
         <button type="submit"  class="btn btn-secondary btn-md btn-block">Add New Item</button>
     </div>
 </div>
+
+</form>
 <script>
 
-function addItem(){
-   event.preventDefault()
-   var item = document.getElementById('newItemName').value
-   var number = document.getElementById('newItemNumber').value
-
-
-
-
-
-}
+// function addItem(){
+//    event.preventDefault()
+//    var item = document.getElementById('newItemName').value
+//    var number = document.getElementById('newItemNumber').value
+//
+// }
 
 function removeItems(){
   event.preventDefault()
@@ -75,12 +73,11 @@ function removeItems(){
     }
 
 
-    fetch('/user_r/removeShoppingListItem', {
-    method: 'post',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(itemsToRem)
-  })
+  //   fetch('/user_r/removeShoppingListItem', {
+  //   method: 'post',
+  //   headers: {'Content-Type': 'application/json'},
+  //   body: JSON.stringify(itemsToRem)
+  // })
 }
 
 </script>
-</form>

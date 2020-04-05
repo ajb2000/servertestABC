@@ -17,13 +17,6 @@ function ensureAuthenticated(req, res, next){
   }
 }
 
-// View Shopping List
-
-// Add New Item To Shopping Listening
-
-// Remove Item From shopping listen
-
-// Clear Entire Shopping LIst
 
 
 module.exports = router;

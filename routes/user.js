@@ -69,7 +69,6 @@ router.get("/getShoppinglistItems",ensureAuthenticated, (req, res) => {
 
 router.post("/removeShoppingListItem",ensureAuthenticated, (req, res) => {
   var idsToRemove = req.body
-  // console.log(idsToRemove)
   idsToRemove.forEach((id) =>{
     Shoppinglist.findByIdAndRemove(id, (err, result)=>{
       if(err) console.log(err);

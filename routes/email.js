@@ -27,18 +27,18 @@ var transporter = nodemailer.createTransport({
   }
 });
 
-router.get("/emailLandingPage", (req, res) => {
+router.get("/emailLandingPage", ensureAuthenticated,(req, res) => {
   res.render("emailPage");
 });
 
-router.post("/emailSend", (req, res) => {
+router.post("/emailSend",ensureAuthenticated, (req, res) => {
   console.log(req.body)
   var mailOptions = {
         from: 'WebApp <attorney@brune.co.za>',
         to: req.body.email,
         subject: req.body.subject,
         // text: req.body.message,
-        html: emailBody2
+        html: emailBody
       };
 
       transporter.sendMail(mailOptions, function(error, info){

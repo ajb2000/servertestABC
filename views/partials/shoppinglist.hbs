@@ -12,7 +12,7 @@
 
 <br>
 
-<form method="POST" action="/user_r/removeShoppingListItem">
+<form>
   <div class="col-12">
 <div class="col-12 input-group">
     <button onclick="removeItems()" class="btn btn-secondary btn-md btn-block btn-danger">Remove Checked Items</button>
@@ -22,7 +22,7 @@
 
 <br>
 
-<form method="POST" action="/user_r/addShoppingListItem">
+<form method="POST" action="/shoppinglist/addShoppingListItem">
 <div class="col-12">
     <div class="col-12 input-group">
         <input type="text" class="form-control" name="item" id="newItemName"></input>
@@ -69,11 +69,11 @@ function removeItems(){
     } }
 
     for(i = 0; i<itemsToRem.length;i++){
-    document.getElementById(itemsToRem[i]).remove()
+      document.getElementById(itemsToRem[i]).remove()
     }
 
 
-    fetch('/user_r/removeShoppingListItem', {
+    fetch('/shoppinglist/removeShoppingListItem', {
     method: 'post',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(itemsToRem)

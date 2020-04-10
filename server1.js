@@ -53,7 +53,8 @@ hbs.registerHelper("test", function(v1, v2, options) {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
-// app.use("/pictures", express.static("pictures"));
+
+app.use("/email-imgs", express.static("email-imgs"));
 app.use("/css", express.static("css"));
 app.use("/js", express.static("js"));
 app.use(express.static('./public'));
@@ -93,6 +94,7 @@ app.post('*', function(req, res, next){
   next();
 })
 
+
 //// ROUTES
 //SETTING UP THE ROUTE FOR THE /USERS ROUTE
 let user_r = require("./routes/user");
@@ -102,9 +104,13 @@ app.use("/user_r", user_r);
 let fileupload = require("./routes/fileupload");
 app.use("/fileupload", fileupload);
 
-// SETTING UP THE ROUTE FOR THE /USHOPPINSLIST ROUTE
-// let user_r = require("./routes/shoppinglist");
-// app.use("/shoppinglist", shoppinglist);
+//SETTING UP THE ROUTE FOR THE /SHOPPINSLIST ROUTE
+let shoppinglist = require("./routes/shoppinglist");
+app.use("/shoppinglist", shoppinglist);
+
+//SETTING UP THE ROUTE FOR THE /EMAIL ROUTE
+let email = require("./routes/email");
+app.use("/email", email);
 
 //HOME ROUTE
 app.get("/", (req, res) => {

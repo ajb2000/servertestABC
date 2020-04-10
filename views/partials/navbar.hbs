@@ -12,12 +12,12 @@
             </li>
             {{#if user}}
             <li class="nav-item">
-                <a class="nav-link" href="/user_r/getShoppinglistItems">Shopping List</a>
+                <a class="nav-link" href="/shoppinglist/getShoppinglistItems">Shopping List</a>
             </li>
             {{/if}}
 
             {{#if user}}
-            {{#test user._id '5e575a8ae5d566fbe480bc23'}}
+            {{#test user._id '5e902ec9dc475f0e98810454'}}
             <li class="nav-item">
                 <a class="nav-link" href="/user_r/admin">Administration</a>
             </li>
@@ -27,9 +27,15 @@
             <li class="nav-item">
                 <a class="nav-link" href="/fileupload/fileUpload">File Upload</a>
             </li>
+
             {{else}}
             {{/test}}
             {{/if}}
+
+            <li class="nav-item">
+                <a class="nav-link" href="/email/emailLandingPage">Email</a>
+            </li>
+
         </ul>
         <ul class="navbar-nav navbar-right">
           {{#if user}}

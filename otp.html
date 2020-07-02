@@ -1,0 +1,2812 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width,
+    initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+
+    <title>Contract Wizard</title>
+    <style>
+      .form-group {
+        margin-bottom: 0.5rem;
+      }
+      .list-group-item {
+        padding: 0.5rem 1.25rem;
+      }
+      .required:after {
+        content: " *";
+        color: red;
+      }
+      .loader {
+    width : 80px;
+    height: 80px;
+    border: 16px solid white;
+    border-top:16px solid #6c757d;
+    border-radius: 50%;
+  }
+
+  .spin {
+    animation: spinner .75s linear infinite;
+  }
+
+  @keyframes spinner {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="text-center"><h2>Contract of Sale and Purchase Wizard</h2></div>
+
+      <!-- NAVIGATION -->
+      <div>
+        <div
+          class="row list-group list-group-horizontal"
+          id="list-tab"
+          role="tablist"
+          style="padding: 0 15px; margin-bottom: .75em"
+        >
+          <a
+            class="col-xs-12 col-sm-12 col-md list-group-item list-group-item-secondary list-group-item-action d-flex justify-content-between align-items-center active"
+            id="list-seller-list"
+            data-toggle="list"
+            href="#list-seller"
+            role="tab"
+            aria-controls="seller"
+            >Seller
+            <span id="sellerDone" class="badge badge-danger badge-pill"
+              >&#10005;</span
+            >
+          </a>
+          <a
+            class="col-xs-12 col-sm-12 col-md list-group-item list-group-item-secondary list-group-item-action d-flex justify-content-between align-items-center"
+            id="list-purchaser-list"
+            data-toggle="list"
+            href="#list-purchaser"
+            role="tab"
+            aria-controls="purchaser"
+            >Purchaser
+            <span id="purchaserDone" class="badge badge-danger badge-pill"
+              >&#10005;</span
+            >
+          </a>
+          <a
+            class="col-xs-12 col-sm-12 col-md list-group-item list-group-item-secondary list-group-item-action d-flex justify-content-between align-items-center"
+            id="list-property-list"
+            data-toggle="list"
+            href="#list-property"
+            role="tab"
+            aria-controls="property"
+            >Property
+            <span id="propertyDone" class="badge badge-danger badge-pill"
+              >&#10005;</span
+            >
+          </a>
+          <a
+            class="col-xs-12 col-sm-12 col-md list-group-item list-group-item-secondary list-group-item-action d-flex justify-content-between align-items-center"
+            id="list-price-list"
+            data-toggle="list"
+            href="#list-price"
+            role="tab"
+            aria-controls="price"
+            >Price
+            <span id="priceDone" class="badge badge-danger badge-pill"
+              >&#10005;</span
+            >
+          </a>
+          <a
+            class="col-xs-12 col-sm-12 col-md list-group-item list-group-item-secondary list-group-item-action d-flex justify-content-between align-items-center"
+            id="list-general2-list"
+            data-toggle="list"
+            href="#list-general2"
+            role="tab"
+            aria-controls="general2"
+            >General
+            <span id="general2Done" class="badge badge-danger badge-pill"
+              >&#10005;</span
+            >
+          </a>
+          <a
+            class="col-xs-12 col-sm-12 col-md list-group-item list-group-item-secondary list-group-item-action d-flex justify-content-between align-items-center"
+            id="list-general-list"
+            data-toggle="list"
+            href="#list-general"
+            role="tab"
+            aria-controls="general"
+            >A & A
+            <span id="generalDone" class="badge badge-danger badge-pill"
+              >&#10005;</span
+            >
+          </a>
+
+          <a
+            class="disabled col-xs-12 col-sm-12 col-md list-group-item list-group-item-success list-group-item-action d-flex justify-content-between align-items-center"
+            id="list-generateOTP-list"
+            data-toggle="list"
+            href="#list-generateOTP"
+            role="tab"
+            aria-controls="general2"
+            >Generate
+
+
+          </a>
+        </div>
+      </div>
+      <!-- CONTENT -->
+      <div>
+        <div class="tab-content" id="nav-tabContent">
+          <!-- Generate -->
+          <div
+            class="tab-pane fade show"
+            id="list-generateOTP"
+            role="tabpanel"
+            aria-labelledby="list-generateOTP-list"
+          >
+
+            <div class="text-center"><h3>Generate Contract of Sale and Purchase</h3></div>
+            <fieldset
+              id=""
+              style="padding: 5px 20px; max-width: 1366px;"
+              class="border"
+            >
+              <legend
+                style="margin-left: 10px; padding: 0 5px; font-size: 1.2rem;"
+                class="w-auto"
+              >
+                Generate Offer To Purchase
+			  </legend>
+
+			  <form action="">
+
+                <div class="row">
+                  <div class="col-12 form-group">
+                    <label class="required">Please enter Email Address where OTP will be sent</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      id="emailToBeSent"
+                      placeholder="email"
+					/>
+					<button
+				  onclick="sendEmail()"
+				  style="margin-top: 15px;"
+                  type="button"
+                  class="btn btn-secondary btn-sm btn-block"
+                >
+                  Send Email
+                </button>
+				  </div>
+
+
+                </div>
+            </fieldset>
+		  </div>
+
+          <!-- SELLER -->
+          <div
+            class="tab-pane fade show active"
+            id="list-seller"
+            role="tabpanel"
+            aria-labelledby="list-seller-list"
+          >
+            <div class="text-center"><h3>Seller</h3></div>
+            <div class="form-check-inline">
+              <input
+                class="sellerChooser form-check-input"
+                type="radio"
+                name="exampleRadios"
+                value="sellerInformation_privatePerson"
+                id="defaultCheck1"
+                checked
+              />
+              <label class="form-check-label" for="defaultCheck1">
+                Private Person
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <input
+                class="sellerChooser form-check-input"
+                type="radio"
+                name="exampleRadios"
+                value="sellerInformation_company"
+                id="defaultCheck2"
+              />
+              <label class="form-check-label" for="defaultCheck2">
+                Company / Closed Corporation
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <input
+                class="sellerChooser form-check-input"
+                type="radio"
+                name="exampleRadios"
+                value="sellerInformation_trust"
+                id="defaultCheck3"
+              />
+              <label class="form-check-label" for="defaultCheck3">
+                Trust
+              </label>
+            </div>
+            <!-- PRIVATE PERSON -->
+            <fieldset
+              id="sellerInformation_privatePerson"
+              style="padding: 5px 20px; max-width: 1366px;"
+
+              class="sellerChooser_group border"
+            >
+              <legend
+                style="margin-left: 10px; padding: 0 5px; font-size: 1.2rem;"
+                class="w-auto"
+              >
+                Private Person
+              </legend>
+
+              <form style="" id="privatePerson" action="">
+                <div class="row">
+                  <div for='' class="col-sm-6 col-md-4 form-group">
+                    <label class="required">Name</label>
+                    <input
+                    name="name"
+                      type="text"
+                      class="val_seller_pri form-control form-control-sm"
+                      id="sellerName1"
+                      placeholder="name"
+                    />
+                  </div>
+                  <div class="col-sm-6 col-md-4 form-group">
+                    <label class="required" for="sellerSurname">Surname</label>
+                    <input
+                      type="text"
+                      class="val_seller_pri form-control form-control-sm"
+                      id="sellerSurname1"
+                      placeholder="surname"
+                    />
+                  </div>
+                  <div class="col-sm-6 col-md-4 form-group">
+                    <label class="required">Id Number</label>
+                    <input
+                      type="number"
+                      class="val_seller_pri form-control form-control-sm"
+                      id="sellerIdNumber1"
+                      placeholder="id number"
+                    />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12 col-md-6 form-group">
+                    <label class="required"
+                      >Married in community of property?</label
+                    >
+                    <svg
+                      class="bi bi-info-square"
+                      width="1.2em"
+                      height="1.2em"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg"
+                      onclick="clickbutton('button1', 'marriedInCommunityOfProperty')"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"
+                      />
+                      <path
+                        d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"
+                      />
+                      <circle cx="8" cy="4.5" r="1" />
+                    </svg>
+                    <button
+                      style="display: none;"
+                      id="button1"
+                      type="button"
+                      class="btn btn-primary"
+                      data-toggle="modal"
+                      data-target="#moreInfoModal"
+                    >
+                      i
+                    </button>
+                    <select
+                      onchange="sellerSpouse()"
+                      class="form-control form-control-sm"
+                      id="marriedInCommunityOfProperty"
+                    >
+                      <option>No</option>
+                      <option>Yes</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-12 col-md-6 form-group">
+                    <label class="required">SA Resident</label>
+
+                    <select
+                      class="val_seller_pri form-control form-control-sm"
+                      id="sellerSAResident"
+                    >
+                      <option>Yes</option>
+                      <option>No</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row" id="spouse-row" style="display: none;">
+                  <div
+                    class="col-12 form-group"
+                    style="margin-bottom: 0; line-height: 0.5em;"
+                  >
+                    <label class="">Spouse:</label>
+                  </div>
+                  <div class="col-sm-6 col-md-4 form-group">
+                    <label class="spouseR">Name</label>
+                    <input
+                      type="text"
+                      class="spouseV form-control form-control-sm"
+                      id="sellerName2"
+                      placeholder="name"
+                    />
+                  </div>
+                  <div class="col-sm-6 col-md-4 form-group">
+                    <label class="spouseR">Surname</label>
+                    <input
+                      type="text"
+                      class="spouseV form-control form-control-sm"
+                      id="sellerSurname2"
+                      placeholder="surname"
+                    />
+                  </div>
+                  <div class="col-sm-6 col-md-4 form-group">
+                    <label class="spouseR">Id Number</label>
+                    <input
+                      type="number"
+                      class="spouseV form-control form-control-sm"
+                      id="sellerIdNumber2"
+                      placeholder="id number"
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="required">Physical Address</label>
+                  <input
+                    type="text"
+                    class="val_seller_pri form-control form-control-sm"
+                    id="sellerPhysicalAddress"
+                    placeholder="physical address"
+                  />
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-6 col-md-6 form-group">
+                    <label class="required">Email Address</label>
+                    <input
+                      type="email"
+                      class="val_seller_pri form-control form-control-sm"
+                      id="sellerEmailAddress"
+                      placeholder="email address"
+                    />
+                  </div>
+                  <div class="col-sm-6 col-md-6 form-group">
+                    <label class="required">Cellphone Number</label>
+                    <input
+                      type="text"
+                      class="val_seller_pri form-control form-control-sm"
+                      id="sellerCellphoneNumber"
+                      placeholder="cellphone number"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6 col-md-6 form-group">
+                    <label>Phone Number</label>
+                    <input
+                      type="number"
+                      class="form-control form-control-sm"
+                      id="sellerPhoneNumber"
+                      placeholder="phone number"
+                    />
+                  </div>
+                  <div class="col-sm-6 col-md-6 form-group">
+                    <label>Fax Number</label>
+                    <input
+                      type="number"
+                      class="form-control form-control-sm"
+                      id="sellerFaxNumber"
+                      placeholder="fax number"
+                    />
+                  </div>
+                </div>
+
+              <div class="row justify-content-center">
+                <div class="col-sm-12 col-md-6 form-group">
+                  <button
+                    onclick="validate('val_seller_pri','sellerDone')"
+                    type="button"
+                    class="btn btn-secondary btn-sm btn-block"
+                    style="margin-right: 2em"
+                  >
+                    Submit
+                  </button>
+                </div>
+
+                  <div class="col-sm-12 col-md-6 form-group">
+                    <button
+                      onclick="clearForm()"
+                      type="button"
+                      class="btn btn-secondary btn-sm btn-block"
+                    >
+                      Clear Entire Form
+                    </button>
+                  </div>
+              </div>
+              </form>
+            </fieldset>
+            <!-- COMPANY / CLOSED CORPORATION -->
+            <fieldset
+              id="sellerInformation_company"
+              style="display: none; padding: 5px 20px; max-width: 1366px;"
+              class="sellerChooser_group border"
+            >
+              <legend
+                style="margin-left: 10px; padding: 0 5px; font-size: 1.2rem;"
+                class="w-auto"
+              >
+                Company / Closed Corporation
+              </legend>
+              <form style="" id="privatePerson" action="">
+                <div class="row">
+                  <div class="col-sm-6 col-md-6 form-group">
+                    <label class="required">Company Name</label>
+                    <input
+                      type="text"
+                      class="val_seller_com form-control form-control-sm"
+                      id="sellerCompanyName"
+                      placeholder="company name"
+                    />
+                  </div>
+                  <div class="col-sm-6 col-md-6 form-group">
+                    <label class="required">Registration Number</label>
+                    <input
+                      type="number"
+                      class="val_seller_com form-control form-control-sm"
+                      id="sellerCompanyRegistrationNumber"
+                      placeholder="registration number"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6 col-md-6 form-group">
+                    <label class="required">Representative Name</label>
+                    <svg
+                      class="bi bi-info-square"
+                      width="1.2em"
+                      height="1.2em"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg"
+                      onclick="clickbutton('button1', 'sellerRepresentativeName')"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"
+                      />
+                      <path
+                        d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"
+                      />
+                      <circle cx="8" cy="4.5" r="1" />
+                    </svg>
+                    <input
+                      type="text"
+                      class="val_seller_com form-control form-control-sm"
+                      id="sellerCompanyRepresentativeName"
+                      placeholder="company representative name"
+                    />
+                  </div>
+                  <div class="col-sm-6 col-md-6 form-group">
+                    <label class="required">Email Address</label>
+                    <input
+                      type="text"
+                      class="val_seller_com form-control form-control-sm"
+                      id="sellerCompanyEmail"
+                      placeholder="email address"
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="required">Physical Address</label>
+                  <input
+                    type="text"
+                    class="val_seller_com form-control form-control-sm"
+                    id="sellerCompanyPhysicalAddress"
+                    placeholder="physical address"
+                  />
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-6 col-md-6 form-group">
+                    <label class="required">Cellphone Number</label>
+                    <input
+                      type="text"
+                      class="val_seller_com form-control form-control-sm"
+                      id="sellerCompanyCellphoneNumber"
+                      placeholder="cellphone number"
+                    />
+                  </div>
+
+                  <div class="col-sm-6 col-md-6 form-group">
+                    <label>Phone Number</label>
+                    <input
+                      type="number"
+                      class="form-control form-control-sm"
+                      id="sellerCompanyPhoneNumber"
+                      placeholder="phone number"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6 col-md-6 form-group">
+                    <label>Fax Number</label>
+                    <input
+                      type="number"
+                      class="form-control form-control-sm"
+                      id="sellerCompanyFaxNumber"
+                      placeholder="fax number"
+                    />
+                  </div>
+                </div>
+
+                <div class="row justify-content-center">
+                  <div class="col-sm-12 col-md-6 form-group">
+                    <button
+                    onclick="validate('val_seller_com','sellerDone')"
+                    type="button"
+                    class="btn btn-secondary btn-sm btn-block"
+                    >
+                    Submit
+                  </button>
+
+                  </div>
+
+                    <div class="col-sm-12 col-md-6 form-group">
+                      <button
+                        onclick="clearForm()"
+                        type="button"
+                        class="btn btn-secondary btn-sm btn-block"
+                      >
+                        Clear Entire Form
+                      </button>
+                    </div>
+                </div>
+              </form>
+            </fieldset>
+            <!-- Trust -->
+            <fieldset
+              id="sellerInformation_trust"
+              style="display: none; padding: 5px 20px; max-width: 1366px;"
+              class="sellerChooser_group border"
+            >
+              <legend
+                style="margin-left: 10px; padding: 0 5px; font-size: 1.2rem;"
+                class="w-auto"
+              >
+                Trust
+              </legend>
+              <form style="" id="seller_trust" action="">
+                <div class="row">
+                  <div class="col-sm-6 col-md-6 form-group">
+                    <label class="required">Trust Name</label>
+                    <input
+                      type="text"
+                      class="val_seller_tru form-control form-control-sm"
+                      id="sellerTrustName"
+                      placeholder="trust name"
+                    />
+                  </div>
+                  <div class="col-sm-6 col-md-6 form-group">
+                    <label class="required">Registration Number</label>
+                    <input
+                      type="number"
+                      class="val_seller_tru form-control form-control-sm"
+                      id="sellerTrustRegistrationNumber"
+                      placeholder="registration number"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 form-group">
+                      <label class="required">Trustee Name</label>
+                      <input
+                        type="text"
+                        class="val_seller_tru form-control form-control-sm"
+                        id="sellerTrustRepresentativeName"
+                        placeholder="trustee name"
+                      />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 form-group">
+                      <label class="required">Email Address</label>
+                      <input
+                      type="text"
+                      class="val_seller_tru form-control form-control-sm"
+                      id="sellerTrustEmail"
+                      placeholder="email address"
+                      />
+                    </div>
+                    <div class="col-sm-6 col-md-6 form-group">
+                      <label class="required">Physical Address</label>
+                      <input
+                        type="text"
+                        class="val_seller_tru form-control form-control-sm"
+                        id="sellerTrustPhysicalAddress"
+                        placeholder="physical address"
+                      />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 col-md-4 form-group">
+                      <label class="required">Cellphone Number</label>
+                      <input
+                        type="text"
+                        class="val_seller_tru form-control form-control-sm"
+                        id="sellerTrustCellphoneNumber"
+                        placeholder="cellphone number"
+                      />
+                    </div>
+
+                    <div class="col-sm-4 col-md-4 form-group">
+                      <label>Phone Number</label>
+                      <input
+                        type="number"
+                        class="form-control form-control-sm"
+                        id="sellerTrustPhoneNumber"
+                        placeholder="phone number"
+                      />
+                    </div>
+                    <div class="col-sm-4 col-md-4 form-group">
+                      <label>Fax Number</label>
+                      <input
+                      type="number"
+                      class="form-control form-control-sm"
+                      id="sellerTrustFaxNumber"
+                      placeholder="fax number"
+                      />
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-sm-12 col-md-6 form-group">
+
+                      <button
+                      onclick="validate('val_seller_tru','sellerDone')"
+                      type="button"
+                      class="btn btn-secondary btn-sm btn-block"
+                      >
+                      Submit
+                    </button>
+                    </div>
+                    <div class="col-sm-12 col-md-6 form-group">
+                        <button
+                          onclick="clearForm()"
+                          type="button"
+                          class="btn btn-secondary btn-sm btn-block"
+                        >
+                          Clear Entire Form
+                        </button>
+                    </div>
+                </div>
+              </form>
+            </fieldset>
+          </div>
+          <!-- PURCHASER -->
+          <div
+            class="tab-pane fade"
+            id="list-purchaser"
+            role="tabpanel"
+            aria-labelledby="list-purchaser-list"
+          >
+            <div class="text-center"><h3>Purchaser</h3></div>
+            <div class="form-check-inline">
+              <input
+                class="purchaserChooser form-check-input"
+                type="radio"
+                name="purchaserRadios"
+                value="purchaserInformation_privatePerson"
+                id="purchaserCheck1"
+                checked
+              />
+              <label class="form-check-label" for="purchaserCheck1">
+                Private Person
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <input
+                class="purchaserChooser form-check-input"
+                type="radio"
+                name="purchaserRadios"
+                value="purchaserInformation_company"
+                id="purchaserCheck2"
+              />
+              <label class="form-check-label" for="purchaserCheck2">
+                Company / Closed Corporation
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <input
+                class="purchaserChooser form-check-input"
+                type="radio"
+                name="purchaserRadios"
+                value="purchaserInformation_trust"
+                id="purchaserCheck3"
+              />
+              <label class="form-check-label" for="purchaserCheck3">
+                Trust
+              </label>
+            </div>
+            <!-- PRIVATE PERSON -->
+            <fieldset
+              id="purchaserInformation_privatePerson"
+              style="padding: 5px 20px; max-width: 1366px;"
+              class="purchaserChooser_group border"
+            >
+              <legend
+                style="margin-left: 10px; padding: 0 5px; font-size: 1.2rem;"
+                class="w-auto"
+              >
+                Private Person
+              </legend>
+              <form style="" id="purchaserPrivatePerson" action="">
+                <div class="row">
+                  <div class="col-sm-6 col-md-6 form-group">
+                    <label>Number of Purchasers</label>
+
+                    <select
+                      onchange="purchaser2()"
+                      class="form-control form-control-sm"
+                      id="numPurchasers"
+                    >
+                      <option>One</option>
+                      <option>Two</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div
+                    style="margin-bottom: 0; line-height: 0.5em;"
+                    class="col-12 form-group"
+                  >
+                    <label for="">Purchaser 1</label>
+                  </div>
+                  <div class="col-sm-6 col-md-4 form-group-sm">
+                    <label class="required">Name</label>
+                    <input
+                      type="text"
+                      class="val_purchaser_pri form-control form-control-sm"
+                      id="purchaserName1"
+                      placeholder="name"
+                    />
+                  </div>
+                  <div class="col-sm-6 col-md-4 form-group">
+                    <label class="required">Surname</label>
+                    <input
+                      type="text"
+                      class="val_purchaser_pri form-control form-control-sm"
+                      id="purchaserSurname1"
+                      placeholder="surname"
+                    />
+                  </div>
+                  <div class="col-sm-6 col-md-4 form-group">
+                    <label class="required">Id Number</label>
+                    <input
+                      type="number"
+                      class="val_purchaser_pri form-control form-control-sm"
+                      id="purchaserIdNumber1"
+                      placeholder="id number"
+                    />
+                  </div>
+                </div>
+                <div id="purchaser2-Row" class="row" style="display: none;">
+                  <div
+                    style="margin-bottom: 0; line-height: 0.5em;"
+                    class="col-12 form-group"
+                  >
+                    <label for="">Purchaser 2</label>
+                  </div>
+                  <div class="col-sm-6 col-md-4 form-group-sm">
+                    <label class="purchaser2R">Name</label>
+                    <input
+                      type="text"
+                      class="purchaser2V form-control form-control-sm"
+                      id="purchaserName2"
+                      placeholder="name"
+                    />
+                  </div>
+                  <div class="col-sm-6 col-md-4 form-group">
+                    <label class="purchaser2R">Surname</label>
+                    <input
+                      type="text"
+                      class="purchaser2V form-control form-control-sm"
+                      id="purchaserSurname2"
+                      placeholder="surname"
+                    />
+                  </div>
+                  <div class="col-sm-6 col-md-4 form-group">
+                    <label class="purchaser2R">Id Number</label>
+                    <input
+                      type="number"
+                      class="purchaser2V form-control form-control-sm"
+                      id="purchaserIdNumber2"
+                      placeholder="id number"
+                    />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-6 col-md-6 form-group">
+                    <label class="required">Physical Address</label>
+                    <input
+                    type="text"
+                    class="val_purchaser_pri form-control form-control-sm"
+                    id="purchaserPhysicalAddress"
+                    placeholder="physical address"
+                    />
+                  </div>
+                  <div class="col-sm-6 col-md-6 form-group">
+                    <label class="required" >Email Address</label>
+                    <input
+                      type="email"
+                      class="val_purchaser_pri form-control form-control-sm"
+                      id="purchaserEmailAddress"
+                      placeholder="email address"
+                    />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col form-group">
+                    <label class="required">Cellphone Number</label>
+                    <input
+                      type="text"
+                      class="val_purchaser_pri form-control form-control-sm"
+                      class="form-control form-control-sm"
+                      id="purchaserCellphoneNumber"
+                      placeholder="cellphone number"
+                    />
+                  </div>
+
+                  <div class="col form-group">
+                    <label>Phone Number</label>
+                    <input
+                      type="number"
+                      class="form-control form-control-sm"
+                      id="purchaserPhoneNumber"
+                      placeholder="phone number"
+                    />
+                  </div>
+                  <div class="col form-group">
+                    <label>Fax Number</label>
+                    <input
+                      type="number"
+                      class="form-control form-control-sm"
+                      id="purchaserFaxNumber"
+                      placeholder="fax number"
+                    />
+                  </div>
+                </div>
+                <div class="row"></div>
+                <div class="row justify-content-center">
+                  <div class="col-sm-12 col-md-6 form-group">
+
+                    <button
+                    onclick="validate('val_purchaser_pri','purchaserDone')"
+                    type="button"
+                    class="btn btn-secondary btn-sm btn-block"
+                    >
+                    Submit
+                  </button>
+                  </div>
+
+                    <div class="col-sm-12 col-md-6 form-group">
+                      <button
+                        onclick="clearForm()"
+                        type="button"
+                        class="btn btn-secondary btn-sm btn-block"
+                      >
+                        Clear Entire Form
+                      </button>
+                    </div>
+                </div>
+              </form>
+            </fieldset>
+            <!-- COMPANY / CLOSED CORPORATION -->
+            <fieldset
+              id="purchaserInformation_company"
+              style="display: none; padding: 5px 20px; max-width: 1366px;"
+              class="purchaserChooser_group border"
+            >
+              <legend
+                style="margin-left: 10px; padding: 0 5px; font-size: 1.2rem;"
+                class="w-auto"
+              >
+                Company / Closed Corporation
+              </legend>
+              <form style=""  action="">
+                <div class="row">
+                  <div class="col-6 form-group">
+                    <label class="required">Company Name</label>
+                    <input
+                      type="text"
+                      class="val_purchaser_com form-control form-control-sm"
+                      id="purchaserCompanyName"
+                      placeholder="company name"
+                    />
+                  </div>
+                  <div class="col-6 form-group">
+                    <label class="required">Registration Number</label>
+                    <input
+                      type="number"
+                      class="val_purchaser_com form-control form-control-sm"
+                      id="purchaserCompanyRegistrationNumber"
+                      placeholder="registration number"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6 form-group">
+                    <label class="required">Representative Name</label>
+                    <input
+                      type="text"
+                      class="val_purchaser_com form-control form-control-sm"
+                      id="purchaserCompanyRepresentativeName"
+                      placeholder="company representative name"
+                    />
+                  </div>
+                  <div class="col-6 form-group">
+                    <label class="required">Email Address</label>
+                    <input
+                      type="text"
+                      class="val_purchaser_com form-control form-control-sm"
+                      id="purchaserCompanyEmail"
+                      placeholder="email address"
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="required">Physical Address</label>
+                  <input
+                    type="text"
+                    class="val_purchaser_com form-control form-control-sm"
+                    id="purchaserCompanyPhysicalAddress"
+                    placeholder="physical address"
+                  />
+                </div>
+
+                <div class="row">
+                  <div class="col form-group">
+                    <label class="required">Cellphone Number</label>
+                    <input
+                      type="text"
+                      class="val_purchaser_com form-control form-control-sm"
+                      id="purchaserCompanyCellphoneNumber"
+                      placeholder="cellphone number"
+                    />
+                  </div>
+
+                  <div class="col form-group">
+                    <label>Phone Number</label>
+                    <input
+                      type="number"
+                      class="form-control form-control-sm"
+                      id="purchaserCompanyPhoneNumber"
+                      placeholder="phone number"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6 form-group">
+                    <label>Fax Number</label>
+                    <input
+                      type="number"
+                      class="form-control form-control-sm"
+                      id="purchaserCompanyFaxNumber"
+                      placeholder="fax number"
+                    />
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <div class="col-sm-12 col-md-6 form-group">
+
+                    <button
+                    onclick="validate('val_purchaser_com','purchaserDone')"
+                    type="button"
+                    class="btn btn-secondary btn-sm btn-block"
+                    >
+                    Submit
+                  </button>
+                  </div>
+
+                    <div class="col-sm-12 col-md-6 form-group">
+                      <button
+                        onclick="clearForm()"
+                        type="button"
+                        class="btn btn-secondary btn-sm btn-block"
+                      >
+                        Clear Entire Form
+                      </button>
+                    </div>
+                </div>
+              </form>
+            </fieldset>
+            <!-- Trust -->
+            <fieldset
+              id="purchaserInformation_trust"
+              style="display: none; padding: 5px 20px; max-width: 1366px;"
+              class="purchaserChooser_group border"
+            >
+              <legend
+                style="margin-left: 10px; padding: 0 5px; font-size: 1.2rem;"
+                class="w-auto"
+              >
+                Trust
+              </legend>
+              <form style="" id="purchaser_trust" action="">
+                <div class="row">
+                  <div class="col-6 form-group">
+                    <label class="required">Trust Name</label>
+                    <input
+                      type="text"
+                      class="val_purchaser_tru form-control form-control-sm"
+                      id="purchaserTrustName"
+                      placeholder="trust name"
+                    />
+                  </div>
+                  <div class="col-6 form-group">
+                    <label class="required">Registration Number</label>
+                    <input
+                      type="number"
+                      class="val_purchaser_tru form-control form-control-sm"
+                      id="purchaserTrustRegistrationNumber"
+                      placeholder="registration number"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6 form-group">
+                    <label class="required">Trustee Name</label>
+                    <input
+                      type="text"
+                      class="val_purchaser_tru form-control form-control-sm"
+                      id="purchaserTrustRepresentativeName"
+                      placeholder="trustee name"
+                    />
+                  </div>
+                  <div class="col-6 form-group">
+                    <label class="required">Email Address</label>
+                    <input
+                      type="text"
+                      class="val_purchaser_tru form-control form-control-sm"
+                      id="purchaserTrustEmail"
+                      placeholder="email address"
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="required">Physical Address</label>
+                  <input
+                    type="text"
+                    class="val_purchaser_tru form-control form-control-sm"
+                    id="purchaserTrustPhysicalAddress"
+                    placeholder="physical address"
+                  />
+                </div>
+
+                <div class="row">
+                  <div class="col form-group">
+                    <label class="required">Cellphone Number</label>
+                    <input
+                      type="text"
+                      class="val_purchaser_tru form-control form-control-sm"
+                      id="purchaserTrustCellphoneNumber"
+                      placeholder="cellphone number"
+                    />
+                  </div>
+
+                  <div class="col form-group">
+                    <label>Phone Number</label>
+                    <input
+                      type="number"
+                      class="form-control form-control-sm"
+                      id="purchaserTrustPhoneNumber"
+                      placeholder="phone number"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6 form-group">
+                    <label>Fax Number</label>
+                    <input
+                      type="number"
+                      class="form-control form-control-sm"
+                      id="purchaserTrustFaxNumber"
+                      placeholder="fax number"
+                    />
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <div class="col-sm-12 col-md-6 form-group">
+                    <button
+                    onclick="validate('val_purchaser_tru','purchaserDone')"
+                    type="button"
+                    class="btn btn-secondary btn-sm btn-block"
+                    >
+                    Submit
+                  </button>
+
+                  </div>
+
+                    <div class="col-sm-12 col-md-6 form-group">
+                      <button
+                        onclick="clearForm()"
+                        type="button"
+                        class="btn btn-secondary btn-sm btn-block"
+                      >
+                        Clear Entire Form
+                      </button>
+                    </div>
+                </div>
+              </form>
+            </fieldset>
+          </div>
+          <!-- PROPERTY -->
+          <div
+            class="tab-pane fade"
+            id="list-property"
+            role="tabpanel"
+            aria-labelledby="list-property-list"
+          >
+            <div class="text-center"><h3>Property</h3></div>
+
+            <!-- PROPERTY SELECTOR-->
+            <div class="form-check-inline">
+              <input
+                class="propertyChooser form-check-input"
+                type="radio"
+                name="propertyRadios"
+                value="freeHold"
+                id="propertyCheck1"
+                checked
+              />
+              <label class="form-check-label" for="propertyCheck1">
+                Freehold
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <input
+                class="propertyChooser form-check-input"
+                type="radio"
+                name="propertyRadios"
+                value="sectionalTitle"
+                id="propertyCheck2"
+              />
+              <label class="form-check-label" for="propertyCheck2">
+                Sectional Title
+              </label>
+            </div>
+            <!-- PROPERTY CONTENT-->
+
+            <!-- FREEHOLD -->
+            <fieldset
+              id="freeHold"
+              style="padding: 10px 20px; max-width: 1366px;"
+              class="propertyChooser_group border"
+            >
+              <legend
+                style="margin-left: 10px; padding: 0 5px; font-size: 1.2rem;"
+                class="w-auto"
+              >
+                Freehold
+              </legend>
+              <form style="" id="" action="">
+                <div class="row">
+                  <div class="col-sm-12 col-md-12 form-group">
+                    <label class="required">Property address</label>
+                    <input
+                      type="text"
+                      class="val_property_free form-control form-control-sm"
+                      id="propertyFreeholdAddress"
+                      placeholder="property address"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6 col-md-6 form-group">
+                    <label class="required">Erf Number</label>
+                    <input
+                      type="text"
+                      class="val_property_free form-control form-control-sm"
+                      id="propertyFreeholdErfNumber"
+                      placeholder="erf number"
+                    />
+                  </div>
+                  <div class="col-sm-6 col-md-6 form-group">
+                    <label class="required">Situated at</label>
+                    <input
+                      type="text"
+                      class="val_property_free form-control form-control-sm"
+                      id="propertyFreeholdSituatedAt"
+                      placeholder="situated"
+                    />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12 col-md-6 form-group">
+                    <label class="required">Approximate Extent</label>
+                    <input
+                      type="number"
+                      class="val_property_free form-control form-control-sm"
+                      id="propertyFreeholdExtent"
+                      placeholder="extent"
+                    />
+                  </div>
+                  <div class="col-sm-12 col-md-6 form-group">
+                    <label class="required"
+                      >Home Owners Association levy (monthly)</label
+                    >
+                    <input
+                      type="text"
+                      class="val_property_free form-control form-control-sm"
+                      id="propertyFreeholdHomeownersLevy"
+                      placeholder="monthly levy"
+                    />
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <div class="col-sm-12 col-md-6 form-group">
+
+                    <button
+                    onclick="validate('val_property_free','propertyDone')"
+                    type="button"
+                    class="btn btn-secondary btn-sm btn-block"
+                    >
+                    Submit
+                  </button>
+                  </div>
+
+                    <div class="col-sm-12 col-md-6 form-group">
+                      <button
+                        onclick="clearForm()"
+                        type="button"
+                        class="btn btn-secondary btn-sm btn-block"
+                      >
+                        Clear Entire Form
+                      </button>
+                    </div>
+                </div>
+              </form>
+            </fieldset>
+
+            <!-- SECTIONAL TITLE -->
+            <fieldset
+              id="sectionalTitle"
+              style="padding: 5px 20px; max-width: 1366px; display: none;"
+              class="propertyChooser_group border"
+            >
+              <legend
+                style="margin-left: 10px; padding: 0 5px; font-size: 1.2rem;"
+                class="w-auto"
+              >
+                Sectional Title
+              </legend>
+              <form style="" id="privatePerso" action="">
+                <div class="row">
+                  <div class="col-sm-12 col-md-12 form-group">
+                    <label class="required">Property address</label>
+                    <input
+                      type="text"
+                      class="val_property_sec form-control form-control-sm"
+                      id="propertySTAddress"
+                      placeholder="property address"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12 col-md-4 form-group">
+                    <label class="required">Section Number</label>
+                    <input
+                      type="text"
+                      class="val_property_sec form-control form-control-sm"
+                      id="propertySTSectionNumber"
+                      placeholder="section number"
+                    />
+                  </div>
+                  <div class="col-sm-12 col-md-4 form-group">
+                    <label class="required">Door Number</label>
+                    <input
+                      type="text"
+                      class="val_property_sec form-control form-control-sm"
+                      id="propertySTDoorNumber"
+                      placeholder="door number"
+                    />
+                  </div>
+                  <div class="col-sm-12 col-md-4 form-group">
+                    <label class="required">Approximate Size</label>
+                    <input
+                      type="text"
+                      class="val_property_sec form-control form-control-sm"
+                      id="propertySTArea"
+                      placeholder="approximate size"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12 col-md-4 form-group">
+                    <label class="required">Sectional Plan Number</label>
+                    <input
+                      type="number"
+                      class="val_property_sec form-control form-control-sm"
+                      id="propertySTPlanNumber"
+                      placeholder="sectional plan number"
+                    />
+                  </div>
+                  <div class="col-sm-12 col-md-4 form-group">
+                    <label class="required">Monthly Levy</label>
+                    <input
+                      type="number"
+                      class="val_property_sec form-control form-control-sm"
+                      id="propertySTMonthlyLevy"
+                      placeholder="monthly levy"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12 col-md-6 form-group">
+                    <label class="required">Rules of BC Attached?</label>
+                    <select
+                      class="val_property_sec form-control form-control-sm"
+                      id="propertySTBCRulesAttached"
+                    >
+                      <option></option>
+                      <option>No</option>
+                      <option>Yes</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-12 col-md-6 form-group">
+                    <label class="required">Right to extend?</label>
+                    <select
+                      class="val_property_sec form-control form-control-sm"
+                      id="propertySTRightToExtend"
+                    >
+                      <option></option>
+                      <option>No</option>
+                      <option>Yes</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6 col-md-4 form-group">
+                    <label>Exclusive Use Area 1 (EUA)</label>
+                    <select
+                      class="form-control form-control-sm"
+                      id="propertySTeuaType1"
+                    >
+                      <option></option>
+                      <option>Garden</option>
+                      <option>Patio</option>
+                      <option>Garage</option>
+                      <option>Parking</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-6 col-md-4 form-group">
+                    <label>EUA Number</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      id="propertySTeuaNum1"
+                      placeholder="eua number"
+                    />
+                  </div>
+                  <div class="col-sm-6 col-md-4 form-group">
+                    <label>Approximate Size</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      id="propertySTeuaArea1"
+                      placeholder="approximate size"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6 col-md-4 form-group">
+                    <label>Exclusive Use Area 2 (EUA)</label>
+                    <select
+                      class="form-control form-control-sm"
+                      id="propertySTeuaType2"
+                    >
+                      <option></option>
+                      <option>Garden</option>
+                      <option>Patio</option>
+                      <option>Garage</option>
+                      <option>Parking</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-6 col-md-4 form-group">
+                    <label>EUA Number</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      id="propertySTeuaNum2"
+                      placeholder="eua number"
+                    />
+                  </div>
+                  <div class="col-sm-6 col-md-4 form-group">
+                    <label>Approximate Size</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      id="propertySTeuaArea2"
+                      placeholder="approximate size"
+                    />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-6 col-md-6 form-group">
+                    <label>Special Levy Due</label>
+                    <select
+                      class="form-control form-control-sm"
+                      id="propertySTLevyDue"
+                    >
+                      <option>No</option>
+                      <option>Yes</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-6 col-md-6 form-group">
+                    <label for="sellerSurname">Special Levy Amount</label>
+                    <input
+                      type="number"
+                      class="form-control form-control-sm"
+                      id="propertySTSpecialLevyAmount"
+                      placeholder="levy amount"
+                    />
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <div class="col-sm-12 col-md-6 form-group">
+
+                    <button
+                    onclick="validate('val_property_sec','propertyDone')"
+                    type="button"
+                    class="btn btn-secondary btn-sm btn-block"
+                    >
+                    Submit
+                  </button>
+                  </div>
+
+                    <div class="col-sm-12 col-md-6 form-group">
+                      <button
+                        onclick="clearForm()"
+                        type="button"
+                        class="btn btn-secondary btn-sm btn-block"
+                      >
+                        Clear Entire Form
+                      </button>
+                    </div>
+                </div>
+              </form>
+            </fieldset>
+          </div>
+          <!--  PRICE  -->
+          <div
+            class="tab-pane fade"
+            id="list-price"
+            role="tabpanel"
+            aria-labelledby="list-price-list"
+          >
+
+          <div class="text-center"><h3>Price</h3></div>
+            <fieldset
+              style="padding: 5px 20px; max-width: 1366px;"
+              class="border"
+            >
+              <legend
+                style="margin-left: 10px; padding: 0 5px; font-size: 1.2rem;"
+                class="w-auto"
+              >
+                Price
+              </legend>
+              <form style="" action="">
+                <div class="row">
+                  <div class="col form-group">
+                    <label class="required">Purchase Price</label>
+                    <input
+                      type="number"
+                      class="val_price form-control form-control-sm"
+                      id="purchasePrice"
+                      placeholder="purchase price"
+                    />
+                  </div>
+                </div>
+                <label for="">Purchase Price to be paid as follows:</label>
+                <div class="row">
+                  <div class="col-6 form-group">
+                    <label>Deposit Amount</label>
+                    <input
+                      type="number"
+                      class="form-control form-control-sm"
+                      id="depositAmount"
+                      placeholder="deposit amount"
+                    />
+                  </div>
+                  <div class="col-6 form-group">
+                    <label>Date Payable</label>
+                    <input
+                      type="date"
+                      class="form-control form-control-sm"
+                      id="depositDatePayable"
+                      placeholder="date payable"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6 form-group">
+                    <label>Cash Amount</label>
+                    <input
+                      type="number"
+                      class="form-control form-control-sm"
+                      id="cashAmount"
+                      placeholder="cash amount"
+                    />
+                  </div>
+                  <div class="col-6 form-group">
+                    <label>Date Payable</label>
+                    <input
+                      type="date"
+                      class="form-control form-control-sm"
+                      id="cashDatePayable"
+                      placeholder="date payable"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6 form-group">
+                    <label>Loan Amount</label>
+                    <input
+                      type="number"
+                      class="form-control form-control-sm"
+                      id="loanAmount"
+                      placeholder="loan amount"
+                    />
+                  </div>
+                  <div class="col-6 form-group">
+                    <label>Date Payable</label>
+                    <input
+                      type="date"
+                      class="form-control form-control-sm"
+                      id="loanDatePayable"
+                      placeholder="date payable"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 form-group">
+                      <label >Proceeds from sale of purchaser(s) property</label>
+                      <input
+                        type="number"
+                        class="form-control form-control-sm"
+                        id="proceedsFromSaleOfPurchaserPropertyAmount"
+                        placeholder="proceed amount"
+                      />
+                    </div>
+                    <div class="col-sm-12 col-md-6 form-group">
+                      <label>Last Date of Sale</label>
+                      <input
+                        type="date"
+                        class="form-control form-control-sm"
+                        id="saleOfPropertyLastDateOfSale"
+                        placeholder="last date of sale"
+                      />
+                    </div>
+                </div>
+                <div class="form-group">
+                  <label for="sellerSurname"
+                    >Property Description (of property to be sold)</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="propertyToBeSoldDescription"
+                    placeholder="propertyToBeSoldDescription"
+                  />
+                </div>
+                <div class="row justify-content-center">
+                  <div class="col-sm-12 col-md-6 form-group">
+                    <button
+                    onclick="validate('val_price','priceDone')"
+                    type="button"
+                    class="btn btn-secondary btn-sm btn-block"
+                    >
+                    Submit
+                    </button>
+                  </div>
+                    <div class="col-sm-12 col-md-6 form-group">
+                      <button
+                        onclick="clearForm()"
+                        type="button"
+                        class="btn btn-secondary btn-sm btn-block"
+                      >
+                        Clear Entire Form
+                      </button>
+                    </div>
+                </div>
+              </form>
+            </fieldset>
+          </div>
+          <div
+            class="tab-pane fade"
+            id="list-general"
+            role="tabpanel"
+            aria-labelledby="list-general-list"
+          >
+          <div class="text-center"><h3>Estate Angent and Conveyancer</h3></div>
+            <fieldset
+              id="estateAgent"
+              style="padding: 5px 20px; max-width: 1366px;"
+              class="border"
+            >
+              <legend
+                style="margin-left: 10px; padding: 0 5px; font-size: 1.2rem;"
+                class="w-auto"
+              >
+                Estate Agency
+              </legend>
+              <form style="" action="">
+                <div class="row">
+                  <div class="col-sm-12 col-md-6 form-group">
+                    <label>Estate agent involved</label>
+                    <select
+                      onchange="agent()"
+                      class="form-control form-control-sm"
+                      id="agentInvolved"
+                    >
+                      <option>No</option>
+                      <option>Yes</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="agent col-sm-6 col-md-6 form-group" style="display: none;">
+                    <label class="agentR">Agency Name</label>
+                    <input
+                      type="text"
+                      class="agentV form-control form-control-sm"
+                      id="agencyName"
+                      placeholder="agency name"
+                    />
+                  </div>
+                  <div class="agent col-sm-6 col-md-6 form-group" style="display: none;">
+                    <label class="agentR">Agent Name</label>
+                    <input
+                      type="text"
+                      class="agentV form-control form-control-sm"
+                      id="agentName"
+                      placeholder="agent name"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="agent col-sm-6 col-md-6 form-group" style="display: none;">
+                    <label class="agentR">Commission Percentage</label>
+                    <input
+                      type="number"
+                      class="agentV form-control form-control-sm"
+                      id="commissionPercentage"
+                      placeholder="deposit amount"
+                    />
+                  </div>
+                </div>
+              </form>
+            </fieldset>
+            <fieldset
+              id="estateAgent"
+              style="padding: 5px 20px; max-width: 1366px;"
+              class="border"
+            >
+              <legend
+                style="margin-left: 10px; padding: 0 5px; font-size: 1.2rem;"
+                class="w-auto"
+              >
+                Conveyancer
+              </legend>
+              <form style="" action="">
+                <div class="row">
+                  <div class="col-sm-6 col-md-6 form-group">
+                    <label class="required">Conveyancer Name</label>
+                    <input
+                      type="text"
+                      class="val_general form-control form-control-sm"
+                      id="conveyancerName"
+                      placeholder="conveyancer name"
+                    />
+                  </div>
+                  <div class="col-sm-6 col-md-6 form-group">
+                    <label class="required">Tel Number</label>
+                    <input
+                      type="number"
+                      class="val_general form-control form-control-sm"
+                      id="conveyancerTelNumber"
+                      placeholder="tel number"
+                    />
+                  </div>
+                </div>
+              </form>
+            </fieldset>
+            <div class="row justify-content-center">
+              <div class="col-sm-12 col-md-6 form-group">
+
+                <button
+                onclick="validate('val_general','generalDone')"
+                style="margin-top: 10px; "
+                type="button"
+                class="btn btn-secondary btn-sm btn-block"
+                >
+                Submit
+              </button>
+              </div>
+
+              <div class="col-sm-12 col-md-6 form-group">
+                  <button
+                    onclick="clearForm()"
+                    style="margin-top: 10px; "
+                    type="button"
+                    class="btn btn-secondary btn-sm btn-block"
+                  >
+                    Clear Entire Form
+                  </button>
+                </div>
+            </div>
+          </div>
+          <!-- General 2 -->
+          <div
+            class="tab-pane fade show"
+            id="list-general2"
+            role="tabpanel"
+            aria-labelledby="list-general2-list"
+          >
+          <div class="text-center"><h3>General</h3></div>
+            <fieldset
+              id=""
+              style="padding: 5px 20px; max-width: 1366px;"
+              class="border"
+            >
+              <legend
+                style="margin-left: 10px; padding: 0 5px; font-size: 1.2rem;"
+                class="w-auto"
+              >
+                Occupation
+              </legend>
+              <form style="" action="">
+                <div class="row">
+                  <div class="col-sm-6 col-md-6 form-group">
+                    <label class="required">Occupation Date</label>
+                    <input
+                      type="date"
+                      class="val_general2 form-control form-control-sm"
+                      id="occupationDate"
+                      placeholder="occupation date"
+                    />
+                  </div>
+                  <div class="col-sm-6 col-md-6 form-group">
+                    <label class="required">Occupational Rent</label>
+                    <input
+                      type="number"
+                      class="val_general2 form-control form-control-sm"
+                      id="occupationalRent"
+                      placeholder="occupational Rent"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6 col-md-6 form-group">
+                    <label class="required">Possession Date</label>
+                    <input
+                      type="date"
+                      class="val_general2 form-control form-control-sm"
+                      id="possessionDate"
+                      placeholder="possession date"
+                    />
+                  </div>
+                </div>
+              </form>
+            </fieldset>
+            <fieldset
+              id=""
+              style="padding: 5px 20px; max-width: 1366px;"
+              class="border"
+            >
+              <legend
+                style="margin-left: 10px; padding: 0 5px; font-size: 1.2rem;"
+                class="w-auto"
+              >
+                Excluded Fixtures / Fittings
+              </legend>
+              <form style="" action="">
+                <div class="row">
+                  <div class="col-sm-6 col-md-6 form-group">
+                    <label for="sellerName">Fixtures (max five)</label>
+                    <input
+                      maxlength="30"
+                      type="text"
+                      class="form-control form-control-sm"
+                      id="fixtureToAdd"
+                      placeholder="fixture"
+                    />
+                  </div>
+                  <div class="col-sm-6 col-md-6 form-group d-flex flex-column">
+                    <div class="row mt-auto">
+                      <button
+                        onclick="addFixture()"
+                        class="btn btn-secondary btn-sm"
+                        style="margin-right: 10px;"
+                      >
+                        Add
+                      </button>
+                      <button
+                        onclick="clearFixture()"
+                        class="btn btn-secondary btn-sm"
+                      >
+                        Clear Last
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row" id="fixtureContainer"></div>
+              </form>
+            </fieldset>
+            <fieldset
+              id=""
+              style="padding: 5px 20px; max-width: 1366px;"
+              class="border"
+            >
+              <legend
+                style="margin-left: 10px; padding: 0 5px; font-size: 1.2rem;"
+                class="w-auto"
+              >
+                Special Conditions
+              </legend>
+              <form style="" action="">
+                <div class="row">
+                  <div class="col-sm-6 col-md-6 form-group">
+                    <label for="sellerName"
+                      >Special Conditions (max five)</label
+                    >
+                    <input
+                      maxlength="30"
+                      type="text"
+                      class="form-control form-control-sm"
+                      id="conditionToAdd"
+                      placeholder="special condition"
+                    />
+                  </div>
+                  <div class="col-sm-6 col-md-6 form-group d-flex flex-column">
+                    <div class="row mt-auto">
+                      <button
+                        onclick="addCondition()"
+                        class="btn btn-secondary btn-sm"
+                        style="margin-right: 10px;"
+                      >
+                        Add
+                      </button>
+                      <button
+                        onclick="clearCondition()"
+                        class="btn btn-secondary btn-sm"
+                      >
+                        Clear Last
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" id="conditionContainer"></div>
+              </form>
+            </fieldset>
+            <fieldset
+              id=""
+              style="padding: 5px 20px; max-width: 1366px;"
+              class="border"
+            >
+              <legend
+                style="margin-left: 10px; padding: 0 5px; font-size: 1.2rem;"
+                class="w-auto"
+              >
+                Acceptance Period
+              </legend>
+              <form style="" action="">
+                <div class="row">
+                  <div class="col-sm-6 col-md-6 form-group">
+                    <label class="required">Time</label>
+                    <input
+                      type="time"
+                      class="val_general2 form-control form-control-sm"
+                      id="acceptanceTime"
+                      placeholder="acceptance time"
+                    />
+                  </div>
+                  <div class="col-sm-6 col-md-6 form-group">
+                    <label class="required">Date</label>
+                    <input
+                      type="Date"
+                      class="val_general2 form-control form-control-sm"
+                      id="acceptanceDate"
+                      placeholder="acceptance date"
+                    />
+                  </div>
+                </div>
+              </form>
+            </fieldset>
+            <div class="row justify-content-center">
+              <div class="col-sm-12 col-md-6 form-group">
+
+                <button
+                onclick="validate('val_general2','general2Done')"
+                style="margin-top: 10px;"
+                type="button"
+                class="btn btn-secondary btn-sm btn-block"
+                >
+                Submit
+              </button>
+              </div>
+
+                <div class="col-sm-12 col-md-6 form-group">
+                  <button
+                    onclick="clearForm()"
+                    style="margin-top: 10px;"
+                    type="button"
+                    class="btn btn-secondary btn-sm btn-block"
+                  >
+                    Clear Entire Form
+                  </button>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Button trigger modal -->
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="moreInfoModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="moreInfoModal_header"></h5>
+            <button
+            id="modal_close"
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div id="moreInfoModal_body" class="modal-body"></div>
+          <div id="moreInfoModal_buttons" class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- Spinning Wheel Modal - STARTS-->
+    <div
+      class="modal fade"
+      id="spinningWheelModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <button
+          id="spinning_modal_close"
+          style="display:none"
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <div  class="modal-body"><h4>Preparing your contract . . .</h4>
+            <div style="margin: auto"class="loader"></div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <button
+      style="display: none;"
+      id="spinningWheelButton"
+      type="button"
+      class="btn btn-primary"
+      data-toggle="modal"
+      data-target="#spinningWheelModal"
+    >
+
+    </button>
+    <!-- Spinning Wheel Modal - ENDS-->
+    <!-- JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      // EVENT LISTENERS: SELLER
+      document
+        .getElementById("defaultCheck1")
+        .addEventListener("change", function () {
+          focusOnSection("sellerChooser_group", event.target.value);
+        });
+      document
+        .getElementById("defaultCheck2")
+        .addEventListener("change", function () {
+          focusOnSection("sellerChooser_group", event.target.value);
+        });
+      document
+        .getElementById("defaultCheck3")
+        .addEventListener("change", function () {
+          focusOnSection("sellerChooser_group", event.target.value);
+        });
+
+      // EVENT LISTENERS: PURCHASER
+      document
+        .getElementById("purchaserCheck1")
+        .addEventListener("change", function () {
+          focusOnSection("purchaserChooser_group", event.target.value);
+        });
+      document
+        .getElementById("purchaserCheck2")
+        .addEventListener("change", function () {
+          focusOnSection("purchaserChooser_group", event.target.value);
+        });
+      document
+        .getElementById("purchaserCheck3")
+        .addEventListener("change", function () {
+          focusOnSection("purchaserChooser_group", event.target.value);
+        });
+
+      // EVENT LISTENERS: PROPERTY
+      document
+        .getElementById("propertyCheck1")
+        .addEventListener("change", function () {
+          console.log(event.target.value);
+          focusOnSection("propertyChooser_group", event.target.value);
+        });
+      document
+        .getElementById("propertyCheck2")
+        .addEventListener("change", function () {
+          focusOnSection("propertyChooser_group", event.target.value);
+        });
+
+        var moreInfo = {
+          marriedInCommunityOfProperty: [
+            "Married in community of Property",
+            "In terms of the South African Marriage Act fixed property belongs to both parties to the marriage and therefore both parties will have to be party to an agreement to sell the property.",
+          ],
+          sellerRepresentativeName: [
+            "Company representative",
+            "The company representative will require the necessary mandate . . . ",
+          ],
+          purchasePricesDontMatch: ['Purchase Price Calculation','The Purchase Price must be equel to the sum of the deposit amount, the cash amount, the loan amount and the proceeds from the sale of the purchasers property']
+        };
+
+        function addCondition() {
+          event.preventDefault();
+
+          var existingNum = document.getElementsByClassName(
+            "condition"
+          );
+          if (document.getElementById("conditionToAdd").value != "") {
+            var para = document.createElement("input");
+            para.type = "text";
+            para.setAttribute("readonly", "true");
+            para.setAttribute("style", "padding-left: 20px");
+            para.setAttribute(
+              "class",
+              "condition form-control-plaintext"
+            );
+            para.value = document.getElementById(
+              "conditionToAdd"
+            ).value;
+            var element = document.getElementById(
+              "conditionContainer"
+            );
+            element.appendChild(para);
+            document.getElementById("conditionToAdd").value = "";
+          }
+        }
+        function clearCondition() {
+          event.preventDefault();
+          var existingNum = document.getElementsByClassName(
+            "condition"
+          );
+          var lastOne = existingNum.length - 1;
+          if (lastOne < 0) {
+          } else {
+            existingNum[lastOne].remove();
+          }
+        }
+
+        function agent() {
+          var elementsToShow = document.getElementsByClassName(
+            "agent"
+          );
+          if (
+            document.getElementById("agentInvolved").value === "Yes"
+          ) {
+            for (i = 0; i < elementsToShow.length; i++) {
+              elementsToShow[i].style.display = "block";
+            }
+            let elementsToValidate = document.getElementsByClassName(
+              "agentR"
+            );
+            for (i = 0; i < elementsToValidate.length; i++) {
+              elementsToValidate[i].classList.add("required");
+            }
+            let elementsToValidate2 = document.getElementsByClassName(
+              "agentV"
+            );
+            for (i = 0; i < elementsToValidate2.length; i++) {
+              elementsToValidate2[i].classList.add("val_general");
+            }
+            validate("val_general", "generalDone");
+          } else {
+            for (i = 0; i < elementsToShow.length; i++) {
+              elementsToShow[i].style.display = "none";
+            }
+            let elementsToValidate = document.getElementsByClassName(
+              "agentR"
+            );
+            for (i = 0; i < elementsToValidate.length; i++) {
+              elementsToValidate[i].classList.remove("required");
+            }
+            let elementsToValidate2 = document.getElementsByClassName(
+              "agentV"
+            );
+            for (i = 0; i < elementsToValidate2.length; i++) {
+              elementsToValidate2[i].classList.remove("val_general");
+            }
+          }
+        }
+
+        function addFixture() {
+          event.preventDefault();
+
+          var existingNum = document.getElementsByClassName(
+            "fixture"
+          );
+          if (document.getElementById("fixtureToAdd").value != "") {
+            var para = document.createElement("input");
+            para.type = "text";
+            para.setAttribute("readonly", "true");
+            para.setAttribute("style", "padding-left: 20px");
+            para.setAttribute(
+              "class",
+              "fixture form-control-plaintext"
+            );
+            para.value = document.getElementById(
+              "fixtureToAdd"
+            ).value;
+            var element = document.getElementById("fixtureContainer");
+            element.appendChild(para);
+            document.getElementById("fixtureToAdd").value = "";
+          }
+        }
+        function clearFixture() {
+          event.preventDefault();
+          var existingNum = document.getElementsByClassName(
+            "fixture"
+          );
+          var lastOne = existingNum.length - 1;
+          if (lastOne < 0) {
+          } else {
+            existingNum[lastOne].remove();
+          }
+        }
+
+        function clickbutton(button, id) {
+          document.getElementById(
+            "moreInfoModal_header"
+          ).innerText = moreInfo[id][0];
+          document.getElementById(
+            "moreInfoModal_body"
+          ).innerText = moreInfo[id][1];
+          var b = document.getElementById(button);
+          b.click();
+        }
+        function runSpinningWheel() {
+          document.getElementById('spinningWheelButton').click();
+          document.querySelector('.loader').classList.add('spin')
+        }
+        function closeSpinningWheel() {
+          document.getElementById('spinning_modal_close').click();
+          document.querySelector('.loader').classList.remove('spin')
+        }
+
+      function focusOnSection(groupName, focusSection) {
+        var allInGroup = document.getElementsByClassName(groupName);
+        // console.log(allInGroup);
+        for (let i = 0; i < allInGroup.length; i++) {
+          if (allInGroup[i].id === focusSection) {
+            allInGroup[i].style.display = "block";
+          } else {
+            allInGroup[i].style.display = "none";
+          }
+        }
+      }
+	  function checkOverallValidation(){
+		  var state = true
+		  if(document.getElementById('sellerDone').classList.contains('badge-success') === false){state = false}
+		  if(document.getElementById('purchaserDone').classList.contains('badge-success') === false){state = false}
+		  if(document.getElementById('propertyDone').classList.contains('badge-success') === false){state = false}
+		  if(document.getElementById('priceDone').classList.contains('badge-success') === false){state = false}
+		  if(document.getElementById('generalDone').classList.contains('badge-success') === false){state = false}
+		  if(document.getElementById('general2Done').classList.contains('badge-success') === false){state = false}
+		  if(state === true){
+        runReadyModal()
+			  // alert('All the necessary fields have been completed, You may now generate your OTP' )
+			  document.getElementById('list-generateOTP-list').classList.remove('disabled')
+		  } else {
+			document.getElementById('list-generateOTP-list').classList.add('disabled')
+		  }
+
+	  }
+      function validate(toValidate, step) {
+        let isValid = true;
+		let elementsToValidate = document.getElementsByClassName(toValidate);
+        for (i = 0; i < elementsToValidate.length; i++) {
+
+          elementsToValidate[i].classList.remove("is-valid");
+          elementsToValidate[i].classList.remove("is-invalid");
+          if (
+            elementsToValidate[i].value === "" ||
+            elementsToValidate[i].value === undefined
+          ) {
+            elementsToValidate[i].classList.add("is-invalid");
+            isValid = false;
+          } else {
+            elementsToValidate[i].classList.add("is-valid");
+          }
+        }
+        // Price Calculations
+        if (toValidate === "val_price") {
+
+          var purchasePriceA = "";
+          var depositAmountA = "";
+          var cashAmountA = "";
+          var loanAmountA = "";
+          var proceedsFromSaleOfPurchaserPropertyAmount = "";
+          if (document.getElementById("purchasePrice").value != "") {
+            purchasePriceA = document.getElementById("purchasePrice").value;
+          } else {
+            purchasePriceA = 0;
+          }
+          if (document.getElementById("depositAmount").value != "") {
+            depositAmountA = document.getElementById("depositAmount").value;
+          } else {
+            depositAmountA = 0;
+          }
+          if (document.getElementById("cashAmount").value != "") {
+            cashAmountA = document.getElementById("cashAmount").value;
+          } else {
+            cashAmountA = 0;
+          }
+          if (document.getElementById("loanAmount").value != "") {
+            loanAmountA = document.getElementById("loanAmount").value;
+          } else {
+            loanAmountA = 0;
+          }
+          if (
+            document.getElementById("proceedsFromSaleOfPurchaserPropertyAmount")
+              .value != ""
+          ) {
+            proceedsFromSaleOfPurchaserPropertyAmountA = document.getElementById(
+              "proceedsFromSaleOfPurchaserPropertyAmount"
+            ).value;
+          } else {
+            proceedsFromSaleOfPurchaserPropertyAmountA = 0;
+          }
+          if (
+            parseInt(purchasePriceA) ===
+            parseInt(depositAmountA) +
+              parseInt(cashAmountA) +
+              parseInt(loanAmountA) +
+              parseInt(proceedsFromSaleOfPurchaserPropertyAmountA)
+          ) {
+          } else {
+            isValid = false;
+            clickbutton('button1', 'purchasePricesDontMatch')
+
+          }
+        }
+
+        if (isValid === true) {
+          document.getElementById(step).classList.remove("badge-danger");
+          document.getElementById(step).classList.add("badge-success");
+          document.getElementById(step).innerHTML = "&check;";
+          scroll(0,0)
+          getAllInfo('store')
+        } else {
+          document.getElementById(step).classList.add("badge-danger");
+          document.getElementById(step).classList.remove("badge-success");
+          document.getElementById(step).innerHTML = "&#10005;";
+		}
+		checkOverallValidation()
+      }
+
+      function sellerSpouse() {
+        var state = document.getElementById("marriedInCommunityOfProperty")
+          .value;
+        if (state === "Yes") {
+          document.getElementById("spouse-row").style.display = "flex";
+          let elementsToValidate = document.getElementsByClassName("spouseR");
+          for (i = 0; i < elementsToValidate.length; i++) {
+            elementsToValidate[i].classList.add("required");
+          }
+          let elementsToValidate2 = document.getElementsByClassName("spouseV");
+          for (i = 0; i < elementsToValidate2.length; i++) {
+            elementsToValidate2[i].classList.add("val_seller_pri");
+          }
+          validate("val_seller_pri", "sellerDone");
+        } else {
+          document.getElementById("spouse-row").style.display = "none";
+          let elementsToValidate = document.getElementsByClassName("spouseR");
+          for (i = 0; i < elementsToValidate.length; i++) {
+            elementsToValidate[i].classList.remove("required");
+          }
+          let elementsToValidate2 = document.getElementsByClassName("spouseV");
+          for (i = 0; i < elementsToValidate2.length; i++) {
+            elementsToValidate2[i].classList.remove("val_seller_pri");
+          }
+        }
+      }
+
+      function purchaser2() {
+        var state = document.getElementById("numPurchasers").value;
+        if (state === "Two") {
+          document.getElementById("purchaser2-Row").style.display = "flex";
+          let elementsToValidate = document.getElementsByClassName(
+            "purchaser2R"
+          );
+          for (i = 0; i < elementsToValidate.length; i++) {
+            elementsToValidate[i].classList.add("required");
+          }
+          let elementsToValidate2 = document.getElementsByClassName(
+            "purchaser2V"
+          );
+          for (i = 0; i < elementsToValidate2.length; i++) {
+            elementsToValidate2[i].classList.add("val_purchaser_pri");
+          }
+          validate("val_purchaser_pri", "purchaserDone");
+        } else {
+          document.getElementById("purchaser2-Row").style.display = "none";
+          let elementsToValidate = document.getElementsByClassName(
+            "purchaser2R"
+          );
+          for (i = 0; i < elementsToValidate.length; i++) {
+            elementsToValidate[i].classList.remove("required");
+          }
+          let elementsToValidate2 = document.getElementsByClassName(
+            "purchaser2V"
+          );
+          for (i = 0; i < elementsToValidate2.length; i++) {
+            elementsToValidate2[i].classList.remove("val_purchaser_pri");
+          }
+        }
+      }
+
+      allInfoObject = {};
+      let idList = [
+        "sellerName1",
+        "sellerSurname1",
+        "sellerIdNumber1",
+        "marriedInCommunityOfProperty",
+        "sellerSAResident",
+        "sellerName2",
+        "sellerSurname2",
+        "sellerIdNumber2",
+        "sellerPhysicalAddress",
+        "sellerEmailAddress",
+        "sellerCellphoneNumber",
+        "sellerPhoneNumber",
+        "sellerFaxNumber",
+        "sellerCompanyName",
+        "sellerCompanyRegistrationNumber",
+        "sellerCompanyRepresentativeName",
+        "sellerCompanyEmail",
+        "sellerCompanyPhysicalAddress",
+        "sellerCompanyCellphoneNumber",
+        "sellerCompanyPhoneNumber",
+        "sellerCompanyFaxNumber",
+        "sellerTrustName",
+        "sellerTrustRegistrationNumber",
+        "sellerTrustRepresentativeName",
+        "sellerTrustEmail",
+        "sellerTrustPhysicalAddress",
+        "sellerTrustCellphoneNumber",
+        "sellerTrustPhoneNumber",
+        "sellerTrustFaxNumber",
+        "numPurchasers",
+        "purchaserName1",
+        "purchaserSurname1",
+        "purchaserIdNumber1",
+        "purchaserName2",
+        "purchaserSurname2",
+        "purchaserIdNumber2",
+        "purchaserEmailAddress",
+        "purchaserPhysicalAddress",
+        "purchaserCellphoneNumber",
+        "purchaserPhoneNumber",
+        "purchaserFaxNumber",
+        "purchaserCompanyName",
+        "purchaserCompanyRegistrationNumber",
+        "purchaserCompanyRepresentativeName",
+        "purchaserCompanyEmail",
+        "purchaserCompanyPhysicalAddress",
+        "purchaserCompanyCellphoneNumber",
+        "purchaserCompanyPhoneNumber",
+        "purchaserCompanyFaxNumber",
+        "purchaserTrustName",
+        "purchaserTrustRegistrationNumber",
+        "purchaserTrustRepresentativeName",
+        "purchaserTrustEmail",
+        "purchaserTrustPhysicalAddress",
+        "purchaserTrustCellphoneNumber",
+        "purchaserTrustPhoneNumber",
+        "purchaserTrustFaxNumber",
+        "propertyFreeholdAddress",
+        "propertyFreeholdErfNumber",
+        "propertyFreeholdSituatedAt",
+        "propertyFreeholdExtent",
+        "propertyFreeholdHomeownersLevy",
+        "propertySTAddress",
+        "propertySTSectionNumber",
+        "propertySTDoorNumber",
+        "propertySTArea",
+        "propertySTPlanNumber",
+        "propertySTMonthlyLevy",
+        "propertySTBCRulesAttached",
+        "propertySTRightToExtend",
+        "propertySTeuaType1",
+        "propertySTeuaNum1",
+        "propertySTeuaArea1",
+        "propertySTeuaType2",
+        "propertySTeuaNum2",
+        "propertySTeuaArea2",
+        "propertySTLevyDue",
+        "propertySTSpecialLevyAmount",
+        "purchasePrice",
+        "depositAmount",
+        "depositDatePayable",
+        "cashAmount",
+        "cashDatePayable",
+        "loanAmount",
+        "loanDatePayable",
+        "proceedsFromSaleOfPurchaserPropertyAmount",
+        "saleOfPropertyLastDateOfSale",
+        "propertyToBeSoldDescription",
+        "agentInvolved",
+        "agencyName",
+        "agentName",
+        "commissionPercentage",
+        "conveyancerName",
+        "conveyancerTelNumber",
+        "occupationDate",
+        "occupationalRent",
+        "possessionDate",
+        "acceptanceTime",
+        "acceptanceDate",
+        "emailToBeSent"
+      ];
+
+      let allRadios = [
+        "defaultCheck1",
+        "defaultCheck2",
+        "defaultCheck3",
+        "propertyCheck1",
+        "propertyCheck2",
+        "purchaserCheck1",
+        "purchaserCheck2",
+        "purchaserCheck3",
+      ];
+      function getAllInfo(type) {
+        //CREATES THE OBJECT TO STORE THE DATE IN - STARTS
+        allInfoObject = {};
+        // CREATES THE OBJECT TO STORE THE DATE IN - END
+
+        // *** GET ALL THE ID INPUT / SELECT ITEMS - STARTS
+
+
+        for (let i = 0; i < idList.length; i++) {
+          let newName = idList[i];
+          allInfoObject[newName] = document.getElementById(idList[i]).value;
+        }
+        // *** GET ALL THE ID INPUT / SELECT ITEMS - ENDS
+
+        // *** GET ALL THE RADIO ITEMS - STARTS
+
+        for (let i = 0; i < allRadios.length; i++) {
+          let newName = allRadios[i];
+          allInfoObject[newName] = document.getElementById(
+            allRadios[i]
+          ).checked;
+        }
+        // *** GET ALL THE RADIO ITEMS - ENDS
+
+        // *** GET ALL THE FIXTURES - STARTS
+        var fixtures = document.getElementsByClassName("fixture");
+        let fixtureList = [];
+        for (let i = 0; i < fixtures.length; i++) {
+          let current = fixtures[i];
+          fixtureList.push(current.value);
+        }
+        allInfoObject["fixtures"] = fixtureList;
+        // *** GET ALL THE FIXTURES - ENDS
+
+        // *** GET ALL THE SPECIAL CONDITIONS - STARTS
+        var conditions = document.getElementsByClassName("condition");
+        let conditionList = [];
+        for (let i = 0; i < conditions.length; i++) {
+          let current = conditions[i];
+          conditionList.push(current.value);
+        }
+        allInfoObject["specialConditions"] = conditionList;
+
+        // *** GET ALL THE SPECIAL CONDITIONS - ENDS
+        if(type === 'store'){
+          Store.editStoredData(allInfoObject)
+        }
+        if(type === 'send'){
+          pushDataToServer(allInfoObject)
+        }
+
+      }
+
+      function pushDataToServer(data){
+          runSpinningWheel()
+        // *** Make the PUSH request to the server - STARTS
+        // fetch("http://localhost:5000/otp/otp_landing", {
+          fetch("http://192.168.1.200:5000/otp/otp_landing", {
+
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(allInfoObject),
+        }).then(response => response.json())
+          .then((res) => {
+            closeSpinningWheel()
+            console.log(res.txt)
+          // MODAL POPUP - STARTS
+          if(res.txt === 'success'){
+                document.getElementById(
+                  "moreInfoModal_header"
+                ).innerText = 'Contract Purchase and Sale sent';
+                document.getElementById(
+                  "moreInfoModal_body"
+                ).innerText = 'Your contract has been emailed to: '+document.getElementById('emailToBeSent').value+". Thank you for using the Brune Attorneys contract wizard."
+                document.getElementById(
+                  "moreInfoModal_buttons").innerHTML = '<button  type="button"  onclick="closeModalandDelete()" class="btn btn-secondary btn-sm btn-block"> Close and delete information </button><button  type="button"  onclick="closeModal()" class="btn btn-secondary btn-sm btn-block" > Close and retain information</button>'
+                var b = document.getElementById('button1');
+                b.click();
+                document.getElementById('emailToBeSent').value = ''
+                console.log("Request complete! response:", res);
+                // MODAL POPUP - ENDS
+          } else {alert('something went wrong, please try again')}
+
+        });
+        // *** PUSH Request - ENDS
+      }
+
+      function pingServer(){
+        // *** Make the PUSH request to the server - STARTS
+        // fetch("http://localhost:5000/otp/otp_landing", {
+          fetch("http://192.168.1.200:5000/otp/serverPing", {
+
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(allInfoObject),
+        }).then(response => response.json())
+          .then((res) => {
+          console.log(res.txt)
+
+        });
+        // *** PUSH Request - ENDS
+      }
+      // Store Class: Handles Local Storage
+      class Store {
+        static getStoredData() {
+          let otp_stored_data;
+          if(localStorage.getItem('otp_stored_data') === null) {
+            otp_stored_data = 'empty';
+          } else {
+            otp_stored_data = JSON.parse(localStorage.getItem('otp_stored_data'));
+          }
+          return otp_stored_data;
+        }
+
+        static editStoredData(data) {
+          localStorage.setItem('otp_stored_data', JSON.stringify(data));
+        }
+
+        static deleteStoredData() {
+          localStorage.removeItem('otp_stored_data');
+        }
+      }
+
+      window.addEventListener('load', (event) => {
+        pingServer()
+        getDataAndFillFields()
+  });
+
+function getDataAndFillFields(){
+  var data = Store.getStoredData()
+  if (data === 'empty') {} else {
+    for (var i = 0; i < idList.length; i++) {
+      var currentItem = idList[i]
+      if (data[currentItem] === ''||data[currentItem] === undefined)
+        {document.getElementById(currentItem).value = ''}
+        // else if (data[currentItem] === 'Yes'||data[currentItem] === 'No') {document.getElementById(currentItem).value = data[currentItem]}
+        else {document.getElementById(currentItem).value = data[currentItem]}
+    }
+    for (var i = 0; i < allRadios.length; i++) {
+      var currentItem = allRadios[i]
+      if(data[currentItem] === true){document.getElementById(currentItem).click()}
+    }
+    sellerSpouse()
+    purchaser2()
+    agent()
+  if(document.getElementById('defaultCheck1').checked === true){validate('val_seller_pri','sellerDone')}
+  if(document.getElementById('defaultCheck2').checked === true){validate('val_seller_com','sellerDone')}
+  if(document.getElementById('defaultCheck3').checked === true){validate('val_seller_tru','sellerDone')}
+  if(document.getElementById('purchaserCheck1').checked === true){validate('val_purchaser_pri','purchaserDone')}
+  if(document.getElementById('purchaserCheck2').checked === true){validate('val_purchaser_com','purchaserDone')}
+  if(document.getElementById('purchaserCheck3').checked === true){validate('val_purchaser_tru','purchaserDone')}
+  if(document.getElementById('propertyCheck1').checked === true){validate('val_property_free','propertyDone')}
+  if(document.getElementById('propertyCheck2').checked === true){validate('val_property_sec','propertyDone')}
+    validate('val_price','priceDone')
+    validate('val_general','generalDone')
+    validate('val_general2','general2Done')
+  }
+
+}
+
+function clearForm(){
+  Store.deleteStoredData()
+  resetForm();
+}
+
+function sendEmail(){
+  event.preventDefault();
+    if (document.getElementById('emailToBeSent').value === ''){alert('Please enter a email address!')} else {
+    getAllInfo('send')
+
+}
+}
+function closeModal(){
+  document.getElementById(
+    "modal_close"
+  ).click()
+
+  document.getElementById(
+    "moreInfoModal_buttons").innerHTML = '<button type="button"class="btn btn-secondary"data-dismiss="modal">Close</button>'
+    document.getElementById('list-seller-list').click()
+    scroll(0,0)
+}
+function closeModalandDelete(){
+  document.getElementById(
+    "modal_close"
+  ).click()
+  document.getElementById(
+    "moreInfoModal_buttons").innerHTML = '<button type="button"class="btn btn-secondary"data-dismiss="modal">Close</button>'
+  clearForm()
+}
+function runReadyModal(){
+  document.getElementById(
+    "moreInfoModal_header"
+  ).innerText = 'Information Complete';
+  document.getElementById(
+    "moreInfoModal_body"
+  ).innerText = 'All the required information has been entered.  You may now proceed to the Generate OPT Tab to generate your contract.'
+  var b = document.getElementById('button1');
+  b.click();
+}
+
+function resetForm(){
+  document.getElementById('list-seller-list').click()
+  scroll(0,0)
+  document.getElementById('list-generateOTP-list').classList.add('disabled')
+
+    var listOfSteps = ['sellerDone','purchaserDone','propertyDone','priceDone','generalDone','general2Done']
+    for (var i = 0; i < listOfSteps.length; i++) {
+      var step = listOfSteps[i]
+      document.getElementById(step).classList.add("badge-danger");
+      document.getElementById(step).classList.remove("badge-success");
+      document.getElementById(step).innerHTML = "&#10005;";
+    }
+    for (var i = 0; i < idList.length; i++) {
+      var currentItem = idList[i]
+        if(currentItem === 'marriedInCommunityOfProperty'||currentItem === 'agentInvolved'||currentItem === 'sellerSAResident'||currentItem === 'numPurchasers'){
+          if(currentItem === 'marriedInCommunityOfProperty'){document.getElementById(currentItem).value = 'No'}
+          if(currentItem === 'agentInvolved'){document.getElementById(currentItem).value = 'No'}
+          if(currentItem === 'sellerSAResident'){document.getElementById(currentItem).value = 'Yes'}
+          if(currentItem === 'numPurchasers'){document.getElementById(currentItem).value = 'One'}
+      } else {document.getElementById(currentItem).value = ''}
+
+        document.getElementById(currentItem).classList.remove("is-valid");
+        document.getElementById(currentItem).classList.remove("is-invalid");
+    }
+    document.getElementById('fixtureContainer').innerHTML = ''
+    document.getElementById('conditionContainer').innerHTML = ''
+
+    document.getElementById('defaultCheck1').click()
+    document.getElementById('purchaserCheck1').click()
+    document.getElementById('propertyCheck1').click()
+    sellerSpouse()
+    purchaser2()
+    agent()
+  }
+
+
+
+
+
+    </script>
+  </body>
+</html>

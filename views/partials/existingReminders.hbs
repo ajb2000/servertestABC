@@ -1,0 +1,8 @@
+
+  <table class="table"><thead><tr><th></th><th>Trigger Date and Time</th><th>Reminder Subject</th><th>Reminder Text</th><th>Email</th></tr></thead><tbody>
+{{#each reminders}}
+    <tr><td><button type="button" onclick="deleteReminder('{{_id}}')" class="btn btn-xs" style="">X</button></td><td>{{triggerDandT}}</td>
+      <td>{{reminderSubject}}</td><td>{{reminderText}}</td><td>{{reminderEmail}}</td></tr>
+{{/each}}
+
+</tbody></table>

@@ -10,10 +10,11 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">Landing Page</a>
             </li>
+
+            {{#if user}}
             <li class="nav-item">
                 <a class="nav-link" href="/reminder/getReminders">Reminders</a>
             </li>
-            {{#if user}}
             <li class="nav-item">
                 <a class="nav-link" href="/shoppinglist/getShoppinglistItems">Shopping List</a>
             </li>

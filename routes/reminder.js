@@ -94,9 +94,9 @@ Reminder.find(querie, (err, docs)=>{
   })
 }
 
-// router.get("/getReminders",ensureAuthenticated, (req, res) => {
+router.get("/getReminders",ensureAuthenticated, (req, res) => {
 
-router.get("/getReminders", (req, res) => {
+// router.get("/getReminders", (req, res) => {
   // console.log(req.local.user)
   let docs2 = {}
   let newDoc = []
@@ -123,7 +123,7 @@ router.get("/getReminders", (req, res) => {
   })
 });
 
-router.get("/getReminders-D", (req, res) => {
+router.get("/getReminders-D", ensureAuthenticated,(req, res) => {
   // console.log(req.local.user)
   let docs2 = {}
   let newDoc = []
@@ -152,9 +152,9 @@ router.get("/getReminders-D", (req, res) => {
 });
 
 
-// router.get("/deleteReminder/:id",ensureAuthenticated, (req, res) => {
+router.get("/deleteReminder/:id",ensureAuthenticated, (req, res) => {
 
-router.get("/deleteReminder/:id", (req, res) => {
+// router.get("/deleteReminder/:id", (req, res) => {
     Reminder.deleteOne({_id: req.params.id}, (err, result)=>{
       if(err) {
         console.log(err)
@@ -166,9 +166,9 @@ router.get("/deleteReminder/:id", (req, res) => {
 
 })
 
-// router.post("/submitNewReminder/",ensureAuthenticated, (req, res) => {
+router.post("/submitNewReminder/",ensureAuthenticated, (req, res) => {
 
-router.post("/submitNewReminder/", (req, res) => {
+// router.post("/submitNewReminder/", (req, res) => {
 
 
   if(res.locals.user != null){userNumber = res.locals.user._id} else {userNumber = '5e902fefe14cca7bb4127ac8'}

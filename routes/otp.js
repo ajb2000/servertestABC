@@ -50,7 +50,7 @@ router.post("/otp_landing", (req, res) => {
     content.push(part_1_heading)
     // Heading - Ends
 
-    // Seller - STARTS
+// Seller - STARTS
     let new_seller = {}
 
     if (data.defaultCheck1 === true) {
@@ -73,10 +73,12 @@ router.post("/otp_landing", (req, res) => {
     } else {new_seller_string = new_seller_string.split('asdf___saresident___asdf').join('(Who warrants that he/she is not a South African resident)')}
 
     var final_seller = JSON.parse(new_seller_string)
+    content.push(part_20_seller_heading)
     content.push(final_seller)
-    // Seller - ENDS
+    content.push(insertSpace)
+// Seller - ENDS
 
-    // PURCHASER - STARTS
+// PURCHASER - STARTS
     let new_purchaser = {}
     if (data.purchaserCheck1 === true) {
       if(data.numPurchasers === "One"){
@@ -91,60 +93,165 @@ router.post("/otp_landing", (req, res) => {
     if (data.purchaserCheck3 === true) {
       new_purchaser = part_34_purchaser_trust
     }
-    content.push(new_purchaser)
-    // PURCHASER - ENDS
+    var tt = []
+    var temp_stack = {
+      stack: [],
+      unbreakable: true
+    }
+    tt.push(part_30_purchaser_heading)
+    tt.push(new_purchaser)
+    temp_stack['stack'] = tt
 
-    // PROPERTY TYPE - STARTS
+    content.push(temp_stack)
+    content.push(insertSpace)
+
+// PURCHASER - ENDS
+
+// Property description- STARTS
+  var tt3 = []
     let new_property = {}
     if (data.propertyCheck1 === true) {
-            new_property = part_41_property_freehold_withAgent
+            new_property = part_41A_proptery
       }
 
     if (data.propertyCheck2 === true) {
-        new_property = part_42_property_sectionalTitle_withAgent
+        new_property = part_42A_proptery
       }
 
-    let new_property_string = JSON.stringify(new_property)
-    if (data.agentInvolved === "No"){
-      new_property_string = new_property_string.split('agencyName').join('(not applicable)')
-      new_property_string = new_property_string.split('agentName').join('(not applicable)')
-      new_property_string = new_property_string.split('commissionPercentage').join('(not applicable)')
-    }
-    var paymentMethods = []
-    if (data.depositAmount === ""){
-      new_property_string = new_property_string.split('depositAmount').join('(not applicable)')
-      new_property_string = new_property_string.split('depositDatePayable').join('(not applicable)')
-    }
-    if (data.loanAmount === ""){
-      new_property_string = new_property_string.split('loanAmount').join('(not applicable)')
-      new_property_string = new_property_string.split('loanDatePayable').join('(not applicable)')
-    }
-    if (data.cashAmount === ""){
-      new_property_string = new_property_string.split('cashAmount').join('(not applicable)')
-      new_property_string = new_property_string.split('cashDatePayable').join('(not applicable)')
-    }
-    if (data.proceedsFromSaleOfPurchaserPropertyAmount === ""){
-      new_property_string = new_property_string.split('proceedsFromSaleOfPurchaserPropertyAmount').join('(not applicable)')
-      new_property_string = new_property_string.split('saleOfPropertyLastDateOfSale').join('(not applicable)')
-      new_property_string = new_property_string.split('propertyToBeSoldDescription').join('(not applicable)')
-    }
+    // Add the property heading
+    if (data.propertyCheck1 === true) {
+            tt3.push(part_41A_proptery_heading)
+      }
 
-    new_property = JSON.parse(new_property_string)
+    if (data.propertyCheck2 === true) {
+        tt3.push(part_42A_proptery_heading)
+      }
+    // Add the property body
+    tt3.push(new_property)
+    tt3.push(insertSpace)
+    var temp_stack3 = {
+      stack: tt3,
+      unbreakable: true
+    }
+    content.push(temp_stack3)
+// Property description - ENDS
 
-    content.push(new_property)
-    // PROPERTY TYPE - ENDS
+// 41B_price STARTS
+let new_price_string = JSON.stringify(part_41B_price)
+if (data.depositAmount === ""){
+  new_price_string = new_price_string.split('depositAmount').join('(R 0')
+  new_price_string = new_price_string.split('depositDatePayable').join('(not applicable)')
+}
+if (data.loanAmount === ""){
+  new_price_string = new_price_string.split('loanAmount').join('R 0')
+  new_price_string = new_price_string.split('loanDatePayable').join('(not applicable)')
+}
+if (data.cashAmount === ""){
+  new_price_string = new_price_string.split('cashAmount').join('R 0')
+  new_price_string = new_price_string.split('cashDatePayable').join('(not applicable)')
+}
+if (data.proceedsFromSaleOfPurchaserPropertyAmount === ""){
+  new_price_string = new_price_string.split('proceedsFromSaleOfPurchaserPropertyAmount').join('R 0')
+  new_price_string = new_price_string.split('saleOfPropertyLastDateOfSale').join('(not applicable)')
+  new_price_string = new_price_string.split('propertyToBeSoldDescription').join('(not applicable)')
+}
 
-    // Fixtures - Starts
+new_price = JSON.parse(new_price_string)
+
+  // Stack items together for page break purposes
+  var tt2 = []
+  tt2.push(part_41B_price_heading)
+  tt2.push(new_price)
+  tt2.push(insertSpace)
+  var temp_stack2 = {
+    stack: tt2,
+    unbreakable: true
+  }
+  content.push(temp_stack2)
+
+// 41B_price ENDS
+
+// Occupation - STARTS
+    // Stack items together for page break purposes
+    var tt1 = []
+        tt1.push(part_41C_occupation_heading)
+    tt1.push(part_41C_occupation)
+    tt1.push(insertSpace)
+    var temp_stack1 = {
+      stack: tt1,
+      unbreakable: true
+    }
+    content.push(temp_stack1)
+// Occupation - ENDS
+
+// Property - Agent - STARTS
+let new_agent_string = JSON.stringify(part_41D_agent)
+if (data.agentInvolved === "No"){
+  new_agent_string = new_agent_string.split('agencyName').join('(not applicable)')
+  new_agent_string = new_agent_string.split('agentName').join('(not applicable)')
+  new_agent_string = new_agent_string.split('commissionPercentage').join('(not applicable)')
+}
+new_agent = JSON.parse(new_agent_string)
+
+var tt4= []
+tt4.push(part_41D_agent_heading)
+tt4.push(new_agent)
+tt4.push(insertSpace)
+var temp_stack4 = {
+  stack: tt4,
+  unbreakable: true
+}
+content.push(temp_stack4)
+// Property - Agent - ENDS
+
+// Fixtures 1 - Starts
+    var tt5 = []
+    tt5.push(part_41E_fixtures_heading)
+    tt5.push(part_41E_fixtures)
+    tt5.push(insertSpace)
+
     var newFixtures = part_5_fixtures
     if(req.body.fixtures.length === 0){
       newFixtures.table.body[1][1].ul = ['None']
     } else{
       newFixtures.table.body[1][1].ul = req.body.fixtures
     }
-    content.push(newFixtures)
+    tt5.push(newFixtures)
+    var temp_stack5 = {
+      stack: tt5,
+      unbreakable: true
+    }
+    content.push(temp_stack5)
     // Fixtures - Ends
+    var tt6 = []
+    tt6.push(part_6_condtitionA_heading)
+    tt6.push(part_6_condtitionA)
+    tt6.push(insertSpace)
+    var temp_stack6 = {
+      stack: tt6,
+      unbreakable: true
+    }
+    content.push(temp_stack6)
 
-    content.push(part_6_condtition)
+    var tt7 = []
+    tt7.push(part_6_condtitionB_heading)
+    tt7.push(part_6_condtitionB)
+    tt7.push(insertSpace)
+    var temp_stack7 = {
+      stack: tt7,
+      unbreakable: true
+    }
+    content.push(temp_stack7)
+
+    var tt8 = []
+    tt8.push(part_6_condtitionC_heading)
+    tt8.push(part_6_condtitionC)
+    tt8.push(insertSpace)
+    var temp_stack8 = {
+      stack: tt8,
+      unbreakable: true
+    }
+    content.push(temp_stack8)
 
     // SIGNATURE PURCHASER - STARTS
       let new_purchaser_signature = {}
@@ -161,7 +268,14 @@ router.post("/otp_landing", (req, res) => {
       if (data.purchaserCheck3 === true) {
         new_purchaser_signature = part_74_signature_purchaser_trust
       }
-      content.push(new_purchaser_signature)
+      var tt9 = []
+      tt9.push(part_70_purchaser_heading)
+      tt9.push(new_purchaser_signature)
+      var temp_stack9 = {
+        stack: tt9,
+        unbreakable: true
+      }
+      content.push(temp_stack9)
     // SIGNATURE PURCHASER - ENDS
 
     // SIGNATURE SELLER - STARTS
@@ -179,16 +293,29 @@ router.post("/otp_landing", (req, res) => {
       if (data.defaultCheck3 === true) {
         new_seller_signature = part_84_signature_seller_trust
       }
-      content.push(new_seller_signature)
+      var tt10 = []
+      tt10.push(part_80_seller_heading)
+      tt10.push(new_seller_signature)
+      var temp_stack10 = {
+        stack: tt10,
+        unbreakable: true
+      }
+      content.push(temp_stack10)
     // SIGNATURE SELLER - ENDS
 
     // DEFINITIONS - STARTS
+    var definitions_heading = {pageBreak: 'before', text: "Terms and Conditions of Agreement of Purchase and Sale", style: "header0" }
+    var tt11 = []
+    tt11.push(definitions_heading)
     if (data.agentInvolved === "No"){
-      content.push(part_9_definitians_withoutEsateAgent)
+      tt11.push(part_9_definitians_withoutEsateAgent)
      } else {
-      content.push(part_9_definitians)
+      tt11.push(part_9_definitians)
     }
-
+    var temp_stack11 = {
+      stack: tt11,
+    }
+    content.push(temp_stack11)
     // DEFINITIONS - ENDS
 
     // SPECIAL CONDITIONS - Start
@@ -201,12 +328,12 @@ router.post("/otp_landing", (req, res) => {
 
     content.push(part_10_specialConditions)
     // SPECIAL CONDITIONS - Ends
-
     // SIGNATURE PURCHASER FINAL- STARTS
       let new_purchaser_signature1 = {}
       if (data.purchaserCheck1 === true) {
         if(data.numPurchasers === "One"){
-          new_purchaser_signature1 = part_71_signature_purchaser_one
+
+          new_purchaser_signature1 =   part_71_signature_purchaser_one
         } else {
           new_purchaser_signature1 = part_72_signature_purchaser_two
         }
@@ -217,6 +344,7 @@ router.post("/otp_landing", (req, res) => {
       if (data.purchaserCheck3 === true) {
         new_purchaser_signature1 = part_74_signature_purchaser_trust
       }
+
       content.push(new_purchaser_signature1)
     // SIGNATURE PURCHASER FINAL- ENDS
 
@@ -242,7 +370,7 @@ router.post("/otp_landing", (req, res) => {
 
     test1['content'] = content
 
-    // Change data into a string to make the cahnges
+    // Change data into a string to make the changes
     var docDefinition = test1;
     let string_object = JSON.stringify(docDefinition)
 
@@ -264,7 +392,6 @@ router.post("/otp_landing", (req, res) => {
      obj['docDefinition'] = replacedBack
      resolve(obj);
   }).then(function(obj) {
-    console.log("inside FIRST .THEN")
        // uses data to create the PDF - STARTS
          // var pdfDoc = printer.createPdfKitDocument(obj.docDefinition);
          // pdfDoc.pipe(fs.createWriteStream('document-new.pdf'));
@@ -381,7 +508,7 @@ const otp_master = {
 			fontSize: 12,
 		},
     signed: {
-			fontSize: 12,
+			fontSize: 10,
 			alignment: "justify",
 		},
 		header2: {
@@ -389,10 +516,22 @@ const otp_master = {
 			bold: true,
 			decoration: "underline",
 		},
-		parEnd: {
+    header3: {
+    alignment: "center",
+    fontSize: 16,
+    bold: true,
+  },
+  header4: {
+    fontSize: 10,
+    bold: true,
+  },
+  		parEnd: {
 			margin: [0, 0, 0, 15],
 			alignment: "justify",
 		},
+    justify: {
+    alignment: "justify",
+  },
     parSpaceAfter: {
 			margin: [0, 0, 0, 15],
 		},
@@ -410,371 +549,323 @@ const otp_master = {
 		},
 	},
 	defaultStyle: {
-		columnGap: 10,
+		columnGap: 0,
+    fontSize: 10,
 	},
 };
 //{text:"", style: "parSpaceAfter"}
-var part_1_heading = { text: "Agreement of Purchase and sale", style: "header0" }
-var part_21_seller_basic = {
+var insertSpace =  {text:'\n'}
+var part_1_heading = { text: "Agreement of Purchase and Sale", style: "header0" }
+var part_20_seller_heading = {
   table: {
     widths: [34, '*'],
     body: [
-      ["",{ text: "Seller", border: [false, false, false, false]}],
-
-]},
-  table: {
-    widths: [34, 119, 118, 119, 118],
+      [{text:'',border: [false, false, false, false]}, {margin: [-5,0,0,0],text:'Seller',border: [false, false, false, true]}, ],
+]}
+}
+var part_21_seller_basic = {
+    table: {
+    widths: [34, 90, 134, 90, 134],
     body: [
-      ["1.", "Seller:", { text: "sellerName1", colSpan: 3 }, "", ""],
+      ["", "", {text: "" }, "", ""],
+      ["1.1", "Name:", {style: 'bold', text: "sellerName1 sellerSurname1" }, "", ""],
       ["", {text: "asdf___saresident___asdf", colSpan: 4 }, "", "", ""],
-      ["", "Identity Number:", { text: "sellerIdNumber1", colSpan: 3 }, "", ""],
-      ["2.", "Physical Address:", { text: "sellerPhysicalAddress", colSpan: 3 }, "", ""],
-      ["", "Cell No.", "sellerCellphoneNumber", "Email:", "sellerEmailAddress"],
-      ["", "Phone No.", "sellerPhoneNumber", "Fax No:", {text:"sellerFaxNumber", style: "parSpaceAfter"}],
-]},
-layout: "noBorders",
+      ["", "", {text: "" }, "", ""],
+      ["1.2", "Identity Number:", { style: 'bold',text: "sellerIdNumber1" }, "", ""],
+      ["", "", {text: "" }, "", ""],
+      ["1.3", "Physical Address:", { style: 'bold',text: "sellerPhysicalAddress", colSpan: 3 }, "", ""],
+      ["", "", {text: "" }, "", ""],
+      ["1.4", "Cell No:", { style: 'bold',text: "sellerCellphoneNumber"}, "Email:", { style: 'bold',text:"sellerEmailAddress"}],
+      ["", "", {text: "" }, "", ""],
+      ["", "Phone No:", { style: 'bold',text: "sellerPhoneNumber"}, "Fax No:", {style: 'bold',text:"sellerFaxNumber",}],
+    ]}, layout: "noBorders",
 }
 var part_22_seller_spouse = {
   table: {
-    widths: [34, 119, 118, 119, 118],
+    widths: [34, 90, 134, 90, 134],
     body: [
-      ["1.", "Seller 1:", { text: "sellerName1 sellerSurname1", colSpan: 1 }, "Seller 2:", "sellerName2 sellerSurname2"],
+      ["", "", {text: "" }, "", ""],
+        ["1.", "Seller 1:", {style: 'bold', text: "sellerName1 sellerSurname1", colSpan: 1 }, "Seller 2:", {style: 'bold', text:"sellerName2 sellerSurname2"}],
       ["", {text: "asdf___saresident___asdf", colSpan: 4 }, "", "", ""],
-      ["", "Identity Number:", { text: "sellerIdNumber1", colSpan: 1 }, "Identity Number:", "sellerIdNumber2"],
-      ["2.", "Physical Address:", { text: "sellerPhysicalAddress", colSpan: 3 }, "", ""],
-      ["", "Cell No.", "sellerCellphoneNumber", "Email:", "sellerEmailAddress"],
-      ["", "Phone No.", "sellerPhoneNumbe", "Fax No:", {text:"sellerFaxNumber", style: "parSpaceAfter"}],
+      ["", "", {text: "" }, "", ""],
+      ["1.2", "Identity Number:", { style: 'bold',text: "sellerIdNumber1" }, "Identity Number:", { style: 'bold',text:"sellerIdNumber2"}],
+      ["", "", {text: "" }, "", ""],
+      ["1.3", "Physical Address:", { style: 'bold',text: "sellerPhysicalAddress", colSpan: 3 }, "", ""],
+      ["", "", {text: "" }, "", ""],
+      ["1.4", "Cell No:", { style: 'bold',text: "sellerCellphoneNumber"}, "Email:", { style: 'bold',text:"sellerEmailAddress"}],
+      ["", "", {text: "" }, "", ""],
+      ["", "Phone No:", { style: 'bold',text: "sellerPhoneNumber"}, "Fax No:", {style: 'bold',text:"sellerFaxNumber",}],
 ]},
 layout: "noBorders",
 }
 var part_23_seller_company = {
   table: {
-    widths: [34, 119, 118, 119, 118],
+    widths: [34,100, 124, 70, 124],
     body: [
-      ["1.", "Seller:", { text: "sellerCompanyName", colSpan: 3 }, "", ""],
-      ["", "Registration Number:", { text: "sellerCompanyRegistrationNumber", colSpan: 3 }, "", ""],
-       ["", "Representative Name:", { text: "sellerCompanyRepresentativeName", colSpan: 3 }, "", ""],
-      ["2.", "Physical Address:", { text: "sellerCompanyPhysicalAddress", colSpan: 3 }, "", ""],
-      ["", "Cell No.", "sellerCompanyCellphoneNumber", "Email:", "sellerCompanyEmail"],
-      ["", "Phone No.", "sellerCompanyPhoneNumber", "Fax No:", {text:"sellerCompanyFaxNumber", style: "parSpaceAfter"}],
+      ["", "", {text: "" }, "", ""],
+      ["1.1", "Seller:", { style: 'bold',text: "sellerCompanyName", }, "Registration Number:", { style: 'bold',text: "sellerCompanyRegistrationNumber",}],
+      ["", "", {text: "" }, "", ""],
+      ["1.2", "Representative Name:", {style: 'bold', text: "sellerCompanyRepresentativeName", colSpan: 3 }, "", ""],
+      ["", "", {text: "" }, "", ""],
+      ["1.3", "Physical Address:", { style: 'bold',text: "sellerCompanyPhysicalAddress", colSpan: 3 }, "", ""],
+      ["", "", {text: "" }, "", ""],
+      ["", "Cell No:", { style: 'bold',text:"sellerCompanyCellphoneNumber"}, "Email:", { style: 'bold',text:"sellerCompanyEmail"}],
+      ["", "", {text: "" }, "", ""],
+      ["", "Phone No:", { style: 'bold',text:"sellerCompanyPhoneNumber"}, "Fax No:", {style: 'bold',text:"sellerCompanyFaxNumber",}],
 ]},
 layout: "noBorders",
 }
 var part_24_seller_trust = {
   table: {
-    widths: [34, 119, 118, 119, 118],
+    widths: [34, 95, 134, 95, '*'],
     body: [
-      ["1.", "Seller:", { text: "sellerTrustName", colSpan: 3 }, "", ""],
-      ["", "Registration Number:", { text: "sellerTrustRegistrationNumber", colSpan: 3 }, "", ""],
-       ["", "Trustee Name:", { text: "sellerTrustRepresentativeName", colSpan: 3 }, "", ""],
-      ["2.", "Physical Address:", { text: "sellerTrustPhysicalAddress", colSpan: 3 }, "", ""],
-      ["", "Cell No.", "sellerTrustCellphoneNumber", "Email:", "sellerTrustEmail"],
-      ["", "Phone No.", "sellerTrustPhoneNumberF", "Fax No:", {text:"sellerTrustFaxNumber", style:"parSpaceAfter"}],
+      ["", "", {text: "" }, "", ""],
+      ["1.1", "Seller:", { style: 'bold',text: "sellerTrustName",  }, "Registration Number:", { style: 'bold',text: "sellerTrustRegistrationNumber"}],
+      ["", "", {text: "" }, "", ""],
+       ["1.2", "Trustee Name:", { style: 'bold',text: "sellerTrustRepresentativeName", colSpan: 3 }, "", ""],
+       ["", "", {text: "" }, "", ""],
+      ["1.3", "Physical Address:", { style: 'bold',text: "sellerTrustPhysicalAddress", colSpan: 3 }, "", ""],
+      ["", "", {text: "" }, "", ""],
+      ["1.4", "Cell No:", {style: 'bold',text:"sellerTrustCellphoneNumber"}, "Email:", {style: 'bold',text:"sellerTrustEmail"}],
+      ["", "", {text: "" }, "", ""],
+      ["", "Phone No:", {style: 'bold',text:"sellerTrustPhoneNumberF"}, "Fax No:", {style: 'bold',text:"sellerTrustFaxNumber",}],
 ]},
 layout: "noBorders",
 }
+
+var part_30_purchaser_heading = {
+  table: {
+    widths: [34, '*'],
+    body: [
+      [{text:'',border: [false, false, false,false]}, {margin: [-5,0,0,0],text:'Purchaser',border: [false, false, false, true]}, ],
+]}
+}
 var part_31_purchaser_one = {
 table: {
-widths: [34, 119, 118, 119, 118],
-body: [
-          ["3.", "Purchaser:", { text: "purchaserName1 purchaserSurname1", colSpan: 3 }, "", ""],
-					[
-						"",
-						{ text: "Identity Number:" },
-						{ text: "purchaserIdNumber1", colSpan: 3 },
-						"",
-						"",
-					],
-					["4.", "Physical Address:", { text: "purchaserPhysicalAddress", colSpan: 3 }, "", ""],
-					["", "Cell No.", "purchaserCellphoneNumber", "Email:", "purchaserEmailAddress"],
-					["", "Phone No.", "purchaserPhoneNumber", "Fax No:", {text:"purchaserFaxNumber", style: "parSpaceAfter"}],
+widths: [34, 90, 134, 90, 134],
+body: [   ["", "", {text: "" }, "", ""],
+          ["2.1", "Purchaser:", { style: 'bold',text: "purchaserName1 purchaserSurname1", colSpan: 3 }, "", ""],
+          ["", "", {text: "" }, "", ""],
+					[	"2.2",	{ text: "Identity Number:" },	{ style: 'bold',text: "purchaserIdNumber1", colSpan: 3 },	"",	"",	],
+          ["", "", {text: "" }, "", ""],
+					["2.3", "Physical Address:", { style: 'bold',text: "purchaserPhysicalAddress", colSpan: 3 }, "", ""],
+          ["", "", {text: "" }, "", ""],
+					["2.4", "Cell No.", { style: 'bold',text: "purchaserCellphoneNumber"}, "Email:", { style: 'bold',text: "purchaserEmailAddress"}],
+          ["", "", {text: "" }, "", ""],
+					["", "Phone No.", { style: 'bold',text: "purchaserPhoneNumber"}, "Fax No:", {text:"purchaserFaxNumber", style: "bold"}],
   ]},
   layout: "noBorders",
   }
 var part_32_purchaser_two = {
 table: {
-widths: [34, 119, 118, 119, 118],
+widths: [34, 90, 134, 90, 134],
 body: [
-          ["3.", "Purchaser1:", { text: "purchaserName1 purchaserSurname1", colSpan: 1 }, "Purchaser2:", "purchaserName2 purchaserSurname2"],
-					[
-						"",
-						{ text: "Identity Number:" },
-						{ text: "purchaserIdNumber1", colSpan: 1 },
-						"Identity Number:",
-						"purchaserIdNumber2",
-					],
-					["4.", "Physical Address:", { text: "purchaserPhysicalAddress", colSpan: 3 }, "", ""],
-					["", "Cell No.", "purchaserCellphoneNumber", "Email:", "purchaserEmailAddress"],
-					["", "Phone No.", "purchaserPhoneNumber", "Fax No:", {text:"purchaserFaxNumber", style: "parSpaceAfter"}],
+   ["", "", {text: "" }, "", ""],
+   ["2.1", "Purchaser1:", { style: 'bold',text: "purchaserName1 purchaserSurname1", colSpan: 1 }, "Purchaser2:", { style: 'bold',text: "purchaserName2 purchaserSurname2"}],
+	 ["", "", {text: "" }, "", ""],
+	 ["2.2",{ text: "Identity Number:" },{ style: 'bold',text: "purchaserIdNumber1", colSpan: 1 },"Identity Number:",{ style: 'bold',text: "purchaserIdNumber2"},],
+	 ["", "", {text: "" }, "", ""],
+	 ["2.3", "Physical Address:", { style: 'bold',text: "purchaserPhysicalAddress", colSpan: 3 }, "", ""],
+	 ["", "", {text: "" }, "", ""],
+	 ["2.4", "Cell No:", { style: 'bold',text: "purchaserCellphoneNumber"}, "Email:", { style: 'bold',text: "purchaserEmailAddress"}],
+	 ["", "", {text: "" }, "", ""],
+	 ["", "Phone No:", { style: 'bold',text: "purchaserPhoneNumber"}, "Fax No:", {text:"purchaserFaxNumber", style: "bold"}],
+	 ["", "", {text: "" }, "", ""],
   ]},
   layout: "noBorders",
-  }
+}
 var part_33_purchaser_company = {
 table: {
-widths: [34, 119, 118, 119, 118],
-body: [
-          ["3.", "Purchaser:", { text: "purchaserCompanyName", colSpan: 3 }, "", ""],
-					[
-						"",
-						{ text: "Registration Number:" },
-						{ text: "purchaserCompanyRegistrationNumber", colSpan: 3 },
-						"",
-						"",
-					],
-						[
-						"",
-						{ text: "Reprasentative Name:" },
-						{ text: "purchaserCompanyRepresentativeName", colSpan: 3 },
-						"",
-						"",
-					],
-					["4.", "Physical Address:", { text: "purchaserCompanyPhysicalAddress", colSpan: 3 }, "", ""],
-					["", "Cell No.", "purchaserCompanyCellphoneNumber", "Email:", "purchaserCompanyEmail"],
-					["", "Phone No.", "purchaserCompanyPhoneNumber", "Fax No:", {text:"purchaserCompanyFaxNumber", style: "parSpaceAfter"}],
+widths: [34, 95, 134, 74, 134],
+body: [   ["", "", {text: "" }, "", ""],
+          ["2.1", "Purchaser:", {style: 'bold', text: "purchaserCompanyName" }, { text: "Registration Number:" }, {style: 'bold', text: "purchaserCompanyRegistrationNumber" }],
+          ["", "", {text: "" }, "", ""],
+					["2.2",{ text: "Representative Name:" },	{style: 'bold', text: "purchaserCompanyRepresentativeName", colSpan: 3 },	"",	"",	],
+          ["", "", {text: "" }, "", ""],
+					["2.3", "Physical Address:", {style: 'bold', text: "purchaserCompanyPhysicalAddress", colSpan: 3 }, "", ""],
+          ["", "", {text: "" }, "", ""],
+					["2.4", "Cell No.", {style: "bold",text:"purchaserCompanyCellphoneNumber"}, "Email:", {style: "bold",text:"purchaserCompanyEmail"}],
+          ["", "", {text: "" }, "", ""],
+					["", "Phone No.", {style: "bold",text:"purchaserCompanyPhoneNumber"}, "Fax No:", {style: "bold",text:"purchaserCompanyFaxNumber"}],
   ]},
   layout: "noBorders",
   }
 var part_34_purchaser_trust =   {
 table: {
-widths: [34, 119, 118, 119, 118],
-body: [
-          ["3.", "Purchaser:", { text: "purchaserTrustName", colSpan: 3 }, "", ""],
-					[
-						"",
-						{ text: "Trust Number:" },
-						{ text: "purchaserTrustRegistrationNumber", colSpan: 3 },
-						"",
-						"",
-					],
-						[
-						"",
-						{ text: "Trustee Name:" },
-						{ text: "purchaserTrustRepresentativeName", colSpan: 3 },
-						"",
-						"",
-					],
-					["4.", "Physical Address:", { text: "purchaserTrustPhysicalAddress", colSpan: 3 }, "", ""],
-					["", "Cell No.", "purchaserTrustCellphoneNumber", "Email:", "purchaserTrustEmail"],
-					["", "Phone No.", "purchaserTrustPhoneNumber", "Fax No:", {text:"purchaserTrustFaxNumber", style: "parSpaceAfter"}],
+widths: [34, 95, 134, 95, '*'],
+body: [   ["", "", {text: "" }, "", ""],
+          ["2.1", "Purchaser:", {style: 'bold', text: "purchaserTrustName"}, { text: "Trust Number:" }, {style: 'bold', text: "purchaserTrustRegistrationNumber"}],
+          ["", "", {text: "" }, "", ""],
+					["2.2",{ text: "Trustee Name:" },{ style: 'bold',text: "purchaserTrustRepresentativeName", colSpan: 3 },	"",	"",],
+          ["", "", {text: "" }, "", ""],
+					["2.3", "Physical Address:", {style: 'bold', text: "purchaserTrustPhysicalAddress", colSpan: 3 }, "", ""],
+          ["", "", {text: "" }, "", ""],
+					["2.4", "Cell No.", { style: 'bold',text: "purchaserTrustCellphoneNumber"}, "Email:", { style: 'bold',text: "purchaserTrustEmail"}],
+          ["", "", {text: "" }, "", ""],
+					["", "Phone No.", { style: 'bold',text: "purchaserTrustPhoneNumber"}, "Fax No:", {text:"purchaserTrustFaxNumber", style: "bold"}],
   ]},
   layout: "noBorders",
   }
-var part_41_property_freehold_withAgent = {
-table: {
-  widths: [34, 119, 118, 119, 118],
+
+// Property - Freehold
+var part_41A_proptery_heading = {
+  table: {
+    widths: [34, '*'],
+    body: [
+      [{text:'',border: [false, false, false,false]}, {margin: [-5,0,0,0],text:'Property Description ( Freehold )',border: [false, false, false, true]}, ],
+]}
+}
+var part_41A_proptery = {
+   table: {
+  widths: [34, 90, 125, 90, 125],
   body: [
+        ["", "", {text: "" }, "", ""],
+        ["3.1.",{ text: "Address:", colSpan: 1 },{ style: 'bold',text: "propertyFreeholdAddress", colSpan: 2 },"",	"",	],
+        ["", "", {text: "" }, "", ""],
+        ["3.2", { text: "Erf Number:", colSpan: 1 },{ style: 'bold',text: "propertyFreeholdErfNumber"},"Situated at:",{ style: 'bold',text: "propertyFreeholdSituatedAt"}],
+        ["", "", {text: "" }, "", ""],
+        ["3.3", { text: "Approximate Extent:", colSpan: 1 }, {style: 'bold',text:"propertyFreeholdExtent"}, "", "", ],
+         ],
+    },
+    layout: "noBorders",
+}
 
+// Property - SECTIONAL TITLE
+var part_42A_proptery_heading = {
+  table: {
+    widths: [34, '*'],
+    body: [
+      [{text:'',border: [false, false, false,false]}, {margin: [-5,0,0,0],text:'Property Description ( Sectional Title )',border: [false, false, false, true]}, ],
+]}
+}
+var part_42A_proptery = {
+      table: {
+      widths: [34, 145, 75, 145, '*'],
+      body: [
+            ["", "", {text: "" }, "", ""],
+            ["3.1.",{ text: "Property Address:", colSpan: 1 },{ style: 'bold',text: "propertySTAddress", colSpan: 2 },"",	"",	],
+            ["", "", {text: "" }, "", ""],
+            ["3.2.1",{ text: "Sectional Title Number:", colSpan: 1 }, { style: 'bold',text: "propertySTSectionNumber"}, { text: "Door Number:"},{ style: 'bold',text: "propertySTDoorNumber"}],
+            ["", "", {text: "" }, "", ""],
+            ["3.2.2",{ text: "Approximate Estent:"},{ style: 'bold',text: "propertySTArea"}, { text: "Sectional Plan Number:"}, { style: 'bold',text: "propertySTPlanNumber"}],
+            ["", "", {text: "" }, "", ""],
+            ["3.2.3",{ text: "Monthly Levy:"}, { style: 'bold',text: "propertySTMonthlyLevy"}, "",''],
+            ["", "", {text: "" }, "", ""],
+            ["3.2.4", { text: "Body Corporate Rules Attached?" },  {style: 'bold',text: "propertySTBCRulesAttached"}, {text: "Can the scheme be extended?"},  { style: 'bold',text: "propertySTRightToExtend"}],
+            ["", "", {text: "" }, "", ""],
+            ["3.3.1",{ text: "Exclusive Use Area 1:"},{ style: 'bold',text: "propertySTeuaType1"},"EUA Number:",{ style: 'bold',text: "propertySTeuaNum1"},],
+            ["", "", {text: "" }, "", ""],
+            ["",{text: "EUA Area:"},{ style: 'bold',text: "propertySTeuaArea1"}, "","",],
+            ["", "", {text: "" }, "", ""],
+            ["3.3.2", { text: "Exclusive Use Area 2:"}, { style: 'bold',text: "propertySTeuaType2"}, "EUA Number:", { style: 'bold',text: "propertySTeuaNum2"},],
+            ["", "", {text: "" }, "", ""],
+            ["",{ text: "EUA Area:"}, { style: 'bold',text: "propertySTeuaArea2"}, "","", ],
+            ["", "", {text: "" }, "", ""],
+            ["3.4",{ text: "Any Special Levy Due:"}, { style: 'bold',text: "propertySTLevyDue"}, "Amount:", { style: 'bold',text: "propertySTLevyDue"}, ],
+            ["", "", {text: "" }, "", ""],
+            ["3.5", { style:"justify",text: "an undivided share in the common property in the land and buildings as shown and more fully described in the said Plan apportioned to the said Section in accordance with the participation quota designated thereto.", colSpan: 4 },"", "", "", ],
+            ["", "", {text: "" }, "", ""],
+            ["3.6",{text: "asdf___optionAorB___asdf", colSpan: 4 }, "", "", "", ],
+          ],
+        },
+        layout: "noBorders",
+      }
 
-        [
-          "5.",
-          { text: "Freehold", colSpan: 4 },
-          "",
-          "",
-          "",
-        ],
-        [	"6.",{ text: "Property Address:", colSpan: 1 },{ text: "propertyFreeholdAddress", colSpan: 2 },"",	"",	],
-         [
-          "",
-          { text: "Erf Number", colSpan: 1 },
-          "propertyFreeholdErfNumber",
-          "Situated at:",
-          "propertyFreeholdSituatedAt",
-        ],
-         [
-          "",
-          { text: "Approximate Estent:", colSpan: 1 },
-          {text:"propertyFreeholdExtent", style: "parSpaceAfter"},
-          "",
-          "",
-        ],
-        ["7.", "Purchase Price:", "R purchasePrice", { text: "(inclusive of VAT if applicable)", colSpan: 2 }, ""],
+var part_41B_price_heading = {
+  table: {
+    widths: [34, '*'],
+    body: [
+      [{text:'',border: [false, false, false,false]}, {margin: [-5,0,0,0],text:'Price',border: [false, false, false, true]}, ],
+]}
+}
+var part_41B_price = {
+table: {
+  widths: [34, 195, 80, 85, 88],
+  body: [
+        ["", "", {text: "" }, "", ""],
+        ["4.1", "Purchase Price:",  { style: 'bold', text: "R purchasePrice  (inclusive of VAT if applicable)", colSpan: 3 },"", ""],
+        ["", "", {text: "" }, "", ""],
+        ["4.2", "Deposit Amount:", { style: 'bold', text:"R depositAmount"}, "Date Payable:", { style: 'bold', text:"depositDatePayable"}],
+        ["", "", {text: "" }, "", ""],
+        ["4.3", "Loan Amount:", { style: 'bold', text:"R loanAmount"}, "Date Approved:", { style: 'bold', text:"loanDatePayable"}],
+        ["", "", {text: "" }, "", ""],
+        ["4.4", "Cash Amount", { style: 'bold', text:"R cashAmount"},"Date Payable:", { style: 'bold', text:"cashDatePayable",}],
+        ["", "", {text: "" }, "", ""],
+        ["4.5",{text: "Proceeds from sale of Purchasers property:"},{ style: 'bold', text:"R proceedsFromSaleOfPurchaserPropertyAmount"},{text: "Last Date of sale:"},{ style: 'bold', text:"saleOfPropertyLastDateOfSale",}],
+        ["", "", {text: "" }, "", ""],
+        ["4.6",{ text: "Description of property to be sold:" },{style: 'bold', text: "propertyToBeSoldDescription", colSpan: 3,},'',"",],
+ ],
+    },
+    layout: "noBorders",
+  }
 
-        ["8.", "Deposit Amount:", "R depositAmount", "Date Payable:", "depositDatePayable"],
-        ["9.", "Loan Amount:", "R loanAmount", "Date Approved:", "loanDatePayable"],
-        ["10.", "Cash Amount", "R cashAmount","Date Payable:", "cashDatePayable",],
-        ["11.1",{text: "Proceeds from sale of Purchasers property:",colSpan: 3,},"","","R proceedsFromSaleOfPurchaserPropertyAmount",],
-        ["11.2",{text: "Date by which property must be sold:",colSpan: 3,},"","","saleOfPropertyLastDateOfSale",],
-        ["12.",{ text: "Description of property to be sold:", colSpan: 2 },'',{ style: "parSpaceAfter",text: "propertyToBeSoldDescription", colSpan: 2 },"",],
-        ["13.1", "Occupation Date:", { text: "occupationDate", colSpan: 3 }, "", ""],
-        ["13.2", "Occupational Rent:", { text: "occupationalRent", colSpan: 3 }, "", ""],
-        ["13.3", "Posession Date:", { text: "possessionDate", colSpan: 3 }, "", ""],
-        ["14.", "Agency:", "agencyName", "Agent:", "agentName"],
-        ["15.", { text: "Commission Persentage", colSpan: 2 }, "", "commissionPercentage", ""],
-        ["16.", "Conveyancer:", "conveyancerName", "Tel No:", "conveyancerTelNumber"],
-        ["17.1",{text: "Fixtures/fittings included, refer to clause 32:",colSpan: 4,},"",	"","",],
+var part_41C_occupation_heading = {
+  table: {
+    widths: [34, '*'],
+    body: [
+      [{text:'',border: [false, false, false,false]}, {margin: [-5,0,0,0],text:'Occupation and Posession',border: [false, false, false, true]}, ],
+]}
+}
+var part_41C_occupation = {
+table: {
+  widths: [34, 120, 100, 120, 100],
+  body: [
+        ["", "", {text: "" }, "", ""],
+        ["5.1", "Occupation Date:", {style: "bold", text: "occupationDate"}, "Occupational Rent:", { style: "bold",text: "R occupationalRent"}],
+        ["", "", {text: "" }, "", ""],
+        ["5.2", "Posession Date:", {style: "bold", text: "possessionDate", colSpan: 3}, "", ""],
+        ],
+    },
+    layout: "noBorders",
+  }
+
+var part_41D_agent_heading = {
+  table: {
+    widths: [34, '*'],
+    body: [
+      [{text:'',border: [false, false, false,false]}, {margin: [-5,0,0,0],text:'Estate Agent and Conveyancer',border: [false, false, false, true]}, ],
+]}
+}
+var part_41D_agent = {
+table: {
+  widths: [34, 120, 100, 120, 100],
+  body: [
+        ["", "", {text: "" }, "", ""],
+        ["6.1", "Agency:", {style: "bold", text: "agencyName"}, "Agent:", {style: "bold", text: "agentName"}],
+        ["", "", {text: "" }, "", ""],
+        ["6.2", { text: "Commission Percentage", }, {style: "bold", text: "commissionPercentage %"}, "", ""],
+        ["", "", {text: "" }, "", ""],
+        ["6.3", "Conveyancer:", {style: "bold", text: "conveyancerName"}, "Tel No:", {style: "bold", text: "conveyancerTelNumber"}],
+        ],
+    },
+    layout: "noBorders",
+  }
+
+var part_41E_fixtures_heading = {
+  table: {
+    widths: [34, '*'],
+    body: [
+      [{text:'',border: [false, false, false,false]}, {margin: [-5,0,0,0],text:'Fixtures and Fittings',border: [false, false, false, true]}, ],
+]}
+}
+var part_41E_fixtures =  {
+table: {
+  widths: [34, 120, 100, 100, 100],
+  body: [
+        ["", "", {text: "" }, "", ""],
+        ["7.1",{text: "Fixtures/fittings included, refer to clause 32:",colSpan: 4,},"",	"","",],
       ],
     },
     layout: "noBorders",
   }
-var part_42_property_sectionalTitle_withAgent = {
-table: {
-  widths: [34, 119, 118, 119, 118],
-  body: [
 
-        [	"5.",{ text: "Property Address:", colSpan: 1 },{ text: "propertySTAddress", colSpan: 2 },"",	"",	],
-        [
-          "6.",
-          { text: "Sectional Title", colSpan: 4 },
-          "",
-          "",
-          "",
-        ],
-         [
-          "6.1.1",
-          { text: "Sectional Title Number:", colSpan: 2 },
-          "",
-          "propertySTAddress",
-          "",
-        ],
-        [
-          "6.1.2",
-          { text: "Door Number:", colSpan: 2 },
-          "",
-          "propertySTDoorNumber",
-          "",
-        ],
-         [
-          "6.1.3",
-          { text: "Approximate Estent:", colSpan: 2 },
-          "",
-          "propertySTArea",
-          "",
-        ],
-        [
-          "6.1.4",
-          { text: "Sectional Plan Numnber:", colSpan: 2 },
-          "",
-          "propertySTPlanNumber",
-          "",
-        ],
-        [
-          "6.1.5",
-          { text: "Monthly Levy:", colSpan: 2 },
-          "",
-          "propertySTMonthlyLevy",
-          "",
-        ],
-        [
-          "6.1.6",
-          { text: "Body Corporate Rules Attached?", colSpan: 2 },
-          "",
-          "propertySTBCRulesAttached",
-          "",
-        ],
-        [
-          "",
-          { text: "Can the scheme be extended?", colSpan: 2 },
-          "",
-          "propertySTRightToExtend",
-          "",
-        ],
-        [
-          "6.2.1",
-          { text: "Exclusive Use Area 1:", colSpan: 1 },
-          "propertySTeuaType1",
-          "EUA Number",
-          "propertySTeuaNum1",
-        ],
-        [
-          "",
-          { text: "EUA Area", colSpan: 1 },
-          "propertySTeuaArea1",
-          "",
-          "",
-        ],
-         [
-          "6.2.2",
-          { text: "Exclusive Use Area 2:", colSpan: 1 },
-          "propertySTeuaType2",
-          "EUA Number",
-          "propertySTeuaNum2",
-        ],
-        [
-          "",
-          { text: "EUA Area", colSpan: 1 },
-          "propertySTeuaArea2",
-          "",
-          "",
-        ],
-        [
-          "6.3",
-          { text: "Any Special Levy Due?", colSpan: 1 },
-          "propertySTLevyDue",
-          "Special Levy Amount",
-          "propertySTLevyDue",
-        ],
-         [
-          "6.4",
-          { text: "an undivided share in the common property in the land and buildings as shown and more fully described in the said Plan apportioned to the said Section in accordance with the participation quota designated thereto.", colSpan: 4 },
-          "",
-          "",
-          "",
-        ],
-        [
-          "6.5",
-          { style:"parSpaceAfter",text: "asdf___optionAorB___asdf", colSpan: 4 },
-          "",
-          "",
-          "",
-        ],
-        ["7.", "Purchase Price:", "R purchasePrice", { text: "(inclusive of VAT if applicable)", colSpan: 2 }, ""],
 
-        ["8.", "Deposit Amount:", "R depositAmount", "Date Payable:", "depositDatePayable"],
-
-        ["9.", "Loan Amount:", "loanAmount", "Date Approved:", "loanDatePayable"],
-        [
-          "10.1",
-          {
-            text: "Purchasers property to be sold / has been sold:",
-            colSpan: 3,
-          },
-          "",
-          "",
-          "proceedsFromSaleOfPurchaserPropertyAmount",
-        ],
-         [
-          "10.2",
-          {
-            text: "Date by which property must be sold:",
-            colSpan: 3,
-          },
-          "",
-          "",
-          "saleOfPropertyLastDateOfSale",
-        ],
-        [
-          "11.",
-          { text: "Cash Amount", colSpan: 1 },
-          "R cashAmount",
-          "Date Payable:",
-          "cashDatePayable",
-        ],
-        [
-          "12.",
-          { text: "Description of property to be sold:", colSpan: 2 },
-          '',
-         { style:"parSpaceAfter",text: "propertyToBeSoldDescription", colSpan: 2 },
-          "",
-
-        ],
-        ["13.1", "Occupation Date:", { text: "occupationDate", colSpan: 3 }, "", ""],
-        ["13.2", "Occupational Rent:", { text: "occupationalRent", colSpan: 3 }, "", ""],
-        ["13.3", "Posession Date:", { style:"parSpaceAfter",text: "possessionDate", colSpan: 3 }, "", ""],
-        ["14.", "Agency:", "agencyName", "Agent:", "agentName"],
-        ["15.", { style:"parSpaceAfter",text: "Commission Persentage", colSpan: 2 }, "", "commissionPercentage", ""],
-        ["16.", "Conveyancer:", "conveyancerName", "Tel No:", {text:"conveyancerTelNumber", style:'parSpaceAfter'}],
-        ["17.1",{text: "Fixtures/fittings included, refer to clause 32:",colSpan: 4,},"",	"","",],
-
-      ],
-    },
-    layout: "noBorders",
-  }
 var part_5_fixtures =  {
 table: {
   widths: [34, "*"],
   body: [
         [
-          "17.2",
+          "7.2",
           { text: "Fixtures/fittings excluded:", },
         ],
         [
@@ -789,28 +880,78 @@ table: {
     },
     layout: "noBorders",
   }
-var part_6_condtition =   {
+
+var part_6_condtitionA_heading = {
+  table: {
+    widths: [34, '*'],
+    body: [
+      [{text:'',border: [false, false, false,false]}, {margin: [-5,0,0,0],text:'Acceptance Period',border: [false, false, false, true]}, ],
+]}
+}
+var part_6_condtitionA = {
     table: {
       widths: [34, "*"],
       body: [
-        ["18", { style: "header2", text: "ACCEPTANCE PERIOD" }],
-        ["",{style: "parEnd", text:"The first signature to this agreement shall constitute an irrevocable offer, which may not be withdrawn prior to presentation to the Seller or the Purchaser, which ever the case may be, and which thereafter shall remain available for acceptance until acceptanceTime on acceptanceDate whereafter it shall lapse and be of no further force and effect.",},],
-        ["19", { style: "header2", text: "SIGNATURE IN COUNTERPARTS" }],
-        ["",{style: "parEnd", text:"This Offer to Purchase may be signed in separate counterparts, each of which shall be deemed to be an original and all of which, taken together, shall constitute one and the same instrument. A counterpart of this Offer to Purchase in telefax form or a scanned document via email shall be conclusive evidence of the original signature and shall be as effective in law as the counterparts in original form showing the original signatures.",},],
-        ["20", { style: "header2", text: "ACCEPTANCE OF OFFER" }],
-        ["",{style: "parEnd", text:"The parties acknowledge that the signature by the first signing of the parties shall constitute an offer in favour of the other party to enter into this Agreement upon the terms and conditions recorded in The Schedule, in the Special Conditions (if any) and in Annexure “A”, which shall remain open for acceptance and shall be irrevocable until the time and date referred to in item 20 of the Schedule.",},],
-        ["",{style: "parEnd", text:"The agreement will be deemed to have been duly concluded upon the timeous signature by the Seller and its validity will in no way be dependant upon the fact of such signature being communicated to the Purchaser.",},],
-        ["",{style: "parEnd", text:"In the event of a signatory signing this Agreement he/she, warrants that consent of a spouse or resolution from a legal entity is not required by law to bring about a lawful contract.",},],
+        ["", "",],
+        ["8.1",{style: "justify", text:"The first signature to this agreement shall constitute an irrevocable offer, which may not be withdrawn prior to presentation to the Seller or the Purchaser, which ever the case may be, and which thereafter shall remain available for acceptance until acceptanceTime on acceptanceDate whereafter it shall lapse and be of no further force and effect.",},],
+        ]
+    },
+    layout: "noBorders",
+  }
+var part_6_condtitionB_heading = {
+  table: {
+    widths: [34, '*'],
+    body: [
+      [{text:'',border: [false, false, false,false]}, {margin: [-5,0,0,0],text:'Signature in Counterparts',border: [false, false, false, true]}, ],
+]}
+}
+var part_6_condtitionB = {
+    table: {
+      widths: [34, "*"],
+      body: [
+        ["", "",],
+        ["9.1",{style: "justify", text:"This Offer to Purchase may be signed in separate counterparts, each of which shall be deemed to be an original and all of which, taken together, shall constitute one and the same instrument. A counterpart of this Offer to Purchase in telefax form or a scanned document via email shall be conclusive evidence of the original signature and shall be as effective in law as the counterparts in original form showing the original signatures.",},],
       ]
     },
     layout: "noBorders",
   }
+var part_6_condtitionC_heading = {
+  table: {
+    widths: [34, '*'],
+    body: [
+      [{text:'',border: [false, false, false,false]}, {margin: [-5,0,0,0],text:'Acceptance of Offer',border: [false, false, false, true]}, ],
+]}
+}
+var part_6_condtitionC = {
+    table: {
+      widths: [34, "*"],
+      body: [
+        ["", "",],
+        ["10.1",{style: "justify", text:"The parties acknowledge that the signature by the first signing of the parties shall constitute an offer in favour of the other party to enter into this Agreement upon the terms and conditions recorded in The Schedule, in the Special Conditions (if any) and in Annexure “A”, which shall remain open for acceptance and shall be irrevocable until the time and date referred to in item 8 of the Schedule.",},],
+        ["", "",],
+        ["10.2",{style: "justify", text:"The agreement will be deemed to have been duly concluded upon the timeous signature by the Seller and its validity will in no way be dependant upon the fact of such signature being communicated to the Purchaser.",},],
+        ["", "",],
+        ["10.3",{style: "justify", text:"In the event of a signatory signing this Agreement he/she, warrants that consent of a spouse or resolution from a legal entity is not required by law to bring about a lawful contract.",},],
+
+      ]
+    },
+    layout: "noBorders",
+  }
+
+var part_70_purchaser_heading = {
+      table: {
+        widths: [34,'*'],
+        body: [
+
+          [{text:'',border: [false, false, false, false]},{margin: [-5,0,0,0],text:'Purchaser Signature',border: [false, false, false, true]},],
+    ]}
+    }
 var part_71_signature_purchaser_one = {
   table: {
-    widths: [0, 119, 118, 119, 118],
+    widths: [34, 119, 118, 119, 118],
     body: [
-      ["\n", "", "", "", ""],
-      ["", {text:"Purchaser", style:"header2"}, { text: "", colSpan: 3 }, "", ""],
+      ["", "", "", "", ""],
+      ["11.1", {text:"Purchaser", style:"header4"}, { text: "", colSpan: 3 }, "", ""],
       ["",{style:"signed",text:"Signed at _______________ at ______ am/pm on this _____ day of ____________ 20___.",	colSpan: 4,},	"",	"",],
       [
         "",
@@ -840,10 +981,9 @@ layout: "noBorders",
 }
 var part_72_signature_purchaser_two = {
   table: {
-    widths: [0, 121, 121, 121, 121],
+    widths: [34, 121, 121, 121, 121],
     body: [
-      ["\n", "", "", "", ""],
-      ["", {text:"Purchaser 1", style:"header2"}, { text: "", colSpan: 3 }, "", ""],
+      ["11.1", {text:"Purchaser 1", style:"header4"}, { text: "", colSpan: 3 }, "", ""],
       ["",{style:"signed",text:"Signed at __________ at ______ am/pm on this _____ day of ____________ 20__",	colSpan: 4,},	"",	"",],
       [
         "",
@@ -869,7 +1009,7 @@ var part_72_signature_purchaser_two = {
         "",
       ],
       ["\n", "", "", "", ""],
-      ["", {text:"Purchaser 2", style:"header2"}, { text: "", colSpan: 3 }, "", ""],
+      ["11.2", {text:"Purchaser 2", style:"header4"}, { text: "", colSpan: 3 }, "", ""],
       ["",{style:"signed",text:"Signed at __________ at ______ am/pm on this _____ day of ____________ 20__",	colSpan: 4,},	"",	"",],
       [
         "",
@@ -899,10 +1039,10 @@ layout: "noBorders",
 }
 var part_73_signature_purchaser_company =  {
   table: {
-    widths: [0, 121, 121, 121, 121],
+    widths: [34, 121, 121, 121, '*'],
     body: [
-      ["\n", "", "", "", ""],
-      ["", {text:"Purchaser", style:"header2"}, { text: "", colSpan: 3 }, "", ""],
+      ["", "", "", "", ""],
+      ["11.1", {text:"Purchaser", style:"header4"}, { text: "", colSpan: 3 }, "", ""],
       ["",{style:'signed',text:"Signed on behalf of purchaserCompanyName with Registration Number purchaserCompanyRegistrationNumber by purchaserCompanyRepresentativeName on this _____ day of ____________ 20___.",	colSpan: 4,},	"",	"",],
 
       [
@@ -933,10 +1073,10 @@ layout: "noBorders",
 }
 var part_74_signature_purchaser_trust = {
   table: {
-    widths: [0, 121, 121, 121, 121],
+    widths: [34, 121, 121, 121, '*'],
     body: [
-      ["\n", "", "", "", ""],
-      ["", {text:"Purchaser", style:"header2"}, { text: "", colSpan: 3 }, "", ""],
+      ["", "", "", "", ""],
+      ["11.1", {text:"Purchaser", style:"header4"}, { text: "", colSpan: 3 }, "", ""],
       ["",{style:'signed',text:"Signed on behalf of purchaserTrustName with Registration Number purchaserTrustRegistrationNumber by purchaserTrustRepresentativeName on this _____ day of ____________ 20___.",	colSpan: 4,},	"",	"",],
 
       [
@@ -965,12 +1105,21 @@ var part_74_signature_purchaser_trust = {
     ]},
 layout: "noBorders",
 }
+
+var part_80_seller_heading = {
+      table: {
+        widths: [34,'*'],
+        body: [
+
+          [{text:'',border: [false, false, false, false]},{margin: [-5,0,0,0],text:'Seller Signature',border: [false, false, false, true]},],
+    ]}
+    }
 var part_81_signature_seller_one = {
   table: {
-    widths: [0, 121, 121, 121, 121],
+    widths: [34, 121, 121, 121, 121],
     body: [
-      ["\n", "", "", "", ""],
-      ["", {text:"Seller", style:"header2"}, { text: "", colSpan: 3 }, "", ""],
+      ["", "", "", "", ""],
+      ["12.1", {text:"Seller", style:"header4"}, { text: "", colSpan: 3 }, "", ""],
       ["",{style:"signed",text:"Signed at ____________________ at ________ am/pm on this ______ day of ____________ 20___.",	colSpan: 4,},	"",	"",],
       [
         "",
@@ -1000,10 +1149,10 @@ layout: "noBorders",
 }
 var part_82_signature_seller_two = {
   table: {
-    widths: [0, 121, 121, 121, 121],
+    widths: [34, 121, 121, 121, 121],
     body: [
-      ["\n", "", "", "", ""],
-      ["", {text:"Seller 1", style:"header2"}, { text: "", colSpan: 3 }, "", ""],
+      ["", "", "", "", ""],
+      ["12.1", {text:"Seller 1", style:"header4"}, { text: "", colSpan: 3 }, "", ""],
       ["",{style:"signed",text:"Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",	colSpan: 4,},	"",	"",],
       [
         "",
@@ -1029,7 +1178,7 @@ var part_82_signature_seller_two = {
         "",
       ],
       ["\n", "", "", "", ""],
-      ["", {text:"Seller 2", style:"header2"}, { text: "", colSpan: 3 }, "", ""],
+      ["12.2", {text:"Seller 2", style:"header4"}, { text: "", colSpan: 3 }, "", ""],
       ["",{style:"signed",text:"Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",	colSpan: 4,},	"",	"",],
       [
         "",
@@ -1059,10 +1208,10 @@ layout: "noBorders",
 }
 var part_83_signature_seller_company = {
   table: {
-    widths: [0, 121, 121, 121, 121],
+    widths: [34, 121, 121, 121, "*"],
     body: [
-      ["\n", "", "", "", ""],
-      ["", {text:"Seller", style:"header2"}, { text: "", colSpan: 3 }, "", ""],
+      ["", "", "", "", ""],
+      ["12.1", {text:"Seller", style:"header4"}, { text: "", colSpan: 3 }, "", ""],
       ["",{style:'signed',text:"Signed on behalf of sellerCompanyName with Registration Number sellerCompanyRegistrationNumber by sellerCompanyRepresentativeName on this _____ day of ____________ 20___.",	colSpan: 4,},	"",	"",],
 
       [
@@ -1093,10 +1242,10 @@ layout: "noBorders",
 }
 var part_84_signature_seller_trust = {
   table: {
-    widths: [0, 121, 121, 121, 121],
+    widths: [34, 121, 121, 121, '*'],
     body: [
-      ["\n", "", "", "", ""],
-      ["", {text:"Seller", style:"header2"}, { text: "", colSpan: 3 }, "", ""],
+      ["", "", "", "", ""],
+      ["12.1", {text:"Seller", style:"header4"}, { text: "", colSpan: 3 }, "", ""],
       ["",{style:'signed',text:"Signed on behalf of sellerTrustName with Registration Number sellerTrustRegistrationNumber by sellerTrustRepresentativeName on this _____ day of ____________ 20___.",	colSpan: 4,},	"",	"",],
 
       [
@@ -1125,12 +1274,13 @@ var part_84_signature_seller_trust = {
     ]},
 layout: "noBorders",
 }
+
 var part_9_definitians = {
   table: {
 
     widths: [34, "*"],
     body: [
-      [{ pageBreak: 'before',text:"1."}, { pageBreak: 'before', style: "header2", text: "DEFINITIONS" }],
+      [{text:"1."}, {style: "header2", text: "DEFINITIONS" }],
       [
         "1.1",
         {
@@ -1160,7 +1310,7 @@ var part_9_definitians = {
         {
           style: "parEnd",
           text:
-            '"the Purchaser" shall mean the persons, companies or other legal entities their Heirs, Executors, Administrators or Assigns referred to in Clause 3 of the Schedule, jointly and severally.',
+            '"the Purchaser" shall mean the persons, companies or other legal entities their Heirs, Executors, Administrators or Assigns referred to in Clause 2 of the Schedule, jointly and severally.',
         },
       ],
       [
@@ -1168,7 +1318,7 @@ var part_9_definitians = {
         {
           style: "parEnd",
           text:
-            '"the Property" shall mean the immovable Property referred to in Clause 6 of the Schedule,  which Property is situated at the street address referred to in Clause 6 of the Schedule.',
+            '"the Property" shall mean the immovable Property referred to in Clause 3 of the Schedule,  which Property is situated at the street address referred to in Clause 3 of the Schedule.',
         },
       ],
       [
@@ -1193,7 +1343,7 @@ var part_9_definitians = {
         {
           style: "parEnd",
           text:
-            "The Seller hereby sells to the Purchaser who hereby purchases the Property for the purchase price referred to in Clause 8 of the Schedule, upon the terms and conditions contained herein.",
+            "The Seller hereby sells to the Purchaser who hereby purchases the Property for the purchase price referred to in Clause 4 of the Schedule, upon the terms and conditions contained herein.",
         },
       ],
       ["3.", { style: "header2", text: "PURCHASE PRICE" }],
@@ -1210,7 +1360,7 @@ var part_9_definitians = {
         {
           style: "parEnd",
           text:
-            "The deposit referred to in Clause 9 of the Schedule, if applicable, shall be paid by no later than the date referred to in Clause 9 of the Schedule;",
+            "The deposit referred to in Clause 4.2 of the Schedule, if applicable, shall be paid by no later than the date referred to in Clause 4.2 of the Schedule;",
         },
       ],
       [
@@ -1226,15 +1376,7 @@ var part_9_definitians = {
         {
           style: "parEnd",
           text:
-            "The balance of the purchase price, referred to in Clause 14 of the Schedule, if applicable, shall be paid no later than the date referred to in Clause 14 to the Conveyancer to be held in trust in an interest bearing account for the benefit of the Purchaser until registration of transfer;",
-        },
-      ],
-      [
-        "3.1.4",
-        {
-          style: "parEnd",
-          text:
-            "If the balance of the purchase price referred to in Clause 14 of the Schedule is to be paid from the proceeds of the sale of the Purchasers Property, the balance shall be secured by a bank guarantee or Attorney’s undertaking in a form acceptable by the Sellers conveyancers, within fourteen (14) days of the fulfilment of all suspensive conditions contained herein.",
+            "If the balance of the purchase price referred to in Clause 4.5 of the Schedule is to be paid from the proceeds of the sale of the Purchasers Property, the balance shall be secured by a bank guarantee or Attorney’s undertaking in a form acceptable by the Sellers conveyancers, within fourteen (14) days of the fulfilment of all suspensive conditions contained herein.",
         },
       ],
       ["4.", { style: "header2", text: "SUSPENSIVE CONDITIONS" }],
@@ -1243,7 +1385,7 @@ var part_9_definitians = {
         {
           style: "parEnd",
           text:
-            "In the event of a loan amount being specified in Clause 10 of the Schedule then this Agreement shall be subject to the Purchaser obtaining an AIP (Approval in Principle) as referred to in the National Credit Act from a Financial Institution on security of a first mortgage bond to be registered against the property for the amount referred to therein, or such lesser amount acceptable to the Purchaser, by no later than the date referred to in Clause 10 of the Schedule, failing which this Agreement shall lapse and be of no further force or effect.",
+            "In the event of a loan amount being specified in Clause 4.3 of the Schedule then this Agreement shall be subject to the Purchaser obtaining an AIP (Approval in Principle) as referred to in the National Credit Act from a Financial Institution on security of a first mortgage bond to be registered against the property for the amount referred to therein, or such lesser amount acceptable to the Purchaser, by no later than the date referred to in Clause 4.3 of the Schedule, failing which this Agreement shall lapse and be of no further force or effect.",
         },
       ],
       ["5.", { style: "header2", text: "PRIOR SALE" }],
@@ -1252,7 +1394,7 @@ var part_9_definitians = {
         {
           style: "parEnd",
           text:
-            "This agreement is subject to condition that the Purchaser sells his property referred to in Clause 11 of the Schedule (if applicable) by no later than the date referred to in Clause 12 of the Schedule. This condition shall be deemed to have been fulfilled upon receipt of written confirmation of such sale by the Agent within the aforesaid period, failing which this agreement shall lapse and be of no further force or effect.",
+            "This agreement is subject to condition that the Purchaser sells his property referred to in Clause 4.6 of the Schedule (if applicable) by no later than the date referred to in Clause 4.5 of the Schedule. This condition shall be deemed to have been fulfilled upon receipt of written confirmation of such sale by the Agent within the aforesaid period, failing which this agreement shall lapse and be of no further force or effect.",
         },
       ],
       [
@@ -1260,7 +1402,7 @@ var part_9_definitians = {
         {
           style: "parEnd",
           text:
-            "The Purchaser acknowledges that , until the suspensive conditions referred to in Clause 12 of the Schedule have been met , the Seller may continue to market his/her property , and should the Seller receive a further, more favourable, non-subjective offer whereby  all conditions in such agreement have been met ,  and final bond grant has been provided, this Purchaser will then be placed on 3 (three) calendar days written notice by the Seller to waive all suspensive conditions within this period failing which this offer will cease and be of no further force or effect. Should the Purchaser waive then he/she shall provide the Conveyancer with guarantees for the full purchase price within 7 (seven) days of such waiver.",
+            "The Purchaser acknowledges that , until the suspensive conditions referred to in Clause 4.5 of the Schedule have been met , the Seller may continue to market his/her property , and should the Seller receive a further, more favourable, non-subjective offer whereby  all conditions in such agreement have been met ,  and final bond grant has been provided, this Purchaser will then be placed on 3 (three) calendar days written notice by the Seller to waive all suspensive conditions within this period failing which this offer will cease and be of no further force or effect. Should the Purchaser waive then he/she shall provide the Conveyancer with guarantees for the full purchase price within 7 (seven) days of such waiver.",
         },
       ],
       [
@@ -1285,7 +1427,7 @@ var part_9_definitians = {
         {
           style: "parEnd",
           text:
-            "Vacant occupation of the property shall be given by the Seller to the Purchaser on the date referred to in Clause 15 of the Schedule. The Purchaser undertakes to maintain the property in the condition in which it was on occupation date.",
+            "Vacant occupation of the property shall be given by the Seller to the Purchaser on the date referred to in Clauses 5.1 and 5.2 of the Schedule. The Purchaser undertakes to maintain the property in the condition in which it was on occupation date.",
         },
       ],
       [
@@ -1293,7 +1435,7 @@ var part_9_definitians = {
         {
           style: "parEnd",
           text:
-            "Should the Purchaser take occupation of the property prior to registration of transfer, the Purchaser shall pay the Seller an agreed occupation rental in the sum referred to in Clause 15.1 of the Schedule calculated from the date mentioned in clause 15.1 of the schedule to the day immediately prior to the date of registration of transfer, both days inclusive.  Such payments are to be made monthly in advance on the first of each and every month to the Seller without deduction or demand. ",
+            "Should the Purchaser take occupation of the property prior to registration of transfer, the Purchaser shall pay the Seller an agreed occupation rental in the sum referred to in Clause 5.1 of the Schedule calculated from the date mentioned in clause 5.1 of the schedule to the day immediately prior to the date of registration of transfer, both days inclusive.  Such payments are to be made monthly in advance on the first of each and every month to the Seller without deduction or demand. ",
         },
       ],
       [
@@ -1309,7 +1451,7 @@ var part_9_definitians = {
         {
           style: "parEnd",
           text:
-            "Possession of the property shall take place on the date in clause 15.2 of the Schedule from which date risk in and to the property shall pass to the Purchaser and from which date he/she shall be liable for payment of rates and or levies and all outgoings in respect of the property and shall likewise be entitled to all income and other benefits there from.",
+            "Possession of the property shall take place on the date in clause 5.2 of the Schedule from which date risk in and to the property shall pass to the Purchaser and from which date he/she shall be liable for payment of rates and or levies and all outgoings in respect of the property and shall likewise be entitled to all income and other benefits there from.",
         },
       ],
       [
@@ -1368,7 +1510,7 @@ var part_9_definitians = {
         {
           style: "parEnd",
           text:
-            "Registration of transfer of the unit shall be affected by the Conveyancers referred to in clause 18 of the Schedule and registration of transfer shall take place as close as possible to the occupation date referred to in clause 15.1 of the Schedule.",
+            "Registration of transfer of the unit shall be affected by the Conveyancers referred to in clause 6.3 of the Schedule and registration of transfer shall take place as close as possible to the occupation date referred to in clause 5.1 of the Schedule.",
         },
       ],
       [
@@ -1417,7 +1559,7 @@ var part_9_definitians = {
         {
           style: "parEnd",
           text:
-            "The Seller shall pay to the Agent a Commission referred to in Clause 17. of the Schedule.",
+            "The Seller shall pay to the Agent a Commission referred to in Clause 6.2. of the Schedule.",
         },
       ],
 
@@ -1426,7 +1568,7 @@ var part_9_definitians = {
         {
           style: "parEnd",
           text:
-            "The SELLER shall pay Agent’s commission to the AGENT, who will receive the comission as referred to in Clause 17., which commission will be earned upon acceptance of this offer and the subsequent fulfilment of any suspensive conditions contained herein, and shall be payable not later than the date of transfer of the Property into the name of the PURCHASER. Provided, however, that in the event that the sale is cancelled ",
+            "The SELLER shall pay Agent’s commission to the AGENT, who will receive the comission as referred to in Clause 6.1., which commission will be earned upon acceptance of this offer and the subsequent fulfilment of any suspensive conditions contained herein, and shall be payable not later than the date of transfer of the Property into the name of the PURCHASER. Provided, however, that in the event that the sale is cancelled ",
         },
       ],
       [
@@ -1894,7 +2036,7 @@ var part_9_definitians_withoutEsateAgent = {
 
     widths: [34, "*"],
     body: [
-      [{ pageBreak: 'before',text:"1."}, { pageBreak: 'before', style: "header2", text: "DEFINITIONS" }],
+      [{text:"1."}, {style: "header2", text: "DEFINITIONS" }],
       [
         "1.1",
         {
@@ -1924,7 +2066,7 @@ var part_9_definitians_withoutEsateAgent = {
         {
           style: "parEnd",
           text:
-            '"the Purchaser" shall mean the persons, companies or other legal entities their Heirs, Executors, Administrators or Assigns referred to in Clause 3 of the Schedule, jointly and severally.',
+            '"the Purchaser" shall mean the persons, companies or other legal entities their Heirs, Executors, Administrators or Assigns referred to in Clause 2 of the Schedule, jointly and severally.',
         },
       ],
       [
@@ -1932,7 +2074,7 @@ var part_9_definitians_withoutEsateAgent = {
         {
           style: "parEnd",
           text:
-            '"the Property" shall mean the immovable Property referred to in Clause 6 of the Schedule,  which Property is situated at the street address referred to in Clause 6 of the Schedule.',
+            '"the Property" shall mean the immovable Property referred to in Clause 3 of the Schedule,  which Property is situated at the street address referred to in Clause 3 of the Schedule.',
         },
       ],
       [
@@ -1957,7 +2099,7 @@ var part_9_definitians_withoutEsateAgent = {
         {
           style: "parEnd",
           text:
-            "The Seller hereby sells to the Purchaser who hereby purchases the Property for the purchase price referred to in Clause 8 of the Schedule, upon the terms and conditions contained herein.",
+            "The Seller hereby sells to the Purchaser who hereby purchases the Property for the purchase price referred to in Clause 4 of the Schedule, upon the terms and conditions contained herein.",
         },
       ],
       ["3.", { style: "header2", text: "PURCHASE PRICE" }],
@@ -1974,7 +2116,7 @@ var part_9_definitians_withoutEsateAgent = {
         {
           style: "parEnd",
           text:
-            "The deposit referred to in Clause 9 of the Schedule, if applicable, shall be paid by no later than the date referred to in Clause 9 of the Schedule;",
+            "The deposit referred to in Clause 4.2 of the Schedule, if applicable, shall be paid by no later than the date referred to in Clause 4.2 of the Schedule;",
         },
       ],
       [
@@ -1990,15 +2132,7 @@ var part_9_definitians_withoutEsateAgent = {
         {
           style: "parEnd",
           text:
-            "The balance of the purchase price, referred to in Clause 14 of the Schedule, if applicable, shall be paid no later than the date referred to in Clause 14 to the Conveyancer to be held in trust in an interest bearing account for the benefit of the Purchaser until registration of transfer;",
-        },
-      ],
-      [
-        "3.1.4",
-        {
-          style: "parEnd",
-          text:
-            "If the balance of the purchase price referred to in Clause 14 of the Schedule is to be paid from the proceeds of the sale of the Purchasers Property, the balance shall be secured by a bank guarantee or Attorney’s undertaking in a form acceptable by the Sellers conveyancers, within fourteen (14) days of the fulfilment of all suspensive conditions contained herein.",
+            "If the balance of the purchase price referred to in Clause 4.5 of the Schedule is to be paid from the proceeds of the sale of the Purchasers Property, the balance shall be secured by a bank guarantee or Attorney’s undertaking in a form acceptable by the Sellers conveyancers, within fourteen (14) days of the fulfilment of all suspensive conditions contained herein.",
         },
       ],
       ["4.", { style: "header2", text: "SUSPENSIVE CONDITIONS" }],
@@ -2007,7 +2141,7 @@ var part_9_definitians_withoutEsateAgent = {
         {
           style: "parEnd",
           text:
-            "In the event of a loan amount being specified in Clause 10 of the Schedule then this Agreement shall be subject to the Purchaser obtaining an AIP (Approval in Principle) as referred to in the National Credit Act from a Financial Institution on security of a first mortgage bond to be registered against the property for the amount referred to therein, or such lesser amount acceptable to the Purchaser, by no later than the date referred to in Clause 10 of the Schedule, failing which this Agreement shall lapse and be of no further force or effect.",
+            "In the event of a loan amount being specified in Clause 4.3 of the Schedule then this Agreement shall be subject to the Purchaser obtaining an AIP (Approval in Principle) as referred to in the National Credit Act from a Financial Institution on security of a first mortgage bond to be registered against the property for the amount referred to therein, or such lesser amount acceptable to the Purchaser, by no later than the date referred to in Clause 4.3 of the Schedule, failing which this Agreement shall lapse and be of no further force or effect.",
         },
       ],
       ["5.", { style: "header2", text: "PRIOR SALE" }],
@@ -2016,7 +2150,7 @@ var part_9_definitians_withoutEsateAgent = {
         {
           style: "parEnd",
           text:
-            "This agreement is subject to condition that the Purchaser sells his property referred to in Clause 11 of the Schedule (if applicable) by no later than the date referred to in Clause 12 of the Schedule. This condition shall be deemed to have been fulfilled upon receipt of written confirmation of such sale by the Agent within the aforesaid period, failing which this agreement shall lapse and be of no further force or effect.",
+            "This agreement is subject to condition that the Purchaser sells his property referred to in Clause 4.6 of the Schedule (if applicable) by no later than the date referred to in Clause 4.5 of the Schedule. This condition shall be deemed to have been fulfilled upon receipt of written confirmation of such sale by the Agent within the aforesaid period, failing which this agreement shall lapse and be of no further force or effect.",
         },
       ],
       [
@@ -2024,7 +2158,7 @@ var part_9_definitians_withoutEsateAgent = {
         {
           style: "parEnd",
           text:
-            "The Purchaser acknowledges that , until the suspensive conditions referred to in Clause 12 of the Schedule have been met , the Seller may continue to market his/her property , and should the Seller receive a further, more favourable, non-subjective offer whereby  all conditions in such agreement have been met ,  and final bond grant has been provided, this Purchaser will then be placed on 3 (three) calendar days written notice by the Seller to waive all suspensive conditions within this period failing which this offer will cease and be of no further force or effect. Should the Purchaser waive then he/she shall provide the Conveyancer with guarantees for the full purchase price within 7 (seven) days of such waiver.",
+            "The Purchaser acknowledges that , until the suspensive conditions referred to in Clause 4.5 of the Schedule have been met , the Seller may continue to market his/her property , and should the Seller receive a further, more favourable, non-subjective offer whereby  all conditions in such agreement have been met ,  and final bond grant has been provided, this Purchaser will then be placed on 3 (three) calendar days written notice by the Seller to waive all suspensive conditions within this period failing which this offer will cease and be of no further force or effect. Should the Purchaser waive then he/she shall provide the Conveyancer with guarantees for the full purchase price within 7 (seven) days of such waiver.",
         },
       ],
       [
@@ -2049,7 +2183,7 @@ var part_9_definitians_withoutEsateAgent = {
         {
           style: "parEnd",
           text:
-            "Vacant occupation of the property shall be given by the Seller to the Purchaser on the date referred to in Clause 15 of the Schedule. The Purchaser undertakes to maintain the property in the condition in which it was on occupation date.",
+            "Vacant occupation of the property shall be given by the Seller to the Purchaser on the date referred to in Clauses 5.1 and 5.2 of the Schedule. The Purchaser undertakes to maintain the property in the condition in which it was on occupation date.",
         },
       ],
       [
@@ -2057,7 +2191,7 @@ var part_9_definitians_withoutEsateAgent = {
         {
           style: "parEnd",
           text:
-            "Should the Purchaser take occupation of the property prior to registration of transfer, the Purchaser shall pay the Seller an agreed occupation rental in the sum referred to in Clause 15.1 of the Schedule calculated from the date mentioned in clause 15.1 of the schedule to the day immediately prior to the date of registration of transfer, both days inclusive.  Such payments are to be made monthly in advance on the first of each and every month to the Seller without deduction or demand. ",
+            "Should the Purchaser take occupation of the property prior to registration of transfer, the Purchaser shall pay the Seller an agreed occupation rental in the sum referred to in Clause 5.1 of the Schedule calculated from the date mentioned in clause 5.1 of the schedule to the day immediately prior to the date of registration of transfer, both days inclusive.  Such payments are to be made monthly in advance on the first of each and every month to the Seller without deduction or demand. ",
         },
       ],
       [
@@ -2073,7 +2207,7 @@ var part_9_definitians_withoutEsateAgent = {
         {
           style: "parEnd",
           text:
-            "Possession of the property shall take place on the date in clause 15.2 of the Schedule from which date risk in and to the property shall pass to the Purchaser and from which date he/she shall be liable for payment of rates and or levies and all outgoings in respect of the property and shall likewise be entitled to all income and other benefits there from.",
+            "Possession of the property shall take place on the date in clause 5.2 of the Schedule from which date risk in and to the property shall pass to the Purchaser and from which date he/she shall be liable for payment of rates and or levies and all outgoings in respect of the property and shall likewise be entitled to all income and other benefits there from.",
         },
       ],
       [
@@ -2132,7 +2266,7 @@ var part_9_definitians_withoutEsateAgent = {
         {
           style: "parEnd",
           text:
-            "Registration of transfer of the unit shall be affected by the Conveyancers referred to in clause 18 of the Schedule and registration of transfer shall take place as close as possible to the occupation date referred to in clause 15.1 of the Schedule.",
+            "Registration of transfer of the unit shall be affected by the Conveyancers referred to in clause 6.3 of the Schedule and registration of transfer shall take place as close as possible to the occupation date referred to in clause 5.1 of the Schedule.",
         },
       ],
       [
@@ -2596,6 +2730,7 @@ var part_9_definitians_withoutEsateAgent = {
   },
   layout: "noBorders",
 }
+
 var part_10_specialConditions = {
   table: {
     widths: [34, "*"],
@@ -2607,10 +2742,6 @@ var part_10_specialConditions = {
   layout: "noBorders",
 }
 // *** MASTER OTP FILES - ENDS
-var footer = function(page, pages) {return {columns:
-  [{text: 'Nina Brune Attorneys'+' | '+'nina@brune.co.za'+' | '+'0845484808', margin: [15, 0, 0, 0],fontSize: 8, },
-  {alignment: 'right',fontSize: 8,margin: [0, 0, 15, 0],text: [{ text: 'Page '+page.toString()},' of ',{ text: pages.toString()}]}
-],margin: [25, 0, 25, 0] };}
 
 
 var footer2 = function(currentPage, pageCount) {
@@ -2620,12 +2751,10 @@ var footer2 = function(currentPage, pageCount) {
 
     body: [
 
-      [{border: [false, false, false, false],text:""},{style:'left',border: [false, true, false, false],text:"Nina Brune Attorneys | info@brune.co.za | 084 548 4808"}, {style:'right',border: [false, true, false, false],text:'Page ' +  currentPage+ " of " + pageCount, }, {border: [false, false, false, false],text:""}],
-]},
-
+      [{border: [false, false, false, false],text:""},{style:'left',border: [false, true, false, false],text:"Brune Attorneys | nina@brune.co.za | 084 548 4808"}, {style:'right',border: [false, true, false, false],text:'Page ' +  currentPage+ " of " + pageCount, }, {border: [false, false, false, false],text:""}],
+    ]},
+  }
 }
-
-   }
 
 
 module.exports = router;

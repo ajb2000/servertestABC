@@ -1877,12 +1877,45 @@
                 Occupation
               </legend>
               <form style="" action="">
+
                 <div class="row">
-                  <div class="col-sm-6 col-md-6 form-group">
+                  <div class="col-sm-12 col-md-6 form-group">
+                    <div class="form-check-inline">
+                      <input
+                        class=" form-check-input"
+                        type="radio"
+                        name="occupationRadios"
+                        value="occupationCheck2_onRegistration"
+                        id="occupationCheck1"
+                        onchange="occupation()"
+                        checked
+                      />
+                      <label class="form-check-label" for="occupationCheck1">
+                        On Registration
+                      </label>
+                    </div>
+                    <div class="form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="occupationRadios"
+                        value="occupationCheck2_date"
+                        id="occupationCheck2"
+                        onchange="occupation()"
+                      />
+                      <label class="form-check-label" for="occupationCheck2">
+                        Specific Date
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div style="display: none;" id="occupationRow" class="col-sm-6 col-md-6 form-group">
                     <label class="required">Occupation Date</label>
                     <input
                       type="date"
-                      class="val_general2 form-control form-control-sm"
+                      class="form-control form-control-sm"
                       id="occupationDate"
                       placeholder="occupation date"
                       onchange="afterValidationChange('val_general2', 'general2Done')"
@@ -1899,20 +1932,93 @@
                     />
                   </div>
                 </div>
+                  
+                
+
+              </form>
+            </fieldset>
+            <fieldset
+              id=""
+              style="padding: 5px 20px; max-width: 1366px;"
+              class="border"
+            >
+              <legend
+                style="margin-left: 10px; padding: 0 5px; font-size: 1.2rem;"
+                class="w-auto"
+              >
+                Possession
+              </legend>
+              <form style="" action="">
                 <div class="row">
+                  <div class="col-sm-12 col-md-6 form-group">
+                    <div class="form-check-inline">
+                      <input
+                        class=" form-check-input"
+                        type="radio"
+                        name="possessionRadios"
+                        value="possessionCheck2_onRegistration"
+                        id="possessionCheck1"
+                        onchange="possession()"
+                        checked
+                      />
+                      <label class="form-check-label" for="possessionCheck1">
+                        On Registration
+                      </label>
+                    </div>
+                    <div class="form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="possessionRadios"
+                        value="possessionCheck2_date"
+                        id="possessionCheck2"
+                        onchange="possession()"
+                      />
+                      <label class="form-check-label" for="possessionCheck2">
+                        Specific Date
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div id="possessionRow" class="row" style="display: none">
                   <div class="col-sm-6 col-md-6 form-group">
                     <label class="required">Possession Date</label>
                     <input
                       type="date"
-                      class="val_general2 form-control form-control-sm"
+                      class="form-control form-control-sm"
                       id="possessionDate"
                       placeholder="possession date"
                       onchange="afterValidationChange('val_general2', 'general2Done')"
                     />
                   </div>
                 </div>
-              </form>
+<script>
+  function possession(){
+    var status = document.getElementById('possessionCheck1').checked
+    console.log(status)
+    if(status === false) {
+      document.getElementById('possessionRow').style.display = 'flex'
+      document.getElementById('possessionDate').classList.add('val_general2')
+    } else {
+      document.getElementById('possessionRow').style.display = 'none'
+      document.getElementById('possessionDate').classList.remove('val_general2')
+    }
+  }
+  function occupation(){
+    var status = document.getElementById('occupationCheck1').checked
+    console.log(status)
+    if(status === false) {
+      document.getElementById('occupationRow').style.display = 'block'
+      document.getElementById('occupationDate').classList.add('val_general2')
+    } else {
+      document.getElementById('occupationRow').style.display = 'none'
+      document.getElementById('occupationDate').classList.remove('val_general2')
+    }
+  }
+</script>
+                </form>
             </fieldset>
+
             <fieldset
               id=""
               style="padding: 5px 20px; max-width: 1366px;"
@@ -2755,6 +2861,10 @@
         "purchaserCheck1",
         "purchaserCheck2",
         "purchaserCheck3",
+        "occupationCheck1",
+        "occupationCheck2",
+        "possessionCheck1",
+        "possessionCheck2"
       ];
       function getAllInfo(type) {
         //CREATES THE OBJECT TO STORE THE DATE IN - STARTS
@@ -2814,8 +2924,8 @@
           runSpinningWheel()
         // *** Make the PUSH request to the server - STARTS
         // fetch("http://localhost:5000/otp/otp_landing", {
-          // fetch("http://192.168.1.200:5000/otp/otp_landing", {
-            fetch("https://testingwp1234.herokuapp.com/otp/otp_landing", {
+          fetch("https://testingwp1234.herokuapp.com/otp/otp_landing", {
+         //fetch("http://192.168.1.200:5000/otp/otp_landing", {
 
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -2848,8 +2958,8 @@
       function pingServer(){
         // *** Make the PUSH request to the server - STARTS
         // fetch("http://localhost:5000/otp/otp_landing", {
-          // fetch("http://192.168.1.200:5000/otp/serverPing", {
-            fetch("https://testingwp1234.herokuapp.com/otp/serverPing", {
+          fetch("https://testingwp1234.herokuapp.com/otp/serverPing", {
+         //fetch("http://192.168.1.200:5000/otp/serverPing", {
 
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -2993,6 +3103,8 @@ function resetForm(){
     document.getElementById('defaultCheck1').click()
     document.getElementById('purchaserCheck1').click()
     document.getElementById('propertyCheck1').click()
+    document.getElementById('occupationCheck1').click()
+    document.getElementById('possessionCheck1').click()
     sellerSpouse()
     purchaser2()
     agent()

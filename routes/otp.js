@@ -1,452 +1,532 @@
 const express = require("express");
 const router = express.Router();
-const path = require('path')
+const path = require("path");
 const bodyParser = require("body-parser");
 const passport = require("passport");
-const nodemailer = require('nodemailer');
-const fs = require('fs');
+const nodemailer = require("nodemailer");
+const fs = require("fs");
+const moment = require("moment");
 
 //*** SETUP pdfmake - STARTS
-  // Define font files
-  var fonts = {
-    Roboto: {
-      normal: 'fonts/Roboto-Regular.ttf',
-      bold: 'fonts/Roboto-Medium.ttf',
-      italics: 'fonts/Roboto-Italic.ttf',
-      bolditalics: 'fonts/Roboto-MediumItalic.ttf'
-    }
-  };
+// Define font files
+var fonts = {
+  Roboto: {
+    normal: "fonts/Roboto-Regular.ttf",
+    bold: "fonts/Roboto-Medium.ttf",
+    italics: "fonts/Roboto-Italic.ttf",
+    bolditalics: "fonts/Roboto-MediumItalic.ttf",
+  },
+};
 
-var PdfPrinter = require('pdfmake');
+var PdfPrinter = require("pdfmake");
 var printer = new PdfPrinter(fonts);
 //*** SETUP pdfmake - ENDS
 
-
 // *** SETUP NODEMAILER - STARTS
 var transporter = nodemailer.createTransport({
-  host: 'wharfinger.aserv.co.za',
+  host: "wharfinger.aserv.co.za",
   auth: {
-  user: 'attorney@brune.co.za',
-  pass: 'xrK5A^bbV}9JUk[R'
-  }
+    user: "attorney@brune.co.za",
+    pass: "xrK5A^bbV}9JUk[R",
+  },
 });
 // *** SETUP NODEMAILER - ENDS
 // *** Route the receives object form FrontEnd, conttructs the OTP and changes the data out
 router.post("/serverPing", (req, res) => {
-  console.log('Server Received Ping From: '+req.connection.remoteAddress)
-  res.send({txt: 'Ping Received By Server'})
-
-})
+  console.log("Server Received Ping From: " + req.connection.remoteAddress);
+  res.send({ txt: "Ping Received By Server" });
+});
 
 // *** Route the receives object form FrontEnd, conttructs the OTP and changes the data out
 router.post("/otp_landing", (req, res) => {
-  console.log('opt_landing reached')
-  let data = req.body
+  console.log("opt_landing reached");
+  let data = req.body;
 
-  new Promise(function(resolve, reject) {
+  new Promise(function (resolve, reject) {
     // Pick the correct parts of OTP to user
-    let content = []
+    let content = [];
     // Heading - Starts
-    content.push(part_1_heading)
+    content.push(part_1_heading);
     // Heading - Ends
 
-// Seller - STARTS
-    let new_seller = {}
+    // Seller - STARTS
+    let new_seller = {};
 
     if (data.defaultCheck1 === true) {
-
-      if(data.marriedInCommunityOfProperty === "No"){
-        new_seller = part_21_seller_basic
+      if (data.marriedInCommunityOfProperty === "No") {
+        new_seller = part_21_seller_basic;
       } else {
-        new_seller = part_22_seller_spouse
+        new_seller = part_22_seller_spouse;
       }
     }
     if (data.defaultCheck2 === true) {
-      new_seller = part_23_seller_company
+      new_seller = part_23_seller_company;
     }
     if (data.defaultCheck3 === true) {
-      new_seller = part_24_seller_trust
+      new_seller = part_24_seller_trust;
     }
-    let new_seller_string = JSON.stringify(new_seller)
-    if(data.sellerSAResident === "Yes"){
-      new_seller_string = new_seller_string.split('asdf___saresident___asdf').join('(Who warrants that he/she is a South African resident)')
-    } else {new_seller_string = new_seller_string.split('asdf___saresident___asdf').join('(Who warrants that he/she is not a South African resident)')}
+    let new_seller_string = JSON.stringify(new_seller);
+    if (data.sellerSAResident === "Yes") {
+      new_seller_string = new_seller_string
+        .split("asdf___saresident___asdf")
+        .join("(Who warrants that he/she is a South African resident)");
+    } else {
+      new_seller_string = new_seller_string
+        .split("asdf___saresident___asdf")
+        .join("(Who warrants that he/she is not a South African resident)");
+    }
 
-    var final_seller = JSON.parse(new_seller_string)
-    content.push(part_20_seller_heading)
-    content.push(final_seller)
-    content.push(insertSpace)
-// Seller - ENDS
+    var final_seller = JSON.parse(new_seller_string);
+    content.push(part_20_seller_heading);
+    content.push(final_seller);
+    content.push(insertSpace);
+    // Seller - ENDS
 
-// PURCHASER - STARTS
-    let new_purchaser = {}
+    // PURCHASER - STARTS
+    let new_purchaser = {};
     if (data.purchaserCheck1 === true) {
-      if(data.numPurchasers === "One"){
-        new_purchaser = part_31_purchaser_one
+      if (data.numPurchasers === "One") {
+        new_purchaser = part_31_purchaser_one;
       } else {
-        new_purchaser = part_32_purchaser_two
+        new_purchaser = part_32_purchaser_two;
       }
     }
     if (data.purchaserCheck2 === true) {
-      new_purchaser = part_33_purchaser_company
+      new_purchaser = part_33_purchaser_company;
     }
     if (data.purchaserCheck3 === true) {
-      new_purchaser = part_34_purchaser_trust
+      new_purchaser = part_34_purchaser_trust;
     }
-    var tt = []
+    var tt = [];
     var temp_stack = {
       stack: [],
-      unbreakable: true
-    }
-    tt.push(part_30_purchaser_heading)
-    tt.push(new_purchaser)
-    temp_stack['stack'] = tt
+      unbreakable: true,
+    };
+    tt.push(part_30_purchaser_heading);
+    tt.push(new_purchaser);
+    temp_stack["stack"] = tt;
 
-    content.push(temp_stack)
-    content.push(insertSpace)
+    content.push(temp_stack);
+    content.push(insertSpace);
 
-// PURCHASER - ENDS
+    // PURCHASER - ENDS
 
-// Property description- STARTS
-  var tt3 = []
-    let new_property = {}
+    // Property description- STARTS
+    var tt3 = [];
+    let new_property = {};
     if (data.propertyCheck1 === true) {
-            new_property = part_41A_proptery
-      }
+      new_property = part_41A_proptery;
+    }
 
     if (data.propertyCheck2 === true) {
-        new_property = part_42A_proptery
-      }
+      new_property = part_42A_proptery;
+    }
 
     // Add the property heading
     if (data.propertyCheck1 === true) {
-            tt3.push(part_41A_proptery_heading)
-      }
+      tt3.push(part_41A_proptery_heading);
+    }
 
     if (data.propertyCheck2 === true) {
-        tt3.push(part_42A_proptery_heading)
-      }
+      tt3.push(part_42A_proptery_heading);
+    }
     // Add the property body
-    tt3.push(new_property)
-    tt3.push(insertSpace)
+    tt3.push(new_property);
+    tt3.push(insertSpace);
     var temp_stack3 = {
       stack: tt3,
-      unbreakable: true
+      unbreakable: true,
+    };
+    content.push(temp_stack3);
+    // Property description - ENDS
+
+    // 41B_price STARTS
+    let new_price_string = JSON.stringify(part_41B_price);
+
+    new_price_string = new_price_string
+      .split("purchasePrice")
+      .join(numberWithSpaces(data.purchasePrice));
+
+    if (data.depositAmount === "") {
+      new_price_string = new_price_string.split("depositAmount").join(" 0");
+      new_price_string = new_price_string
+        .split("depositDatePayable")
+        .join("(not applicable)");
+    } else {
+      new_price_string = new_price_string
+        .split("depositAmount")
+        .join(numberWithSpaces(data.depositAmount));
+      new_price_string = new_price_string
+        .split("depositDatePayable")
+        .join(moment(data.depositDatePayable).utc().format("D MMMM YYYY"));
     }
-    content.push(temp_stack3)
-// Property description - ENDS
+    if (data.loanAmount === "") {
+      new_price_string = new_price_string.split("loanAmount").join(" 0");
+      new_price_string = new_price_string
+        .split("loanDatePayable")
+        .join("(not applicable)");
+    } else {
+      new_price_string = new_price_string
+        .split("loanAmount")
+        .join(numberWithSpaces(data.loanAmount));
+      new_price_string = new_price_string
+        .split("loanDatePayable")
+        .join(moment(data.loanDatePayable).utc().format("D MMMM YYYY"));
+    }
+    if (data.cashAmount === "") {
+      new_price_string = new_price_string.split("cashAmount").join(" 0");
+      new_price_string = new_price_string
+        .split("cashDatePayable")
+        .join("(not applicable)");
+    } else {
+      new_price_string = new_price_string
+        .split("cashAmount")
+        .join(numberWithSpaces(data.cashAmount));
+      new_price_string = new_price_string
+        .split("cashDatePayable")
+        .join(moment(data.cashDatePayable).utc().format("D MMMM YYYY"));
+    }
 
-// 41B_price STARTS
-let new_price_string = JSON.stringify(part_41B_price)
-if (data.depositAmount === ""){
-  new_price_string = new_price_string.split('depositAmount').join('(R 0')
-  new_price_string = new_price_string.split('depositDatePayable').join('(not applicable)')
-}
-if (data.loanAmount === ""){
-  new_price_string = new_price_string.split('loanAmount').join('R 0')
-  new_price_string = new_price_string.split('loanDatePayable').join('(not applicable)')
-}
-if (data.cashAmount === ""){
-  new_price_string = new_price_string.split('cashAmount').join('R 0')
-  new_price_string = new_price_string.split('cashDatePayable').join('(not applicable)')
-}
-if (data.proceedsFromSaleOfPurchaserPropertyAmount === ""){
-  new_price_string = new_price_string.split('proceedsFromSaleOfPurchaserPropertyAmount').join('R 0')
-  new_price_string = new_price_string.split('saleOfPropertyLastDateOfSale').join('(not applicable)')
-  new_price_string = new_price_string.split('propertyToBeSoldDescription').join('(not applicable)')
-}
+    if (data.proceedsFromSaleOfPurchaserPropertyAmount === "") {
+      new_price_string = new_price_string
+        .split("proceedsFromSaleOfPurchaserPropertyAmount")
+        .join(" 0");
+      new_price_string = new_price_string
+        .split("saleOfPropertyLastDateOfSale")
+        .join("(not applicable)");
+      new_price_string = new_price_string
+        .split("propertyToBeSoldDescription")
+        .join("(not applicable)");
+    } else {
+      new_price_string = new_price_string
+        .split("proceedsFromSaleOfPurchaserPropertyAmount")
+        .join(numberWithSpaces(data.proceedsFromSaleOfPurchaserPropertyAmount));
+      new_price_string = new_price_string
+        .split("saleOfPropertyLastDateOfSale")
+        .join(
+          moment(data.saleOfPropertyLastDateOfSale).utc().format("D MMMM YYYY")
+        );
+    }
 
-new_price = JSON.parse(new_price_string)
+    new_price = JSON.parse(new_price_string);
 
-  // Stack items together for page break purposes
-  var tt2 = []
-  tt2.push(part_41B_price_heading)
-  tt2.push(new_price)
-  tt2.push(insertSpace)
-  var temp_stack2 = {
-    stack: tt2,
-    unbreakable: true
-  }
-  content.push(temp_stack2)
-
-// 41B_price ENDS
-
-// Occupation - STARTS
     // Stack items together for page break purposes
-    var tt1 = []
-        tt1.push(part_41C_occupation_heading)
-    tt1.push(part_41C_occupation)
-    tt1.push(insertSpace)
+    var tt2 = [];
+    tt2.push(part_41B_price_heading);
+    tt2.push(new_price);
+    tt2.push(insertSpace);
+    var temp_stack2 = {
+      stack: tt2,
+      unbreakable: true,
+    };
+    content.push(temp_stack2);
+
+    // 41B_price ENDS
+
+    // Occupation - STARTS
+    // Stack items together for page break purposes
+    let new_occupation_string = JSON.stringify(part_41C_occupation);
+    if (data.occupationCheck1 === true) {
+      new_occupation_string = new_occupation_string
+        .split("occupationDate")
+        .join("On Transfer");
+    } else {
+      new_occupation_string = new_occupation_string
+        .split("occupationDate")
+        .join(moment(data.occupationDate).utc().format("D MMMM YYYY"));
+    }
+
+    if (data.possessionCheck1 === true) {
+      new_occupation_string = new_occupation_string
+        .split("possessionDate")
+        .join("On Transfer");
+    } else {
+      new_occupation_string = new_occupation_string
+        .split("possessionDate")
+        .join(moment(data.possessionDate).utc().format("D MMMM YYYY"));
+    }
+    final_occupation_string = JSON.parse(new_occupation_string);
+
+    var tt1 = [];
+    tt1.push(part_41C_occupation_heading);
+    tt1.push(final_occupation_string);
+    tt1.push(insertSpace);
     var temp_stack1 = {
       stack: tt1,
-      unbreakable: true
+      unbreakable: true,
+    };
+    content.push(temp_stack1);
+    // Occupation - ENDS
+
+    // Property - Agent - STARTS
+    let new_agent_string = JSON.stringify(part_41D_agent);
+    if (data.agentInvolved === "No") {
+      new_agent_string = new_agent_string
+        .split("agencyName")
+        .join("(not applicable)");
+      new_agent_string = new_agent_string
+        .split("agentName")
+        .join("(not applicable)");
+      new_agent_string = new_agent_string
+        .split("commissionPercentage")
+        .join("(not applicable)");
     }
-    content.push(temp_stack1)
-// Occupation - ENDS
+    new_agent = JSON.parse(new_agent_string);
 
-// Property - Agent - STARTS
-let new_agent_string = JSON.stringify(part_41D_agent)
-if (data.agentInvolved === "No"){
-  new_agent_string = new_agent_string.split('agencyName').join('(not applicable)')
-  new_agent_string = new_agent_string.split('agentName').join('(not applicable)')
-  new_agent_string = new_agent_string.split('commissionPercentage').join('(not applicable)')
-}
-new_agent = JSON.parse(new_agent_string)
+    var tt4 = [];
+    tt4.push(part_41D_agent_heading);
+    tt4.push(new_agent);
+    tt4.push(insertSpace);
+    var temp_stack4 = {
+      stack: tt4,
+      unbreakable: true,
+    };
+    content.push(temp_stack4);
+    // Property - Agent - ENDS
 
-var tt4= []
-tt4.push(part_41D_agent_heading)
-tt4.push(new_agent)
-tt4.push(insertSpace)
-var temp_stack4 = {
-  stack: tt4,
-  unbreakable: true
-}
-content.push(temp_stack4)
-// Property - Agent - ENDS
+    // Fixtures 1 - Starts
+    var tt5 = [];
+    tt5.push(part_41E_fixtures_heading);
+    tt5.push(part_41E_fixtures);
+    tt5.push(insertSpace);
 
-// Fixtures 1 - Starts
-    var tt5 = []
-    tt5.push(part_41E_fixtures_heading)
-    tt5.push(part_41E_fixtures)
-    tt5.push(insertSpace)
-
-    var newFixtures = part_5_fixtures
-    if(req.body.fixtures.length === 0){
-      newFixtures.table.body[1][1].ul = ['None']
-    } else{
-      newFixtures.table.body[1][1].ul = req.body.fixtures
+    var newFixtures = part_5_fixtures;
+    if (req.body.fixtures.length === 0) {
+      newFixtures.table.body[1][1].ul = ["None"];
+    } else {
+      newFixtures.table.body[1][1].ul = req.body.fixtures;
     }
-    tt5.push(newFixtures)
+    tt5.push(newFixtures);
     var temp_stack5 = {
       stack: tt5,
-      unbreakable: true
-    }
-    content.push(temp_stack5)
+      unbreakable: true,
+    };
+    content.push(temp_stack5);
     // Fixtures - Ends
-    var tt6 = []
-    tt6.push(part_6_condtitionA_heading)
-    tt6.push(part_6_condtitionA)
-    tt6.push(insertSpace)
+    var tt6 = [];
+    tt6.push(part_6_condtitionA_heading);
+    tt6.push(part_6_condtitionA);
+    tt6.push(insertSpace);
     var temp_stack6 = {
       stack: tt6,
-      unbreakable: true
-    }
-    content.push(temp_stack6)
+      unbreakable: true,
+    };
+    content.push(temp_stack6);
 
-    var tt7 = []
-    tt7.push(part_6_condtitionB_heading)
-    tt7.push(part_6_condtitionB)
-    tt7.push(insertSpace)
+    var tt7 = [];
+    tt7.push(part_6_condtitionB_heading);
+    tt7.push(part_6_condtitionB);
+    tt7.push(insertSpace);
     var temp_stack7 = {
       stack: tt7,
-      unbreakable: true
-    }
-    content.push(temp_stack7)
+      unbreakable: true,
+    };
+    content.push(temp_stack7);
 
-    var tt8 = []
-    tt8.push(part_6_condtitionC_heading)
-    tt8.push(part_6_condtitionC)
-    tt8.push(insertSpace)
+    var tt8 = [];
+    tt8.push(part_6_condtitionC_heading);
+    tt8.push(part_6_condtitionC);
+    tt8.push(insertSpace);
     var temp_stack8 = {
       stack: tt8,
-      unbreakable: true
-    }
-    content.push(temp_stack8)
+      unbreakable: true,
+    };
+    content.push(temp_stack8);
 
     // SIGNATURE PURCHASER - STARTS
-      let new_purchaser_signature = {}
-      if (data.purchaserCheck1 === true) {
-        if(data.numPurchasers === "One"){
-          new_purchaser_signature = part_71_signature_purchaser_one
-        } else {
-          new_purchaser_signature = part_72_signature_purchaser_two
-        }
+    let new_purchaser_signature = {};
+    if (data.purchaserCheck1 === true) {
+      if (data.numPurchasers === "One") {
+        new_purchaser_signature = part_71_signature_purchaser_one;
+      } else {
+        new_purchaser_signature = part_72_signature_purchaser_two;
       }
-      if (data.purchaserCheck2 === true) {
-        new_purchaser_signature = part_73_signature_purchaser_company
-      }
-      if (data.purchaserCheck3 === true) {
-        new_purchaser_signature = part_74_signature_purchaser_trust
-      }
-      var tt9 = []
-      tt9.push(part_70_purchaser_heading)
-      tt9.push(new_purchaser_signature)
-      var temp_stack9 = {
-        stack: tt9,
-        unbreakable: true
-      }
-      content.push(temp_stack9)
+    }
+    if (data.purchaserCheck2 === true) {
+      new_purchaser_signature = part_73_signature_purchaser_company;
+    }
+    if (data.purchaserCheck3 === true) {
+      new_purchaser_signature = part_74_signature_purchaser_trust;
+    }
+    var tt9 = [];
+    tt9.push(part_70_purchaser_heading);
+    tt9.push(new_purchaser_signature);
+    var temp_stack9 = {
+      stack: tt9,
+      unbreakable: true,
+    };
+    content.push(temp_stack9);
     // SIGNATURE PURCHASER - ENDS
 
     // SIGNATURE SELLER - STARTS
-      let new_seller_signature = {}
-      if (data.defaultCheck1 === true) {
-        if(data.marriedInCommunityOfProperty === "No"){
-          new_seller_signature = part_81_signature_seller_one
-        } else {
-          new_seller_signature = part_82_signature_seller_two
-        }
+    let new_seller_signature = {};
+    if (data.defaultCheck1 === true) {
+      if (data.marriedInCommunityOfProperty === "No") {
+        new_seller_signature = part_81_signature_seller_one;
+      } else {
+        new_seller_signature = part_82_signature_seller_two;
       }
-      if (data.defaultCheck2 === true) {
-        new_seller_signature = part_83_signature_seller_company
-      }
-      if (data.defaultCheck3 === true) {
-        new_seller_signature = part_84_signature_seller_trust
-      }
-      var tt10 = []
-      tt10.push(part_80_seller_heading)
-      tt10.push(new_seller_signature)
-      var temp_stack10 = {
-        stack: tt10,
-        unbreakable: true
-      }
-      content.push(temp_stack10)
+    }
+    if (data.defaultCheck2 === true) {
+      new_seller_signature = part_83_signature_seller_company;
+    }
+    if (data.defaultCheck3 === true) {
+      new_seller_signature = part_84_signature_seller_trust;
+    }
+    var tt10 = [];
+    tt10.push(part_80_seller_heading);
+    tt10.push(new_seller_signature);
+    var temp_stack10 = {
+      stack: tt10,
+      unbreakable: true,
+    };
+    content.push(temp_stack10);
     // SIGNATURE SELLER - ENDS
 
     // DEFINITIONS - STARTS
-    var definitions_heading = {pageBreak: 'before', text: "Terms and Conditions of Agreement of Purchase and Sale", style: "header0" }
-    var tt11 = []
-    tt11.push(definitions_heading)
-    if (data.agentInvolved === "No"){
-      tt11.push(part_9_definitians_withoutEsateAgent)
-     } else {
-      tt11.push(part_9_definitians)
+    var definitions_heading = {
+      pageBreak: "before",
+      text: "Terms and Conditions of Agreement of Purchase and Sale",
+      style: "header0",
+    };
+    var tt11 = [];
+    tt11.push(definitions_heading);
+    if (data.agentInvolved === "No") {
+      tt11.push(part_9_definitians_withoutEsateAgent);
+    } else {
+      tt11.push(part_9_definitians);
     }
     var temp_stack11 = {
       stack: tt11,
-    }
-    content.push(temp_stack11)
+    };
+    content.push(temp_stack11);
     // DEFINITIONS - ENDS
 
     // SPECIAL CONDITIONS - Start
-    var newConditions = part_10_specialConditions
-    if(req.body.specialConditions.length === 0){
-      newConditions.table.body[1][1].ul = ['None']
-    } else{
-      newConditions.table.body[1][1].ul = req.body.specialConditions
+    var newConditions = part_10_specialConditions;
+    if (req.body.specialConditions.length === 0) {
+      newConditions.table.body[1][1].ul = ["None"];
+    } else {
+      newConditions.table.body[1][1].ul = req.body.specialConditions;
     }
 
-    content.push(part_10_specialConditions)
+    content.push(part_10_specialConditions);
     // SPECIAL CONDITIONS - Ends
     // SIGNATURE PURCHASER FINAL- STARTS
-      let new_purchaser_signature1 = {}
-      if (data.purchaserCheck1 === true) {
-        if(data.numPurchasers === "One"){
+    let new_purchaser_signature1 = {};
+    if (data.purchaserCheck1 === true) {
+      if (data.numPurchasers === "One") {
+        new_purchaser_signature1 = part_11_signature_purchaser_one;
+      } else {
+        new_purchaser_signature1 = part_11_signature_purchaser_two;
+      }
+    }
+    if (data.purchaserCheck2 === true) {
+      new_purchaser_signature1 = part_11_signature_purchaser_company;
+    }
+    if (data.purchaserCheck3 === true) {
+      new_purchaser_signature1 = part_11_signature_purchaser_trust;
+    }
 
-          new_purchaser_signature1 =   part_71_signature_purchaser_one
-        } else {
-          new_purchaser_signature1 = part_72_signature_purchaser_two
-        }
-      }
-      if (data.purchaserCheck2 === true) {
-        new_purchaser_signature1 = part_73_signature_purchaser_company
-      }
-      if (data.purchaserCheck3 === true) {
-        new_purchaser_signature1 = part_74_signature_purchaser_trust
-      }
-
-      content.push(new_purchaser_signature1)
+    content.push(new_purchaser_signature1);
+    content.push(insertSpace);
     // SIGNATURE PURCHASER FINAL- ENDS
 
     // SIGNATURE SELLER FINAL- STARTS
-      let new_seller_signature1 = {}
-      if (data.defaultCheck1 === true) {
-        if(data.marriedInCommunityOfProperty === "No"){
-          new_seller_signature1 = part_81_signature_seller_one
-        } else {
-          new_seller_signature1 = part_82_signature_seller_two
-        }
+    let new_seller_signature1 = {};
+    if (data.defaultCheck1 === true) {
+      if (data.marriedInCommunityOfProperty === "No") {
+        new_seller_signature1 = part_12_signature_seller_one;
+      } else {
+        new_seller_signature1 = part_12_signature_seller_two;
       }
-      if (data.defaultCheck2 === true) {
-        new_seller_signature1 = part_83_signature_seller_company
-      }
-      if (data.defaultCheck3 === true) {
-        new_seller_signature1 = part_84_signature_seller_trust
-      }
-      content.push(new_seller_signature1)
+    }
+    if (data.defaultCheck2 === true) {
+      new_seller_signature1 = part_12_signature_seller_company;
+    }
+    if (data.defaultCheck3 === true) {
+      new_seller_signature1 = part_12_signature_seller_trust;
+    }
+    content.push(new_seller_signature1);
     // SIGNATURE SELLER FINAL- ENDS
 
-    let test1 = otp_master
+    let test1 = otp_master;
 
-    test1['content'] = content
+    test1["content"] = content;
 
     // Change data into a string to make the changes
     var docDefinition = test1;
-    let string_object = JSON.stringify(docDefinition)
-
+    let string_object = JSON.stringify(docDefinition);
 
     // Make the changes according to die object reveived from FrontEnd
-    let replaced = ''
+    let replaced = "";
     Object.keys(req.body).forEach((key, i) => {
-    if(req.body[key] !='' & req.body[key] != undefined ){
-      string_object = string_object.split(key).join(req.body[key])
-    }
-     });
-     // Change data back into an object
-     var replacedBack = JSON.parse(string_object)
-     // Insert the Footer (after all the changes are complete)
-     replacedBack['footer'] = footer2
+      if ((req.body[key] != "") & (req.body[key] != undefined)) {
+        string_object = string_object.split(key).join(req.body[key]);
+      }
+    });
+    // Change data back into an object
+    var replacedBack = JSON.parse(string_object);
+    // Insert the Footer (after all the changes are complete)
+    replacedBack["footer"] = footer2;
 
-     var obj = {}
-     obj['email'] = data.emailToBeSent
-     obj['docDefinition'] = replacedBack
-     resolve(obj);
-  }).then(function(obj) {
-       // uses data to create the PDF - STARTS
-         // var pdfDoc = printer.createPdfKitDocument(obj.docDefinition);
-         // pdfDoc.pipe(fs.createWriteStream('document-new.pdf'));
-         // pdfDoc.end();
-         // console.log('PDF Created ! ! !')
-      // uses data to create the PDF - STARTS
+    var obj = {};
+    obj["email"] = data.emailToBeSent;
+    obj["docDefinition"] = replacedBack;
+    resolve(obj);
+  }).then(function (obj) {
+    // uses data to create the PDF - STARTS
+    // var pdfDoc = printer.createPdfKitDocument(obj.docDefinition);
+    // pdfDoc.pipe(fs.createWriteStream('document-new.pdf'));
+    // pdfDoc.end();
+    // console.log('PDF Created ! ! !')
+    // uses data to create the PDF - STARTS
 
-       const doc = printer.createPdfKitDocument(obj.docDefinition);
-       let buffers = [];
+    const doc = printer.createPdfKitDocument(obj.docDefinition);
+    let buffers = [];
 
-       doc.on('data', buffers.push.bind(buffers));
+    doc.on("data", buffers.push.bind(buffers));
 
-       doc.on('end', () => {
-         let pdfData = Buffer.concat(buffers);
+    doc.on("end", () => {
+      let pdfData = Buffer.concat(buffers);
 
-         // Sets the Email options for NodeMailer
-         var mailOptions = {
-         from: 'Brune Attorneys <attorney@brune.co.za>',
-         to: obj.email,
-         subject: 'Contract of Sale',
-         text: 'Your contract of sale attached. Blah Blah blah',
-         attachments: [{
-         filename: 'attachment.pdf',
-         content: pdfData
-         }]
-         };
+      // Sets the Email options for NodeMailer
+      var mailOptions = {
+        from: "Brune Attorneys <attorney@brune.co.za>",
+        to: obj.email,
+        subject: "Contract of Sale",
+        text: "Your contract of sale attached. Blah Blah blah",
+        attachments: [
+          {
+            filename: "attachment.pdf",
+            content: pdfData,
+          },
+        ],
+      };
 
-         // Send the actual Email with NodeMailer
-         transporter.sendMail(mailOptions, function(error, info){
-         if (error) {
-           console.log(error);
-           res.send({txt:'failure'})
-         } else {
+      // Send the actual Email with NodeMailer
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log(error);
+          res.send({ txt: "failure" });
+        } else {
+          console.log(obj.email);
+          console.log("Email sent: " + info.response);
+          res.send({ txt: "success" });
+        }
+      });
+    });
+    //end buffer
+    doc.end();
 
-           console.log(obj.email)
-           console.log('Email sent: ' + info.response);
-           res.send({txt:'success'})
-         }
-         });
-
-       });
-       //end buffer
-       doc.end();
-
-
-     // uses data to create the PDF - STARTS
-  })
-})
+    // uses data to create the PDF - STARTS
+  });
+});
 // *** End of Route "/otp_landing" ***
-function sendEmail(address, pdf){
-
-}
+function sendEmail(address, pdf) {}
 // *** Working Test Route that constructs PDF and sends it our in Email without saving the file
 router.get("/otp_landing2", (req, res) => {
-  console.log('opt_landing2reached')
+  console.log("opt_landing2reached");
 
   // var docDefinition = {
   //   content: [
@@ -454,505 +534,1061 @@ router.get("/otp_landing2", (req, res) => {
   //   ]
   //   };
 
-  var docDefinition = otp_master
+  var docDefinition = otp_master;
   // const printer = new pdfMakePrinter(fontDescriptors);
   const doc = printer.createPdfKitDocument(docDefinition);
   let buffers = [];
 
-  doc.on('data', buffers.push.bind(buffers));
+  doc.on("data", buffers.push.bind(buffers));
 
-  doc.on('end', () => {
+  doc.on("end", () => {
     let pdfData = Buffer.concat(buffers);
 
     // Sets the Email options for NodeMailer
     var mailOptions = {
-    from: 'Brune Attorneys <attorney@brune.co.za>',
-    to: 'anton.brune@gmail.com',
-    subject: 'Test Email with PDF',
-    text: 'Test body',
-    attachments: [{
-    filename: 'attachment.pdf',
-    content: pdfData
-    }]
+      from: "Brune Attorneys <attorney@brune.co.za>",
+      to: "anton.brune@gmail.com",
+      subject: "Test Email with PDF",
+      text: "Test body",
+      attachments: [
+        {
+          filename: "attachment.pdf",
+          content: pdfData,
+        },
+      ],
     };
 
     // Send the actual Email with NodeMailer
-    transporter.sendMail(mailOptions, function(error, info){
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
     });
-
   });
   //end buffer
   doc.end();
-
-
-})
+});
 // *** End of the "/otp_landing2" route
 
 // *** MASTER OTP FILES - STARTS
 const otp_master = {
-  footer: '',
-	styles: {
-		header0: {
-			alignment: "center",
-			fontSize: 16,
-			bold: true,
-			margin: [0, 0, 0, 20],
-			decoration: "underline",
-		},
-		header1: {
-			fontSize: 12,
-		},
+  footer: "",
+  styles: {
+    header0: {
+      alignment: "center",
+      fontSize: 16,
+      bold: true,
+      margin: [0, 0, 0, 20],
+      decoration: "underline",
+    },
+    header1: {
+      fontSize: 12,
+    },
     signed: {
-			fontSize: 10,
-			alignment: "justify",
-		},
-		header2: {
-			fontSize: 12,
-			bold: true,
-			decoration: "underline",
-		},
+      fontSize: 10,
+      alignment: "justify",
+    },
+    header2: {
+      fontSize: 12,
+      bold: true,
+      decoration: "underline",
+    },
     header3: {
-    alignment: "center",
-    fontSize: 16,
-    bold: true,
-  },
-  header4: {
-    fontSize: 10,
-    bold: true,
-  },
-  		parEnd: {
-			margin: [0, 0, 0, 15],
-			alignment: "justify",
-		},
+      alignment: "center",
+      fontSize: 16,
+      bold: true,
+    },
+    header4: {
+      fontSize: 10,
+      bold: true,
+    },
+    parEnd: {
+      margin: [0, 0, 0, 15],
+      alignment: "justify",
+    },
     justify: {
-    alignment: "justify",
-  },
+      alignment: "justify",
+    },
     parSpaceAfter: {
-			margin: [0, 0, 0, 15],
-		},
+      margin: [0, 0, 0, 15],
+    },
     bold: {
       bold: true,
-			decoration: "underline",
-		},
+      decoration: "underline",
+    },
     right: {
-			fontSize: 8,
-			alignment: "right",
-		},
-		left: {
-			fontSize: 8,
-			alignment: "left",
-		},
-	},
-	defaultStyle: {
-		columnGap: 0,
+      fontSize: 8,
+      alignment: "right",
+    },
+    left: {
+      fontSize: 8,
+      alignment: "left",
+    },
+  },
+  defaultStyle: {
+    columnGap: 0,
     fontSize: 10,
-	},
+  },
 };
 //{text:"", style: "parSpaceAfter"}
-var insertSpace =  {text:'\n'}
-var part_1_heading = { text: "Agreement of Purchase and Sale", style: "header0" }
+var insertSpace = { text: "\n" };
+var part_1_heading = {
+  text: "Agreement of Purchase and Sale",
+  style: "header0",
+};
 var part_20_seller_heading = {
   table: {
-    widths: [34, '*'],
+    widths: [34, "*"],
     body: [
-      [{text:'',border: [false, false, false, false]}, {margin: [-5,0,0,0],text:'Seller',border: [false, false, false, true]}, ],
-]}
-}
+      [
+        { text: "", border: [false, false, false, false] },
+        {
+          margin: [-5, 0, 0, 0],
+          text: "Seller",
+          border: [false, false, false, true],
+        },
+      ],
+    ],
+  },
+};
 var part_21_seller_basic = {
-    table: {
+  table: {
     widths: [34, 90, 134, 90, 134],
     body: [
-      ["", "", {text: "" }, "", ""],
-      ["1.1", "Name:", {style: 'bold', text: "sellerName1 sellerSurname1" }, "", ""],
-      ["", {text: "asdf___saresident___asdf", colSpan: 4 }, "", "", ""],
-      ["", "", {text: "" }, "", ""],
-      ["1.2", "Identity Number:", { style: 'bold',text: "sellerIdNumber1" }, "", ""],
-      ["", "", {text: "" }, "", ""],
-      ["1.3", "Physical Address:", { style: 'bold',text: "sellerPhysicalAddress", colSpan: 3 }, "", ""],
-      ["", "", {text: "" }, "", ""],
-      ["1.4", "Cell No:", { style: 'bold',text: "sellerCellphoneNumber"}, "Email:", { style: 'bold',text:"sellerEmailAddress"}],
-      ["", "", {text: "" }, "", ""],
-      ["", "Phone No:", { style: 'bold',text: "sellerPhoneNumber"}, "Fax No:", {style: 'bold',text:"sellerFaxNumber",}],
-    ]}, layout: "noBorders",
-}
+      ["", "", { text: "" }, "", ""],
+      [
+        "1.1",
+        "Name:",
+        { style: "bold", text: "sellerName1 sellerSurname1" },
+        "",
+        "",
+      ],
+      ["", { text: "asdf___saresident___asdf", colSpan: 4 }, "", "", ""],
+      ["", "", { text: "" }, "", ""],
+      [
+        "1.2",
+        "Identity Number:",
+        { style: "bold", text: "sellerIdNumber1" },
+        "",
+        "",
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "1.3",
+        "Physical Address:",
+        { style: "bold", text: "sellerPhysicalAddress", colSpan: 3 },
+        "",
+        "",
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "1.4",
+        "Cell No:",
+        { style: "bold", text: "sellerCellphoneNumber" },
+        "Email:",
+        { style: "bold", text: "sellerEmailAddress" },
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "",
+        "Phone No:",
+        { style: "bold", text: "sellerPhoneNumber" },
+        "Fax No:",
+        { style: "bold", text: "sellerFaxNumber" },
+      ],
+    ],
+  },
+  layout: "noBorders",
+};
 var part_22_seller_spouse = {
   table: {
     widths: [34, 90, 134, 90, 134],
     body: [
-      ["", "", {text: "" }, "", ""],
-        ["1.", "Seller 1:", {style: 'bold', text: "sellerName1 sellerSurname1", colSpan: 1 }, "Seller 2:", {style: 'bold', text:"sellerName2 sellerSurname2"}],
-      ["", {text: "asdf___saresident___asdf", colSpan: 4 }, "", "", ""],
-      ["", "", {text: "" }, "", ""],
-      ["1.2", "Identity Number:", { style: 'bold',text: "sellerIdNumber1" }, "Identity Number:", { style: 'bold',text:"sellerIdNumber2"}],
-      ["", "", {text: "" }, "", ""],
-      ["1.3", "Physical Address:", { style: 'bold',text: "sellerPhysicalAddress", colSpan: 3 }, "", ""],
-      ["", "", {text: "" }, "", ""],
-      ["1.4", "Cell No:", { style: 'bold',text: "sellerCellphoneNumber"}, "Email:", { style: 'bold',text:"sellerEmailAddress"}],
-      ["", "", {text: "" }, "", ""],
-      ["", "Phone No:", { style: 'bold',text: "sellerPhoneNumber"}, "Fax No:", {style: 'bold',text:"sellerFaxNumber",}],
-]},
-layout: "noBorders",
-}
+      ["", "", { text: "" }, "", ""],
+      [
+        "1.",
+        "Seller 1:",
+        { style: "bold", text: "sellerName1 sellerSurname1", colSpan: 1 },
+        "Seller 2:",
+        { style: "bold", text: "sellerName2 sellerSurname2" },
+      ],
+      ["", { text: "asdf___saresident___asdf", colSpan: 4 }, "", "", ""],
+      ["", "", { text: "" }, "", ""],
+      [
+        "1.2",
+        "Identity Number:",
+        { style: "bold", text: "sellerIdNumber1" },
+        "Identity Number:",
+        { style: "bold", text: "sellerIdNumber2" },
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "1.3",
+        "Physical Address:",
+        { style: "bold", text: "sellerPhysicalAddress", colSpan: 3 },
+        "",
+        "",
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "1.4",
+        "Cell No:",
+        { style: "bold", text: "sellerCellphoneNumber" },
+        "Email:",
+        { style: "bold", text: "sellerEmailAddress" },
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "",
+        "Phone No:",
+        { style: "bold", text: "sellerPhoneNumber" },
+        "Fax No:",
+        { style: "bold", text: "sellerFaxNumber" },
+      ],
+    ],
+  },
+  layout: "noBorders",
+};
 var part_23_seller_company = {
   table: {
-    widths: [34,100, 124, 70, 124],
+    widths: [34, 100, 124, 70, 124],
     body: [
-      ["", "", {text: "" }, "", ""],
-      ["1.1", "Seller:", { style: 'bold',text: "sellerCompanyName", }, "Registration Number:", { style: 'bold',text: "sellerCompanyRegistrationNumber",}],
-      ["", "", {text: "" }, "", ""],
-      ["1.2", "Representative Name:", {style: 'bold', text: "sellerCompanyRepresentativeName", colSpan: 3 }, "", ""],
-      ["", "", {text: "" }, "", ""],
-      ["1.3", "Physical Address:", { style: 'bold',text: "sellerCompanyPhysicalAddress", colSpan: 3 }, "", ""],
-      ["", "", {text: "" }, "", ""],
-      ["", "Cell No:", { style: 'bold',text:"sellerCompanyCellphoneNumber"}, "Email:", { style: 'bold',text:"sellerCompanyEmail"}],
-      ["", "", {text: "" }, "", ""],
-      ["", "Phone No:", { style: 'bold',text:"sellerCompanyPhoneNumber"}, "Fax No:", {style: 'bold',text:"sellerCompanyFaxNumber",}],
-]},
-layout: "noBorders",
-}
+      ["", "", { text: "" }, "", ""],
+      [
+        "1.1",
+        "Seller:",
+        { style: "bold", text: "sellerCompanyName" },
+        "Registration Number:",
+        { style: "bold", text: "sellerCompanyRegistrationNumber" },
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "1.2",
+        "Representative Name:",
+        { style: "bold", text: "sellerCompanyRepresentativeName", colSpan: 3 },
+        "",
+        "",
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "1.3",
+        "Physical Address:",
+        { style: "bold", text: "sellerCompanyPhysicalAddress", colSpan: 3 },
+        "",
+        "",
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "",
+        "Cell No:",
+        { style: "bold", text: "sellerCompanyCellphoneNumber" },
+        "Email:",
+        { style: "bold", text: "sellerCompanyEmail" },
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "",
+        "Phone No:",
+        { style: "bold", text: "sellerCompanyPhoneNumber" },
+        "Fax No:",
+        { style: "bold", text: "sellerCompanyFaxNumber" },
+      ],
+    ],
+  },
+  layout: "noBorders",
+};
 var part_24_seller_trust = {
   table: {
-    widths: [34, 95, 134, 95, '*'],
+    widths: [34, 95, 134, 95, "*"],
     body: [
-      ["", "", {text: "" }, "", ""],
-      ["1.1", "Seller:", { style: 'bold',text: "sellerTrustName",  }, "Registration Number:", { style: 'bold',text: "sellerTrustRegistrationNumber"}],
-      ["", "", {text: "" }, "", ""],
-       ["1.2", "Trustee Name:", { style: 'bold',text: "sellerTrustRepresentativeName", colSpan: 3 }, "", ""],
-       ["", "", {text: "" }, "", ""],
-      ["1.3", "Physical Address:", { style: 'bold',text: "sellerTrustPhysicalAddress", colSpan: 3 }, "", ""],
-      ["", "", {text: "" }, "", ""],
-      ["1.4", "Cell No:", {style: 'bold',text:"sellerTrustCellphoneNumber"}, "Email:", {style: 'bold',text:"sellerTrustEmail"}],
-      ["", "", {text: "" }, "", ""],
-      ["", "Phone No:", {style: 'bold',text:"sellerTrustPhoneNumberF"}, "Fax No:", {style: 'bold',text:"sellerTrustFaxNumber",}],
-]},
-layout: "noBorders",
-}
-
+      ["", "", { text: "" }, "", ""],
+      [
+        "1.1",
+        "Seller:",
+        { style: "bold", text: "sellerTrustName" },
+        "Registration Number:",
+        { style: "bold", text: "sellerTrustRegistrationNumber" },
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "1.2",
+        "Trustee Name:",
+        { style: "bold", text: "sellerTrustRepresentativeName", colSpan: 3 },
+        "",
+        "",
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "1.3",
+        "Physical Address:",
+        { style: "bold", text: "sellerTrustPhysicalAddress", colSpan: 3 },
+        "",
+        "",
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "1.4",
+        "Cell No:",
+        { style: "bold", text: "sellerTrustCellphoneNumber" },
+        "Email:",
+        { style: "bold", text: "sellerTrustEmail" },
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "",
+        "Phone No:",
+        { style: "bold", text: "sellerTrustPhoneNumberF" },
+        "Fax No:",
+        { style: "bold", text: "sellerTrustFaxNumber" },
+      ],
+    ],
+  },
+  layout: "noBorders",
+};
 var part_30_purchaser_heading = {
   table: {
-    widths: [34, '*'],
+    widths: [34, "*"],
     body: [
-      [{text:'',border: [false, false, false,false]}, {margin: [-5,0,0,0],text:'Purchaser',border: [false, false, false, true]}, ],
-]}
-}
+      [
+        { text: "", border: [false, false, false, false] },
+        {
+          margin: [-5, 0, 0, 0],
+          text: "Purchaser",
+          border: [false, false, false, true],
+        },
+      ],
+    ],
+  },
+};
 var part_31_purchaser_one = {
-table: {
-widths: [34, 90, 134, 90, 134],
-body: [   ["", "", {text: "" }, "", ""],
-          ["2.1", "Purchaser:", { style: 'bold',text: "purchaserName1 purchaserSurname1", colSpan: 3 }, "", ""],
-          ["", "", {text: "" }, "", ""],
-					[	"2.2",	{ text: "Identity Number:" },	{ style: 'bold',text: "purchaserIdNumber1", colSpan: 3 },	"",	"",	],
-          ["", "", {text: "" }, "", ""],
-					["2.3", "Physical Address:", { style: 'bold',text: "purchaserPhysicalAddress", colSpan: 3 }, "", ""],
-          ["", "", {text: "" }, "", ""],
-					["2.4", "Cell No.", { style: 'bold',text: "purchaserCellphoneNumber"}, "Email:", { style: 'bold',text: "purchaserEmailAddress"}],
-          ["", "", {text: "" }, "", ""],
-					["", "Phone No.", { style: 'bold',text: "purchaserPhoneNumber"}, "Fax No:", {text:"purchaserFaxNumber", style: "bold"}],
-  ]},
+  table: {
+    widths: [34, 90, 134, 90, 134],
+    body: [
+      ["", "", { text: "" }, "", ""],
+      [
+        "2.1",
+        "Purchaser:",
+        { style: "bold", text: "purchaserName1 purchaserSurname1", colSpan: 3 },
+        "",
+        "",
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "2.2",
+        { text: "Identity Number:" },
+        { style: "bold", text: "purchaserIdNumber1", colSpan: 3 },
+        "",
+        "",
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "2.3",
+        "Physical Address:",
+        { style: "bold", text: "purchaserPhysicalAddress", colSpan: 3 },
+        "",
+        "",
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "2.4",
+        "Cell No.",
+        { style: "bold", text: "purchaserCellphoneNumber" },
+        "Email:",
+        { style: "bold", text: "purchaserEmailAddress" },
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "",
+        "Phone No.",
+        { style: "bold", text: "purchaserPhoneNumber" },
+        "Fax No:",
+        { text: "purchaserFaxNumber", style: "bold" },
+      ],
+    ],
+  },
   layout: "noBorders",
-  }
+};
 var part_32_purchaser_two = {
-table: {
-widths: [34, 90, 134, 90, 134],
-body: [
-   ["", "", {text: "" }, "", ""],
-   ["2.1", "Purchaser1:", { style: 'bold',text: "purchaserName1 purchaserSurname1", colSpan: 1 }, "Purchaser2:", { style: 'bold',text: "purchaserName2 purchaserSurname2"}],
-	 ["", "", {text: "" }, "", ""],
-	 ["2.2",{ text: "Identity Number:" },{ style: 'bold',text: "purchaserIdNumber1", colSpan: 1 },"Identity Number:",{ style: 'bold',text: "purchaserIdNumber2"},],
-	 ["", "", {text: "" }, "", ""],
-	 ["2.3", "Physical Address:", { style: 'bold',text: "purchaserPhysicalAddress", colSpan: 3 }, "", ""],
-	 ["", "", {text: "" }, "", ""],
-	 ["2.4", "Cell No:", { style: 'bold',text: "purchaserCellphoneNumber"}, "Email:", { style: 'bold',text: "purchaserEmailAddress"}],
-	 ["", "", {text: "" }, "", ""],
-	 ["", "Phone No:", { style: 'bold',text: "purchaserPhoneNumber"}, "Fax No:", {text:"purchaserFaxNumber", style: "bold"}],
-	 ["", "", {text: "" }, "", ""],
-  ]},
+  table: {
+    widths: [34, 90, 134, 90, 134],
+    body: [
+      ["", "", { text: "" }, "", ""],
+      [
+        "2.1",
+        "Purchaser1:",
+        { style: "bold", text: "purchaserName1 purchaserSurname1", colSpan: 1 },
+        "Purchaser2:",
+        { style: "bold", text: "purchaserName2 purchaserSurname2" },
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "2.2",
+        { text: "Identity Number:" },
+        { style: "bold", text: "purchaserIdNumber1", colSpan: 1 },
+        "Identity Number:",
+        { style: "bold", text: "purchaserIdNumber2" },
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "2.3",
+        "Physical Address:",
+        { style: "bold", text: "purchaserPhysicalAddress", colSpan: 3 },
+        "",
+        "",
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "2.4",
+        "Cell No:",
+        { style: "bold", text: "purchaserCellphoneNumber" },
+        "Email:",
+        { style: "bold", text: "purchaserEmailAddress" },
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "",
+        "Phone No:",
+        { style: "bold", text: "purchaserPhoneNumber" },
+        "Fax No:",
+        { text: "purchaserFaxNumber", style: "bold" },
+      ],
+      ["", "", { text: "" }, "", ""],
+    ],
+  },
   layout: "noBorders",
-}
+};
 var part_33_purchaser_company = {
-table: {
-widths: [34, 95, 134, 74, 134],
-body: [   ["", "", {text: "" }, "", ""],
-          ["2.1", "Purchaser:", {style: 'bold', text: "purchaserCompanyName" }, { text: "Registration Number:" }, {style: 'bold', text: "purchaserCompanyRegistrationNumber" }],
-          ["", "", {text: "" }, "", ""],
-					["2.2",{ text: "Representative Name:" },	{style: 'bold', text: "purchaserCompanyRepresentativeName", colSpan: 3 },	"",	"",	],
-          ["", "", {text: "" }, "", ""],
-					["2.3", "Physical Address:", {style: 'bold', text: "purchaserCompanyPhysicalAddress", colSpan: 3 }, "", ""],
-          ["", "", {text: "" }, "", ""],
-					["2.4", "Cell No.", {style: "bold",text:"purchaserCompanyCellphoneNumber"}, "Email:", {style: "bold",text:"purchaserCompanyEmail"}],
-          ["", "", {text: "" }, "", ""],
-					["", "Phone No.", {style: "bold",text:"purchaserCompanyPhoneNumber"}, "Fax No:", {style: "bold",text:"purchaserCompanyFaxNumber"}],
-  ]},
+  table: {
+    widths: [34, 95, 134, 74, 134],
+    body: [
+      ["", "", { text: "" }, "", ""],
+      [
+        "2.1",
+        "Purchaser:",
+        { style: "bold", text: "purchaserCompanyName" },
+        { text: "Registration Number:" },
+        { style: "bold", text: "purchaserCompanyRegistrationNumber" },
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "2.2",
+        { text: "Representative Name:" },
+        {
+          style: "bold",
+          text: "purchaserCompanyRepresentativeName",
+          colSpan: 3,
+        },
+        "",
+        "",
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "2.3",
+        "Physical Address:",
+        { style: "bold", text: "purchaserCompanyPhysicalAddress", colSpan: 3 },
+        "",
+        "",
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "2.4",
+        "Cell No.",
+        { style: "bold", text: "purchaserCompanyCellphoneNumber" },
+        "Email:",
+        { style: "bold", text: "purchaserCompanyEmail" },
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "",
+        "Phone No.",
+        { style: "bold", text: "purchaserCompanyPhoneNumber" },
+        "Fax No:",
+        { style: "bold", text: "purchaserCompanyFaxNumber" },
+      ],
+    ],
+  },
   layout: "noBorders",
-  }
-var part_34_purchaser_trust =   {
-table: {
-widths: [34, 95, 134, 95, '*'],
-body: [   ["", "", {text: "" }, "", ""],
-          ["2.1", "Purchaser:", {style: 'bold', text: "purchaserTrustName"}, { text: "Trust Number:" }, {style: 'bold', text: "purchaserTrustRegistrationNumber"}],
-          ["", "", {text: "" }, "", ""],
-					["2.2",{ text: "Trustee Name:" },{ style: 'bold',text: "purchaserTrustRepresentativeName", colSpan: 3 },	"",	"",],
-          ["", "", {text: "" }, "", ""],
-					["2.3", "Physical Address:", {style: 'bold', text: "purchaserTrustPhysicalAddress", colSpan: 3 }, "", ""],
-          ["", "", {text: "" }, "", ""],
-					["2.4", "Cell No.", { style: 'bold',text: "purchaserTrustCellphoneNumber"}, "Email:", { style: 'bold',text: "purchaserTrustEmail"}],
-          ["", "", {text: "" }, "", ""],
-					["", "Phone No.", { style: 'bold',text: "purchaserTrustPhoneNumber"}, "Fax No:", {text:"purchaserTrustFaxNumber", style: "bold"}],
-  ]},
+};
+var part_34_purchaser_trust = {
+  table: {
+    widths: [34, 95, 134, 95, "*"],
+    body: [
+      ["", "", { text: "" }, "", ""],
+      [
+        "2.1",
+        "Purchaser:",
+        { style: "bold", text: "purchaserTrustName" },
+        { text: "Trust Number:" },
+        { style: "bold", text: "purchaserTrustRegistrationNumber" },
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "2.2",
+        { text: "Trustee Name:" },
+        { style: "bold", text: "purchaserTrustRepresentativeName", colSpan: 3 },
+        "",
+        "",
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "2.3",
+        "Physical Address:",
+        { style: "bold", text: "purchaserTrustPhysicalAddress", colSpan: 3 },
+        "",
+        "",
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "2.4",
+        "Cell No.",
+        { style: "bold", text: "purchaserTrustCellphoneNumber" },
+        "Email:",
+        { style: "bold", text: "purchaserTrustEmail" },
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "",
+        "Phone No.",
+        { style: "bold", text: "purchaserTrustPhoneNumber" },
+        "Fax No:",
+        { text: "purchaserTrustFaxNumber", style: "bold" },
+      ],
+    ],
+  },
   layout: "noBorders",
-  }
+};
 
 // Property - Freehold
 var part_41A_proptery_heading = {
   table: {
-    widths: [34, '*'],
+    widths: [34, "*"],
     body: [
-      [{text:'',border: [false, false, false,false]}, {margin: [-5,0,0,0],text:'Property Description ( Freehold )',border: [false, false, false, true]}, ],
-]}
-}
+      [
+        { text: "", border: [false, false, false, false] },
+        {
+          margin: [-5, 0, 0, 0],
+          text: "Property Description ( Freehold )",
+          border: [false, false, false, true],
+        },
+      ],
+    ],
+  },
+};
 var part_41A_proptery = {
-   table: {
-  widths: [34, 90, 125, 90, 125],
-  body: [
-        ["", "", {text: "" }, "", ""],
-        ["3.1.",{ text: "Address:", colSpan: 1 },{ style: 'bold',text: "propertyFreeholdAddress", colSpan: 2 },"",	"",	],
-        ["", "", {text: "" }, "", ""],
-        ["3.2", { text: "Erf Number:", colSpan: 1 },{ style: 'bold',text: "propertyFreeholdErfNumber"},"Situated at:",{ style: 'bold',text: "propertyFreeholdSituatedAt"}],
-        ["", "", {text: "" }, "", ""],
-        ["3.3", { text: "Approximate Extent:", colSpan: 1 }, {style: 'bold',text:"propertyFreeholdExtent"}, "", "", ],
-         ],
-    },
-    layout: "noBorders",
-}
+  table: {
+    widths: [34, 90, 125, 90, 125],
+    body: [
+      ["", "", { text: "" }, "", ""],
+      [
+        "3.1.",
+        { text: "Address:", colSpan: 1 },
+        { style: "bold", text: "propertyFreeholdAddress", colSpan: 2 },
+        "",
+        "",
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "3.2",
+        { text: "Erf Number:", colSpan: 1 },
+        { style: "bold", text: "propertyFreeholdErfNumber" },
+        "Situated at:",
+        { style: "bold", text: "propertyFreeholdSituatedAt" },
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "3.3",
+        { text: "Approximate Extent:", colSpan: 1 },
+        { style: "bold", text: "propertyFreeholdExtent" },
+        "",
+        "",
+      ],
+    ],
+  },
+  layout: "noBorders",
+};
 
 // Property - SECTIONAL TITLE
 var part_42A_proptery_heading = {
   table: {
-    widths: [34, '*'],
+    widths: [34, "*"],
     body: [
-      [{text:'',border: [false, false, false,false]}, {margin: [-5,0,0,0],text:'Property Description ( Sectional Title )',border: [false, false, false, true]}, ],
-]}
-}
-var part_42A_proptery = {
-      table: {
-      widths: [34, 145, 75, 145, '*'],
-      body: [
-            ["", "", {text: "" }, "", ""],
-            ["3.1.",{ text: "Property Address:", colSpan: 1 },{ style: 'bold',text: "propertySTAddress", colSpan: 2 },"",	"",	],
-            ["", "", {text: "" }, "", ""],
-            ["3.2.1",{ text: "Sectional Title Number:", colSpan: 1 }, { style: 'bold',text: "propertySTSectionNumber"}, { text: "Door Number:"},{ style: 'bold',text: "propertySTDoorNumber"}],
-            ["", "", {text: "" }, "", ""],
-            ["3.2.2",{ text: "Approximate Estent:"},{ style: 'bold',text: "propertySTArea"}, { text: "Sectional Plan Number:"}, { style: 'bold',text: "propertySTPlanNumber"}],
-            ["", "", {text: "" }, "", ""],
-            ["3.2.3",{ text: "Monthly Levy:"}, { style: 'bold',text: "propertySTMonthlyLevy"}, "",''],
-            ["", "", {text: "" }, "", ""],
-            ["3.2.4", { text: "Body Corporate Rules Attached?" },  {style: 'bold',text: "propertySTBCRulesAttached"}, {text: "Can the scheme be extended?"},  { style: 'bold',text: "propertySTRightToExtend"}],
-            ["", "", {text: "" }, "", ""],
-            ["3.3.1",{ text: "Exclusive Use Area 1:"},{ style: 'bold',text: "propertySTeuaType1"},"EUA Number:",{ style: 'bold',text: "propertySTeuaNum1"},],
-            ["", "", {text: "" }, "", ""],
-            ["",{text: "EUA Area:"},{ style: 'bold',text: "propertySTeuaArea1"}, "","",],
-            ["", "", {text: "" }, "", ""],
-            ["3.3.2", { text: "Exclusive Use Area 2:"}, { style: 'bold',text: "propertySTeuaType2"}, "EUA Number:", { style: 'bold',text: "propertySTeuaNum2"},],
-            ["", "", {text: "" }, "", ""],
-            ["",{ text: "EUA Area:"}, { style: 'bold',text: "propertySTeuaArea2"}, "","", ],
-            ["", "", {text: "" }, "", ""],
-            ["3.4",{ text: "Any Special Levy Due:"}, { style: 'bold',text: "propertySTLevyDue"}, "Amount:", { style: 'bold',text: "propertySTLevyDue"}, ],
-            ["", "", {text: "" }, "", ""],
-            ["3.5", { style:"justify",text: "an undivided share in the common property in the land and buildings as shown and more fully described in the said Plan apportioned to the said Section in accordance with the participation quota designated thereto.", colSpan: 4 },"", "", "", ],
-            ["", "", {text: "" }, "", ""],
-            ["3.6",{text: "asdf___optionAorB___asdf", colSpan: 4 }, "", "", "", ],
-          ],
+      [
+        { text: "", border: [false, false, false, false] },
+        {
+          margin: [-5, 0, 0, 0],
+          text: "Property Description ( Sectional Title )",
+          border: [false, false, false, true],
         },
-        layout: "noBorders",
-      }
+      ],
+    ],
+  },
+};
+var part_42A_proptery = {
+  table: {
+    widths: [34, 145, 75, 145, "*"],
+    body: [
+      ["", "", { text: "" }, "", ""],
+      [
+        "3.1.",
+        { text: "Property Address:", colSpan: 1 },
+        { style: "bold", text: "propertySTAddress", colSpan: 2 },
+        "",
+        "",
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "3.2.1",
+        { text: "Sectional Title Number:", colSpan: 1 },
+        { style: "bold", text: "propertySTSectionNumber" },
+        { text: "Door Number:" },
+        { style: "bold", text: "propertySTDoorNumber" },
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "3.2.2",
+        { text: "Approximate Estent:" },
+        { style: "bold", text: "propertySTArea" },
+        { text: "Sectional Plan Number:" },
+        { style: "bold", text: "propertySTPlanNumber" },
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "3.2.3",
+        { text: "Monthly Levy:" },
+        { style: "bold", text: "propertySTMonthlyLevy" },
+        "",
+        "",
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "3.2.4",
+        { text: "Body Corporate Rules Attached?" },
+        { style: "bold", text: "propertySTBCRulesAttached" },
+        { text: "Can the scheme be extended?" },
+        { style: "bold", text: "propertySTRightToExtend" },
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "3.3.1",
+        { text: "Exclusive Use Area 1:" },
+        { style: "bold", text: "propertySTeuaType1" },
+        "EUA Number:",
+        { style: "bold", text: "propertySTeuaNum1" },
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "",
+        { text: "EUA Area:" },
+        { style: "bold", text: "propertySTeuaArea1" },
+        "",
+        "",
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "3.3.2",
+        { text: "Exclusive Use Area 2:" },
+        { style: "bold", text: "propertySTeuaType2" },
+        "EUA Number:",
+        { style: "bold", text: "propertySTeuaNum2" },
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "",
+        { text: "EUA Area:" },
+        { style: "bold", text: "propertySTeuaArea2" },
+        "",
+        "",
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "3.4",
+        { text: "Any Special Levy Due:" },
+        { style: "bold", text: "propertySTLevyDue" },
+        "Amount:",
+        { style: "bold", text: "propertySTLevyDue" },
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "3.5",
+        {
+          style: "justify",
+          text:
+            "an undivided share in the common property in the land and buildings as shown and more fully described in the said Plan apportioned to the said Section in accordance with the participation quota designated thereto.",
+          colSpan: 4,
+        },
+        "",
+        "",
+        "",
+      ],
+      ["", "", { text: "" }, "", ""],
+      ["3.6", { text: "asdf___optionAorB___asdf", colSpan: 4 }, "", "", ""],
+    ],
+  },
+  layout: "noBorders",
+};
 
 var part_41B_price_heading = {
   table: {
-    widths: [34, '*'],
+    widths: [34, "*"],
     body: [
-      [{text:'',border: [false, false, false,false]}, {margin: [-5,0,0,0],text:'Price',border: [false, false, false, true]}, ],
-]}
-}
+      [
+        { text: "", border: [false, false, false, false] },
+        {
+          margin: [-5, 0, 0, 0],
+          text: "Price",
+          border: [false, false, false, true],
+        },
+      ],
+    ],
+  },
+};
 var part_41B_price = {
-table: {
-  widths: [34, 195, 80, 85, 88],
-  body: [
-        ["", "", {text: "" }, "", ""],
-        ["4.1", "Purchase Price:",  { style: 'bold', text: "R purchasePrice  (inclusive of VAT if applicable)", colSpan: 3 },"", ""],
-        ["", "", {text: "" }, "", ""],
-        ["4.2", "Deposit Amount:", { style: 'bold', text:"R depositAmount"}, "Date Payable:", { style: 'bold', text:"depositDatePayable"}],
-        ["", "", {text: "" }, "", ""],
-        ["4.3", "Loan Amount:", { style: 'bold', text:"R loanAmount"}, "Date Approved:", { style: 'bold', text:"loanDatePayable"}],
-        ["", "", {text: "" }, "", ""],
-        ["4.4", "Cash Amount", { style: 'bold', text:"R cashAmount"},"Date Payable:", { style: 'bold', text:"cashDatePayable",}],
-        ["", "", {text: "" }, "", ""],
-        ["4.5",{text: "Proceeds from sale of Purchasers property:"},{ style: 'bold', text:"R proceedsFromSaleOfPurchaserPropertyAmount"},{text: "Last Date of sale:"},{ style: 'bold', text:"saleOfPropertyLastDateOfSale",}],
-        ["", "", {text: "" }, "", ""],
-        ["4.6",{ text: "Description of property to be sold:" },{style: 'bold', text: "propertyToBeSoldDescription", colSpan: 3,},'',"",],
- ],
-    },
-    layout: "noBorders",
-  }
+  table: {
+    widths: [34, 195, 60, 85, 108],
+    body: [
+      ["", "", { text: "" }, "", ""],
+      [
+        "4.1",
+        "Purchase Price:",
+        {
+          style: "bold",
+          text: "R purchasePrice  (inclusive of VAT if applicable)",
+          colSpan: 3,
+        },
+        "",
+        "",
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "4.2",
+        "Deposit Amount:",
+        { style: "bold", text: "R depositAmount" },
+        "Date Payable:",
+        { style: "bold", text: "depositDatePayable" },
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "4.3",
+        "Loan Amount:",
+        { style: "bold", text: "R loanAmount" },
+        "Date Approved:",
+        { style: "bold", text: "loanDatePayable" },
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "4.4",
+        "Cash Amount:",
+        { style: "bold", text: "R cashAmount" },
+        "Date Payable:",
+        { style: "bold", text: "cashDatePayable" },
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "4.5",
+        { text: "Proceeds from sale of Purchasers property:" },
+        { style: "bold", text: "R proceedsFromSaleOfPurchaserPropertyAmount" },
+        { text: "Last Date of sale:" },
+        { style: "bold", text: "saleOfPropertyLastDateOfSale" },
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "4.6",
+        { text: "Description of property to be sold:" },
+        { style: "bold", text: "propertyToBeSoldDescription", colSpan: 3 },
+        "",
+        "",
+      ],
+    ],
+  },
+  layout: "noBorders",
+};
 
 var part_41C_occupation_heading = {
   table: {
-    widths: [34, '*'],
+    widths: [34, "*"],
     body: [
-      [{text:'',border: [false, false, false,false]}, {margin: [-5,0,0,0],text:'Occupation and Posession',border: [false, false, false, true]}, ],
-]}
-}
+      [
+        { text: "", border: [false, false, false, false] },
+        {
+          margin: [-5, 0, 0, 0],
+          text: "Occupation and Possession",
+          border: [false, false, false, true],
+        },
+      ],
+    ],
+  },
+};
 var part_41C_occupation = {
-table: {
-  widths: [34, 120, 100, 120, 100],
-  body: [
-        ["", "", {text: "" }, "", ""],
-        ["5.1", "Occupation Date:", {style: "bold", text: "occupationDate"}, "Occupational Rent:", { style: "bold",text: "R occupationalRent"}],
-        ["", "", {text: "" }, "", ""],
-        ["5.2", "Posession Date:", {style: "bold", text: "possessionDate", colSpan: 3}, "", ""],
-        ],
-    },
-    layout: "noBorders",
-  }
+  table: {
+    widths: [34, 120, 100, 120, 100],
+    body: [
+      ["", "", { text: "" }, "", ""],
+      [
+        "5.1",
+        "Occupation Date:",
+        { style: "bold", text: "occupationDate" },
+        "Occupational Rent:",
+        { style: "bold", text: "R occupationalRent" },
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "5.2",
+        "Possession Date:",
+        { style: "bold", text: "possessionDate", colSpan: 3 },
+        "",
+        "",
+      ],
+    ],
+  },
+  layout: "noBorders",
+};
 
 var part_41D_agent_heading = {
   table: {
-    widths: [34, '*'],
+    widths: [34, "*"],
     body: [
-      [{text:'',border: [false, false, false,false]}, {margin: [-5,0,0,0],text:'Estate Agent and Conveyancer',border: [false, false, false, true]}, ],
-]}
-}
+      [
+        { text: "", border: [false, false, false, false] },
+        {
+          margin: [-5, 0, 0, 0],
+          text: "Estate Agent and Conveyancer",
+          border: [false, false, false, true],
+        },
+      ],
+    ],
+  },
+};
 var part_41D_agent = {
-table: {
-  widths: [34, 120, 100, 120, 100],
-  body: [
-        ["", "", {text: "" }, "", ""],
-        ["6.1", "Agency:", {style: "bold", text: "agencyName"}, "Agent:", {style: "bold", text: "agentName"}],
-        ["", "", {text: "" }, "", ""],
-        ["6.2", { text: "Commission Percentage", }, {style: "bold", text: "commissionPercentage %"}, "", ""],
-        ["", "", {text: "" }, "", ""],
-        ["6.3", "Conveyancer:", {style: "bold", text: "conveyancerName"}, "Tel No:", {style: "bold", text: "conveyancerTelNumber"}],
-        ],
-    },
-    layout: "noBorders",
-  }
+  table: {
+    widths: [34, 120, 100, 120, 100],
+    body: [
+      ["", "", { text: "" }, "", ""],
+      [
+        "6.1",
+        "Agency:",
+        { style: "bold", text: "agencyName" },
+        "Agent:",
+        { style: "bold", text: "agentName" },
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "6.2",
+        { text: "Commission Percentage" },
+        { style: "bold", text: "commissionPercentage %" },
+        "",
+        "",
+      ],
+      ["", "", { text: "" }, "", ""],
+      [
+        "6.3",
+        "Conveyancer:",
+        { style: "bold", text: "conveyancerName" },
+        "Tel No:",
+        { style: "bold", text: "conveyancerTelNumber" },
+      ],
+    ],
+  },
+  layout: "noBorders",
+};
 
 var part_41E_fixtures_heading = {
   table: {
-    widths: [34, '*'],
+    widths: [34, "*"],
     body: [
-      [{text:'',border: [false, false, false,false]}, {margin: [-5,0,0,0],text:'Fixtures and Fittings',border: [false, false, false, true]}, ],
-]}
-}
-var part_41E_fixtures =  {
-table: {
-  widths: [34, 120, 100, 100, 100],
-  body: [
-        ["", "", {text: "" }, "", ""],
-        ["7.1",{text: "Fixtures/fittings included, refer to clause 32:",colSpan: 4,},"",	"","",],
+      [
+        { text: "", border: [false, false, false, false] },
+        {
+          margin: [-5, 0, 0, 0],
+          text: "Fixtures and Fittings",
+          border: [false, false, false, true],
+        },
       ],
-    },
-    layout: "noBorders",
-  }
-
-
-var part_5_fixtures =  {
-table: {
-  widths: [34, "*"],
-  body: [
-        [
-          "7.2",
-          { text: "Fixtures/fittings excluded:", },
-        ],
-        [
-            "",
-			{style: "parSpaceAfter", ul: [
-				'item 1',
-				'item 2',
-				'item 3'
-			]}
-		],
+    ],
+  },
+};
+var part_41E_fixtures = {
+  table: {
+    widths: [34, 120, 100, 100, 100],
+    body: [
+      ["", "", { text: "" }, "", ""],
+      [
+        "7.1",
+        { text: "Fixtures/fittings included, refer to clause 32:", colSpan: 4 },
+        "",
+        "",
+        "",
       ],
-    },
-    layout: "noBorders",
-  }
+    ],
+  },
+  layout: "noBorders",
+};
+
+var part_5_fixtures = {
+  table: {
+    widths: [34, "*"],
+    body: [
+      ["7.2", { text: "Fixtures/fittings excluded:" }],
+      ["", { style: "parSpaceAfter", ul: ["item 1", "item 2", "item 3"] }],
+    ],
+  },
+  layout: "noBorders",
+};
 
 var part_6_condtitionA_heading = {
   table: {
-    widths: [34, '*'],
+    widths: [34, "*"],
     body: [
-      [{text:'',border: [false, false, false,false]}, {margin: [-5,0,0,0],text:'Acceptance Period',border: [false, false, false, true]}, ],
-]}
-}
+      [
+        { text: "", border: [false, false, false, false] },
+        {
+          margin: [-5, 0, 0, 0],
+          text: "Acceptance Period",
+          border: [false, false, false, true],
+        },
+      ],
+    ],
+  },
+};
 var part_6_condtitionA = {
-    table: {
-      widths: [34, "*"],
-      body: [
-        ["", "",],
-        ["8.1",{style: "justify", text:"The first signature to this agreement shall constitute an irrevocable offer, which may not be withdrawn prior to presentation to the Seller or the Purchaser, which ever the case may be, and which thereafter shall remain available for acceptance until acceptanceTime on acceptanceDate whereafter it shall lapse and be of no further force and effect.",},],
-        ]
-    },
-    layout: "noBorders",
-  }
+  table: {
+    widths: [34, "*"],
+    body: [
+      ["", ""],
+      [
+        "8.1",
+        {
+          style: "justify",
+          text:
+            "The first signature to this agreement shall constitute an irrevocable offer, which may not be withdrawn prior to presentation to the Seller or the Purchaser, which ever the case may be, and which thereafter shall remain available for acceptance until acceptanceTime on acceptanceDate whereafter it shall lapse and be of no further force and effect.",
+        },
+      ],
+    ],
+  },
+  layout: "noBorders",
+};
 var part_6_condtitionB_heading = {
   table: {
-    widths: [34, '*'],
+    widths: [34, "*"],
     body: [
-      [{text:'',border: [false, false, false,false]}, {margin: [-5,0,0,0],text:'Signature in Counterparts',border: [false, false, false, true]}, ],
-]}
-}
+      [
+        { text: "", border: [false, false, false, false] },
+        {
+          margin: [-5, 0, 0, 0],
+          text: "Signature in Counterparts",
+          border: [false, false, false, true],
+        },
+      ],
+    ],
+  },
+};
 var part_6_condtitionB = {
-    table: {
-      widths: [34, "*"],
-      body: [
-        ["", "",],
-        ["9.1",{style: "justify", text:"This Offer to Purchase may be signed in separate counterparts, each of which shall be deemed to be an original and all of which, taken together, shall constitute one and the same instrument. A counterpart of this Offer to Purchase in telefax form or a scanned document via email shall be conclusive evidence of the original signature and shall be as effective in law as the counterparts in original form showing the original signatures.",},],
-      ]
-    },
-    layout: "noBorders",
-  }
+  table: {
+    widths: [34, "*"],
+    body: [
+      ["", ""],
+      [
+        "9.1",
+        {
+          style: "justify",
+          text:
+            "This Offer to Purchase may be signed in separate counterparts, each of which shall be deemed to be an original and all of which, taken together, shall constitute one and the same instrument. A counterpart of this Offer to Purchase in telefax form or a scanned document via email shall be conclusive evidence of the original signature and shall be as effective in law as the counterparts in original form showing the original signatures.",
+        },
+      ],
+    ],
+  },
+  layout: "noBorders",
+};
 var part_6_condtitionC_heading = {
   table: {
-    widths: [34, '*'],
+    widths: [34, "*"],
     body: [
-      [{text:'',border: [false, false, false,false]}, {margin: [-5,0,0,0],text:'Acceptance of Offer',border: [false, false, false, true]}, ],
-]}
-}
+      [
+        { text: "", border: [false, false, false, false] },
+        {
+          margin: [-5, 0, 0, 0],
+          text: "Acceptance of Offer",
+          border: [false, false, false, true],
+        },
+      ],
+    ],
+  },
+};
 var part_6_condtitionC = {
-    table: {
-      widths: [34, "*"],
-      body: [
-        ["", "",],
-        ["10.1",{style: "justify", text:"The parties acknowledge that the signature by the first signing of the parties shall constitute an offer in favour of the other party to enter into this Agreement upon the terms and conditions recorded in The Schedule, in the Special Conditions (if any) and in Annexure “A”, which shall remain open for acceptance and shall be irrevocable until the time and date referred to in item 8 of the Schedule.",},],
-        ["", "",],
-        ["10.2",{style: "justify", text:"The agreement will be deemed to have been duly concluded upon the timeous signature by the Seller and its validity will in no way be dependant upon the fact of such signature being communicated to the Purchaser.",},],
-        ["", "",],
-        ["10.3",{style: "justify", text:"In the event of a signatory signing this Agreement he/she, warrants that consent of a spouse or resolution from a legal entity is not required by law to bring about a lawful contract.",},],
-
-      ]
-    },
-    layout: "noBorders",
-  }
+  table: {
+    widths: [34, "*"],
+    body: [
+      ["", ""],
+      [
+        "10.1",
+        {
+          style: "justify",
+          text:
+            "The parties acknowledge that the signature by the first signing of the parties shall constitute an offer in favour of the other party to enter into this Agreement upon the terms and conditions recorded in The Schedule, in the Special Conditions (if any) and in Annexure “A”, which shall remain open for acceptance and shall be irrevocable until the time and date referred to in item 8 of the Schedule.",
+        },
+      ],
+      ["", ""],
+      [
+        "10.2",
+        {
+          style: "justify",
+          text:
+            "The agreement will be deemed to have been duly concluded upon the timeous signature by the Seller and its validity will in no way be dependant upon the fact of such signature being communicated to the Purchaser.",
+        },
+      ],
+      ["", ""],
+      [
+        "10.3",
+        {
+          style: "justify",
+          text:
+            "In the event of a signatory signing this Agreement he/she, warrants that consent of a spouse or resolution from a legal entity is not required by law to bring about a lawful contract.",
+        },
+      ],
+    ],
+  },
+  layout: "noBorders",
+};
 
 var part_70_purchaser_heading = {
-      table: {
-        widths: [34,'*'],
-        body: [
-
-          [{text:'',border: [false, false, false, false]},{margin: [-5,0,0,0],text:'Purchaser Signature',border: [false, false, false, true]},],
-    ]}
-    }
+  table: {
+    widths: [34, "*"],
+    body: [
+      [
+        { text: "", border: [false, false, false, false] },
+        {
+          margin: [-5, 0, 0, 0],
+          text: "Purchaser Signature",
+          border: [false, false, false, true],
+        },
+      ],
+    ],
+  },
+};
 var part_71_signature_purchaser_one = {
   table: {
     widths: [34, 119, 118, 119, 118],
     body: [
       ["", "", "", "", ""],
-      ["11.1", {text:"Purchaser", style:"header4"}, { text: "", colSpan: 3 }, "", ""],
-      ["",{style:"signed",text:"Signed at _______________ at ______ am/pm on this _____ day of ____________ 20___.",	colSpan: 4,},	"",	"",],
+      [
+        "11.1",
+        { text: "Purchaser", style: "header4" },
+        { text: "", colSpan: 3 },
+        "",
+        "",
+      ],
+      [
+        "",
+        {
+          style: "signed",
+          text:
+            "Signed at _______________ at ______ am/pm on this _____ day of ____________ 20___.",
+          colSpan: 4,
+        },
+        "",
+        "",
+      ],
       [
         "",
         { text: "As Witneses", colSpan: 2 },
@@ -976,15 +1612,32 @@ var part_71_signature_purchaser_one = {
         { text: "purchaserName1 purchaserSurname1", colSpan: 2 },
         "",
       ],
-    ]},
-layout: "noBorders",
-}
+    ],
+  },
+  layout: "noBorders",
+};
 var part_72_signature_purchaser_two = {
   table: {
     widths: [34, 121, 121, 121, 121],
     body: [
-      ["11.1", {text:"Purchaser 1", style:"header4"}, { text: "", colSpan: 3 }, "", ""],
-      ["",{style:"signed",text:"Signed at __________ at ______ am/pm on this _____ day of ____________ 20__",	colSpan: 4,},	"",	"",],
+      [
+        "11.1",
+        { text: "Purchaser 1", style: "header4" },
+        { text: "", colSpan: 3 },
+        "",
+        "",
+      ],
+      [
+        "",
+        {
+          style: "signed",
+          text:
+            "Signed at __________ at ______ am/pm on this _____ day of ____________ 20__",
+          colSpan: 4,
+        },
+        "",
+        "",
+      ],
       [
         "",
         { text: "As Witneses", colSpan: 2 },
@@ -1009,8 +1662,24 @@ var part_72_signature_purchaser_two = {
         "",
       ],
       ["\n", "", "", "", ""],
-      ["11.2", {text:"Purchaser 2", style:"header4"}, { text: "", colSpan: 3 }, "", ""],
-      ["",{style:"signed",text:"Signed at __________ at ______ am/pm on this _____ day of ____________ 20__",	colSpan: 4,},	"",	"",],
+      [
+        "11.2",
+        { text: "Purchaser 2", style: "header4" },
+        { text: "", colSpan: 3 },
+        "",
+        "",
+      ],
+      [
+        "",
+        {
+          style: "signed",
+          text:
+            "Signed at __________ at ______ am/pm on this _____ day of ____________ 20__",
+          colSpan: 4,
+        },
+        "",
+        "",
+      ],
       [
         "",
         { text: "As Witneses", colSpan: 2 },
@@ -1034,16 +1703,33 @@ var part_72_signature_purchaser_two = {
         { text: "purchaserName2 purchaserSurname2", colSpan: 2 },
         "",
       ],
-    ]},
-layout: "noBorders",
-}
-var part_73_signature_purchaser_company =  {
+    ],
+  },
+  layout: "noBorders",
+};
+var part_73_signature_purchaser_company = {
   table: {
-    widths: [34, 121, 121, 121, '*'],
+    widths: [34, 121, 121, 121, "*"],
     body: [
       ["", "", "", "", ""],
-      ["11.1", {text:"Purchaser", style:"header4"}, { text: "", colSpan: 3 }, "", ""],
-      ["",{style:'signed',text:"Signed on behalf of purchaserCompanyName with Registration Number purchaserCompanyRegistrationNumber by purchaserCompanyRepresentativeName on this _____ day of ____________ 20___.",	colSpan: 4,},	"",	"",],
+      [
+        "11.1",
+        { text: "Purchaser", style: "header4" },
+        { text: "", colSpan: 3 },
+        "",
+        "",
+      ],
+      [
+        "",
+        {
+          style: "signed",
+          text:
+            "Signed on behalf of purchaserCompanyName with Registration Number purchaserCompanyRegistrationNumber by purchaserCompanyRepresentativeName on this _____ day of ____________ 20___.",
+          colSpan: 4,
+        },
+        "",
+        "",
+      ],
 
       [
         "",
@@ -1068,16 +1754,33 @@ var part_73_signature_purchaser_company =  {
         { text: "purchaserCompanyRepresentativeName", colSpan: 2 },
         "",
       ],
-    ]},
-layout: "noBorders",
-}
+    ],
+  },
+  layout: "noBorders",
+};
 var part_74_signature_purchaser_trust = {
   table: {
-    widths: [34, 121, 121, 121, '*'],
+    widths: [34, 121, 121, 121, "*"],
     body: [
       ["", "", "", "", ""],
-      ["11.1", {text:"Purchaser", style:"header4"}, { text: "", colSpan: 3 }, "", ""],
-      ["",{style:'signed',text:"Signed on behalf of purchaserTrustName with Registration Number purchaserTrustRegistrationNumber by purchaserTrustRepresentativeName on this _____ day of ____________ 20___.",	colSpan: 4,},	"",	"",],
+      [
+        "11.1",
+        { text: "Purchaser", style: "header4" },
+        { text: "", colSpan: 3 },
+        "",
+        "",
+      ],
+      [
+        "",
+        {
+          style: "signed",
+          text:
+            "Signed on behalf of purchaserTrustName with Registration Number purchaserTrustRegistrationNumber by purchaserTrustRepresentativeName on this _____ day of ____________ 20___.",
+          colSpan: 4,
+        },
+        "",
+        "",
+      ],
 
       [
         "",
@@ -1102,25 +1805,49 @@ var part_74_signature_purchaser_trust = {
         { text: "purchaserTrustRepresentativeName", colSpan: 2 },
         "",
       ],
-    ]},
-layout: "noBorders",
-}
+    ],
+  },
+  layout: "noBorders",
+};
 
 var part_80_seller_heading = {
-      table: {
-        widths: [34,'*'],
-        body: [
-
-          [{text:'',border: [false, false, false, false]},{margin: [-5,0,0,0],text:'Seller Signature',border: [false, false, false, true]},],
-    ]}
-    }
+  table: {
+    widths: [34, "*"],
+    body: [
+      [
+        { text: "", border: [false, false, false, false] },
+        {
+          margin: [-5, 0, 0, 0],
+          text: "Seller Signature",
+          border: [false, false, false, true],
+        },
+      ],
+    ],
+  },
+};
 var part_81_signature_seller_one = {
   table: {
     widths: [34, 121, 121, 121, 121],
     body: [
       ["", "", "", "", ""],
-      ["12.1", {text:"Seller", style:"header4"}, { text: "", colSpan: 3 }, "", ""],
-      ["",{style:"signed",text:"Signed at ____________________ at ________ am/pm on this ______ day of ____________ 20___.",	colSpan: 4,},	"",	"",],
+      [
+        "12.1",
+        { text: "Seller", style: "header4" },
+        { text: "", colSpan: 3 },
+        "",
+        "",
+      ],
+      [
+        "",
+        {
+          style: "signed",
+          text:
+            "Signed at ____________________ at ________ am/pm on this ______ day of ____________ 20___.",
+          colSpan: 4,
+        },
+        "",
+        "",
+      ],
       [
         "",
         { text: "As Witneses", colSpan: 2 },
@@ -1144,16 +1871,33 @@ var part_81_signature_seller_one = {
         { text: "sellerName1 sellerSurname1", colSpan: 2 },
         "",
       ],
-    ]},
-layout: "noBorders",
-}
+    ],
+  },
+  layout: "noBorders",
+};
 var part_82_signature_seller_two = {
   table: {
     widths: [34, 121, 121, 121, 121],
     body: [
       ["", "", "", "", ""],
-      ["12.1", {text:"Seller 1", style:"header4"}, { text: "", colSpan: 3 }, "", ""],
-      ["",{style:"signed",text:"Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",	colSpan: 4,},	"",	"",],
+      [
+        "12.1",
+        { text: "Seller 1", style: "header4" },
+        { text: "", colSpan: 3 },
+        "",
+        "",
+      ],
+      [
+        "",
+        {
+          style: "signed",
+          text:
+            "Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",
+          colSpan: 4,
+        },
+        "",
+        "",
+      ],
       [
         "",
         { text: "As Witneses", colSpan: 2 },
@@ -1178,8 +1922,24 @@ var part_82_signature_seller_two = {
         "",
       ],
       ["\n", "", "", "", ""],
-      ["12.2", {text:"Seller 2", style:"header4"}, { text: "", colSpan: 3 }, "", ""],
-      ["",{style:"signed",text:"Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",	colSpan: 4,},	"",	"",],
+      [
+        "12.2",
+        { text: "Seller 2", style: "header4" },
+        { text: "", colSpan: 3 },
+        "",
+        "",
+      ],
+      [
+        "",
+        {
+          style: "signed",
+          text:
+            "Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",
+          colSpan: 4,
+        },
+        "",
+        "",
+      ],
       [
         "",
         { text: "As Witneses", colSpan: 2 },
@@ -1203,16 +1963,33 @@ var part_82_signature_seller_two = {
         { text: "sellerName2 sellerSurname2", colSpan: 2 },
         "",
       ],
-    ]},
-layout: "noBorders",
-}
+    ],
+  },
+  layout: "noBorders",
+};
 var part_83_signature_seller_company = {
   table: {
     widths: [34, 121, 121, 121, "*"],
     body: [
       ["", "", "", "", ""],
-      ["12.1", {text:"Seller", style:"header4"}, { text: "", colSpan: 3 }, "", ""],
-      ["",{style:'signed',text:"Signed on behalf of sellerCompanyName with Registration Number sellerCompanyRegistrationNumber by sellerCompanyRepresentativeName on this _____ day of ____________ 20___.",	colSpan: 4,},	"",	"",],
+      [
+        "12.1",
+        { text: "Seller", style: "header4" },
+        { text: "", colSpan: 3 },
+        "",
+        "",
+      ],
+      [
+        "",
+        {
+          style: "signed",
+          text:
+            "Signed on behalf of sellerCompanyName with Registration Number sellerCompanyRegistrationNumber by sellerCompanyRepresentativeName on this _____ day of ____________ 20___.",
+          colSpan: 4,
+        },
+        "",
+        "",
+      ],
 
       [
         "",
@@ -1237,16 +2014,33 @@ var part_83_signature_seller_company = {
         { text: "sellerCompanyRepresentativeName", colSpan: 2 },
         "",
       ],
-    ]},
-layout: "noBorders",
-}
+    ],
+  },
+  layout: "noBorders",
+};
 var part_84_signature_seller_trust = {
   table: {
-    widths: [34, 121, 121, 121, '*'],
+    widths: [34, 121, 121, 121, "*"],
     body: [
       ["", "", "", "", ""],
-      ["12.1", {text:"Seller", style:"header4"}, { text: "", colSpan: 3 }, "", ""],
-      ["",{style:'signed',text:"Signed on behalf of sellerTrustName with Registration Number sellerTrustRegistrationNumber by sellerTrustRepresentativeName on this _____ day of ____________ 20___.",	colSpan: 4,},	"",	"",],
+      [
+        "12.1",
+        { text: "Seller", style: "header4" },
+        { text: "", colSpan: 3 },
+        "",
+        "",
+      ],
+      [
+        "",
+        {
+          style: "signed",
+          text:
+            "Signed on behalf of sellerTrustName with Registration Number sellerTrustRegistrationNumber by sellerTrustRepresentativeName on this _____ day of ____________ 20___.",
+          colSpan: 4,
+        },
+        "",
+        "",
+      ],
 
       [
         "",
@@ -1271,16 +2065,16 @@ var part_84_signature_seller_trust = {
         { text: "sellerTrustRepresentativeName", colSpan: 2 },
         "",
       ],
-    ]},
-layout: "noBorders",
-}
+    ],
+  },
+  layout: "noBorders",
+};
 
 var part_9_definitians = {
   table: {
-
     widths: [34, "*"],
     body: [
-      [{text:"1."}, {style: "header2", text: "DEFINITIONS" }],
+      [{ text: "1." }, { style: "header2", text: "DEFINITIONS" }],
       [
         "1.1",
         {
@@ -1727,10 +2521,7 @@ var part_9_definitians = {
             "The Seller shall, at his expense and upon fulfilment of all suspensive conditions contained herein arrange for an accredited person registered with the Electrical Contracting Board of South Africa to inspect the property and issue a valid Certificate of Compliance in terms of Government Regulation No. 2920 of 1992.  Should the aforesaid accredited person report that there is a fault or defect in the electrical installation, the Seller shall be obliged, at his expense, within 21 (twenty one) days of receipt of such report and recommendations, to contact an electrical contractor or any other qualified person to carry out the repairs as recommended so as to enable the accredited person to issue the Certificate aforesaid.",
         },
       ],
-      [
-        "16.",
-        { style: "header2", text: "ELECTRIC FENCE SYSTEM CERTIFICATE" },
-      ],
+      ["16.", { style: "header2", text: "ELECTRIC FENCE SYSTEM CERTIFICATE" }],
       [
         "",
         {
@@ -1821,10 +2612,7 @@ var part_9_definitians = {
         },
       ],
       ["20", { style: "header2", text: "SECTIONAL TITLE PROVISIONS" }],
-      [
-        "",
-        { style: "parEnd", text: "It is agreed between the parties that:" },
-      ],
+      ["", { style: "parEnd", text: "It is agreed between the parties that:" }],
       [
         "20.1",
         {
@@ -2026,17 +2814,15 @@ var part_9_definitians = {
             "The PURCHASER is hereby made aware that in terms of SANS 10254, as from 29 December 2017, an owner is required to obtain a certificate of compliance in respect of any heat pump installations (i.e. geysers) when same is installed, maintained, repaired or replaced. The SELLER warrants that the geyser has not been tampered since this date and accordingly is not in possession of a compliance certificate. The PURCHASER shall accordingly be required to obtain same, should he maintain, replace or repair the geyser/s.",
         },
       ],
-
     ],
   },
   layout: "noBorders",
-}
+};
 var part_9_definitians_withoutEsateAgent = {
   table: {
-
     widths: [34, "*"],
     body: [
-      [{text:"1."}, {style: "header2", text: "DEFINITIONS" }],
+      [{ text: "1." }, { style: "header2", text: "DEFINITIONS" }],
       [
         "1.1",
         {
@@ -2306,8 +3092,7 @@ var part_9_definitians_withoutEsateAgent = {
         "",
         {
           style: "parEnd",
-          text:
-            "(Not applicable)",
+          text: "(Not applicable)",
         },
       ],
       ["10.", { style: "header2", text: "MORA INTEREST" }],
@@ -2426,10 +3211,7 @@ var part_9_definitians_withoutEsateAgent = {
             "The Seller shall, at his expense and upon fulfilment of all suspensive conditions contained herein arrange for an accredited person registered with the Electrical Contracting Board of South Africa to inspect the property and issue a valid Certificate of Compliance in terms of Government Regulation No. 2920 of 1992.  Should the aforesaid accredited person report that there is a fault or defect in the electrical installation, the Seller shall be obliged, at his expense, within 21 (twenty one) days of receipt of such report and recommendations, to contact an electrical contractor or any other qualified person to carry out the repairs as recommended so as to enable the accredited person to issue the Certificate aforesaid.",
         },
       ],
-      [
-        "16.",
-        { style: "header2", text: "ELECTRIC FENCE SYSTEM CERTIFICATE" },
-      ],
+      ["16.", { style: "header2", text: "ELECTRIC FENCE SYSTEM CERTIFICATE" }],
       [
         "",
         {
@@ -2520,10 +3302,7 @@ var part_9_definitians_withoutEsateAgent = {
         },
       ],
       ["20", { style: "header2", text: "SECTIONAL TITLE PROVISIONS" }],
-      [
-        "",
-        { style: "parEnd", text: "It is agreed between the parties that:" },
-      ],
+      ["", { style: "parEnd", text: "It is agreed between the parties that:" }],
       [
         "20.1",
         {
@@ -2725,11 +3504,10 @@ var part_9_definitians_withoutEsateAgent = {
             "The PURCHASER is hereby made aware that in terms of SANS 10254, as from 29 December 2017, an owner is required to obtain a certificate of compliance in respect of any heat pump installations (i.e. geysers) when same is installed, maintained, repaired or replaced. The SELLER warrants that the geyser has not been tampered since this date and accordingly is not in possession of a compliance certificate. The PURCHASER shall accordingly be required to obtain same, should he maintain, replace or repair the geyser/s.",
         },
       ],
-
     ],
   },
   layout: "noBorders",
-}
+};
 
 var part_10_specialConditions = {
   table: {
@@ -2740,21 +3518,544 @@ var part_10_specialConditions = {
     ],
   },
   layout: "noBorders",
-}
+};
+
+var part_11_signature_purchaser_one = {
+  table: {
+    widths: [34, 119, 118, 119, 118],
+    body: [
+      [
+        { text: "36" },
+        { style: "header2", text: "PURCHASER SIGNATURE", colSpan: 2 },
+        "",
+        "",
+        "",
+      ],
+      ["", "", "", "", ""],
+      [
+        "",
+        {
+          style: "signed",
+          text:
+            "Signed at _______________ at ______ am/pm on this _____ day of ____________ 20___.",
+          colSpan: 4,
+        },
+        "",
+        "",
+      ],
+      [
+        "",
+        { text: "As Witneses", colSpan: 2 },
+        "",
+        { text: "", colSpan: 2 },
+        "",
+      ],
+      ["\n", "", "", "", ""],
+      [
+        "",
+        { text: "1.  ______________________________", colSpan: 2 },
+        "",
+        { text: " ______________________________", colSpan: 2 },
+        "",
+      ],
+      ["\n", "", "", "", ""],
+      [
+        "",
+        { text: "2.  ______________________________", colSpan: 2 },
+        "",
+        { text: "purchaserName1 purchaserSurname1", colSpan: 2 },
+        "",
+      ],
+    ],
+  },
+  layout: "noBorders",
+  unbreakable: true,
+};
+var part_11_signature_purchaser_two = {
+  table: {
+    widths: [34, 121, 121, 121, 121],
+    body: [
+      [
+        { text: "36" },
+        { style: "header2", text: "PURCHASER SIGNATURE", colSpan: 2 },
+        "",
+        "",
+        "",
+      ],
+      [{ text: "" }, { text: "" }, "", "", ""],
+      [
+        "",
+        { text: "Purchaser 1", style: "header4" },
+        { text: "", colSpan: 3 },
+        "",
+        "",
+      ],
+      [
+        "",
+        {
+          style: "signed",
+          text:
+            "Signed at __________ at ______ am/pm on this _____ day of ____________ 20__",
+          colSpan: 4,
+        },
+        "",
+        "",
+      ],
+      [
+        "",
+        { text: "As Witneses", colSpan: 2 },
+        "",
+        { text: "", colSpan: 2 },
+        "",
+      ],
+      ["\n", "", "", "", ""],
+      [
+        "",
+        { text: "1.  ______________________________", colSpan: 2 },
+        "",
+        { text: " ______________________________", colSpan: 2 },
+        "",
+      ],
+      ["\n", "", "", "", ""],
+      [
+        "",
+        { text: "2.  ______________________________", colSpan: 2 },
+        "",
+        { text: "purchaserName1 purchaserSurname1", colSpan: 2 },
+        "",
+      ],
+      ["\n", "", "", "", ""],
+      [
+        "",
+        { text: "Purchaser 2", style: "header4" },
+        { text: "", colSpan: 3 },
+        "",
+        "",
+      ],
+      [
+        "",
+        {
+          style: "signed",
+          text:
+            "Signed at __________ at ______ am/pm on this _____ day of ____________ 20__",
+          colSpan: 4,
+        },
+        "",
+        "",
+      ],
+      [
+        "",
+        { text: "As Witneses", colSpan: 2 },
+        "",
+        { text: "", colSpan: 2 },
+        "",
+      ],
+      ["\n", "", "", "", ""],
+      [
+        "",
+        { text: "1.  ______________________________", colSpan: 2 },
+        "",
+        { text: " ______________________________", colSpan: 2 },
+        "",
+      ],
+      ["\n", "", "", "", ""],
+      [
+        "",
+        { text: "2.  ______________________________", colSpan: 2 },
+        "",
+        { text: "purchaserName2 purchaserSurname2", colSpan: 2 },
+        "",
+      ],
+    ],
+  },
+  layout: "noBorders",
+};
+var part_11_signature_purchaser_company = {
+  table: {
+    widths: [34, 121, 121, 121, "*"],
+    body: [
+      [
+        { text: "36" },
+        { style: "header2", text: "PURCHASER SIGNATURE", colSpan: 2 },
+        "",
+        "",
+        "",
+      ],
+      ["", { text: "" }, { text: "" }, "", ""],
+      [
+        "",
+        {
+          style: "signed",
+          text:
+            "Signed on behalf of purchaserCompanyName with Registration Number purchaserCompanyRegistrationNumber by purchaserCompanyRepresentativeName on this _____ day of ____________ 20___.",
+          colSpan: 4,
+        },
+        "",
+        "",
+      ],
+
+      [
+        "",
+        { text: "As Witneses", colSpan: 2 },
+        "",
+        { text: "", colSpan: 2 },
+        "",
+      ],
+      ["\n", "", "", "", ""],
+      [
+        "",
+        { text: "1.  ______________________________", colSpan: 2 },
+        "",
+        { text: " ______________________________", colSpan: 2 },
+        "",
+      ],
+      ["\n", "", "", "", ""],
+      [
+        "",
+        { text: "2.  ______________________________", colSpan: 2 },
+        "",
+        { text: "purchaserCompanyRepresentativeName", colSpan: 2 },
+        "",
+      ],
+    ],
+  },
+  layout: "noBorders",
+};
+var part_11_signature_purchaser_trust = {
+  table: {
+    widths: [34, 121, 121, 121, "*"],
+    body: [
+      [
+        { text: "36" },
+        { style: "header2", text: "PURCHASER SIGNATURE", colSpan: 2 },
+        "",
+        "",
+        "",
+      ],
+      ["", { text: "" }, { text: "" }, "", ""],
+      [
+        "",
+        {
+          style: "signed",
+          text:
+            "Signed on behalf of purchaserTrustName with Registration Number purchaserTrustRegistrationNumber by purchaserTrustRepresentativeName on this _____ day of ____________ 20___.",
+          colSpan: 4,
+        },
+        "",
+        "",
+      ],
+
+      [
+        "",
+        { text: "As Witneses", colSpan: 2 },
+        "",
+        { text: "", colSpan: 2 },
+        "",
+      ],
+      ["\n", "", "", "", ""],
+      [
+        "",
+        { text: "1.  ______________________________", colSpan: 2 },
+        "",
+        { text: " ______________________________", colSpan: 2 },
+        "",
+      ],
+      ["\n", "", "", "", ""],
+      [
+        "",
+        { text: "2.  ______________________________", colSpan: 2 },
+        "",
+        { text: "purchaserTrustRepresentativeName", colSpan: 2 },
+        "",
+      ],
+    ],
+  },
+  layout: "noBorders",
+};
+
+var part_12_signature_seller_one = {
+  table: {
+    widths: [34, 121, 121, 121, 121],
+    body: [
+      [
+        { text: "37" },
+        { style: "header2", text: "SELLER SIGNATURE", colSpan: 2 },
+        "",
+        "",
+        "",
+      ],
+      ["", "", "", "", ""],
+      [
+        "",
+        {
+          style: "signed",
+          text:
+            "Signed at ____________________ at ________ am/pm on this ______ day of ____________ 20___.",
+          colSpan: 4,
+        },
+        "",
+        "",
+      ],
+      [
+        "",
+        { text: "As Witneses", colSpan: 2 },
+        "",
+        { text: "", colSpan: 2 },
+        "",
+      ],
+      ["\n", "", "", "", ""],
+      [
+        "",
+        { text: "1.  ______________________________", colSpan: 2 },
+        "",
+        { text: " ______________________________", colSpan: 2 },
+        "",
+      ],
+      ["\n", "", "", "", ""],
+      [
+        "",
+        { text: "2.  ______________________________", colSpan: 2 },
+        "",
+        { text: "sellerName1 sellerSurname1", colSpan: 2 },
+        "",
+      ],
+    ],
+  },
+  layout: "noBorders",
+};
+var part_12_signature_seller_two = {
+  table: {
+    widths: [34, 121, 121, 121, 121],
+    body: [
+      [
+        { text: "37" },
+        { style: "header2", text: "SELLER SIGNATURE", colSpan: 2 },
+        "",
+        "",
+        "",
+      ],
+      [{ text: "" }, { text: "" }, "", "", ""],
+      [
+        "",
+        { text: "Seller 1", style: "header4" },
+        { text: "", colSpan: 3 },
+        "",
+        "",
+      ],
+      [
+        "",
+        {
+          style: "signed",
+          text:
+            "Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",
+          colSpan: 4,
+        },
+        "",
+        "",
+      ],
+      [
+        "",
+        { text: "As Witneses", colSpan: 2 },
+        "",
+        { text: "", colSpan: 2 },
+        "",
+      ],
+      ["\n", "", "", "", ""],
+      [
+        "",
+        { text: "1.  ______________________________", colSpan: 2 },
+        "",
+        { text: " ______________________________", colSpan: 2 },
+        "",
+      ],
+      ["\n", "", "", "", ""],
+      [
+        "",
+        { text: "2.  ______________________________", colSpan: 2 },
+        "",
+        { text: "sellerName1 sellerSurname1", colSpan: 2 },
+        "",
+      ],
+      ["\n", "", "", "", ""],
+      [
+        "",
+        { text: "Seller 2", style: "header4" },
+        { text: "", colSpan: 3 },
+        "",
+        "",
+      ],
+      [
+        "",
+        {
+          style: "signed",
+          text:
+            "Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",
+          colSpan: 4,
+        },
+        "",
+        "",
+      ],
+      [
+        "",
+        { text: "As Witneses", colSpan: 2 },
+        "",
+        { text: "", colSpan: 2 },
+        "",
+      ],
+      ["\n", "", "", "", ""],
+      [
+        "",
+        { text: "1.  ______________________________", colSpan: 2 },
+        "",
+        { text: " ______________________________", colSpan: 2 },
+        "",
+      ],
+      ["\n", "", "", "", ""],
+      [
+        "",
+        { text: "2.  ______________________________", colSpan: 2 },
+        "",
+        { text: "sellerName2 sellerSurname2", colSpan: 2 },
+        "",
+      ],
+    ],
+  },
+  layout: "noBorders",
+};
+var part_12_signature_seller_company = {
+  table: {
+    widths: [34, 121, 121, 121, "*"],
+    body: [
+      [
+        { text: "37" },
+        { style: "header2", text: "SELLER SIGNATURE", colSpan: 2 },
+        "",
+        "",
+        "",
+      ],
+      ["", { text: "" }, { text: "" }, "", ""],
+      [
+        "",
+        {
+          style: "signed",
+          text:
+            "Signed on behalf of sellerCompanyName with Registration Number sellerCompanyRegistrationNumber by sellerCompanyRepresentativeName on this _____ day of ____________ 20___.",
+          colSpan: 4,
+        },
+        "",
+        "",
+      ],
+
+      [
+        "",
+        { text: "As Witneses", colSpan: 2 },
+        "",
+        { text: "", colSpan: 2 },
+        "",
+      ],
+      ["\n", "", "", "", ""],
+      [
+        "",
+        { text: "1.  ______________________________", colSpan: 2 },
+        "",
+        { text: " ______________________________", colSpan: 2 },
+        "",
+      ],
+      ["\n", "", "", "", ""],
+      [
+        "",
+        { text: "2.  ______________________________", colSpan: 2 },
+        "",
+        { text: "sellerCompanyRepresentativeName", colSpan: 2 },
+        "",
+      ],
+    ],
+  },
+  layout: "noBorders",
+};
+var part_12_signature_seller_trust = {
+  table: {
+    widths: [34, 121, 121, 121, "*"],
+    body: [
+      [
+        { text: "37" },
+        { style: "header2", text: "SELLER SIGNATURE", colSpan: 2 },
+        "",
+        "",
+        "",
+      ],
+      ["", { text: "" }, { text: "" }, "", ""],
+      [
+        "",
+        {
+          style: "signed",
+          text:
+            "Signed on behalf of sellerTrustName with Registration Number sellerTrustRegistrationNumber by sellerTrustRepresentativeName on this _____ day of ____________ 20___.",
+          colSpan: 4,
+        },
+        "",
+        "",
+      ],
+
+      [
+        "",
+        { text: "As Witneses", colSpan: 2 },
+        "",
+        { text: "", colSpan: 2 },
+        "",
+      ],
+      ["\n", "", "", "", ""],
+      [
+        "",
+        { text: "1.  ______________________________", colSpan: 2 },
+        "",
+        { text: " ______________________________", colSpan: 2 },
+        "",
+      ],
+      ["\n", "", "", "", ""],
+      [
+        "",
+        { text: "2.  ______________________________", colSpan: 2 },
+        "",
+        { text: "sellerTrustRepresentativeName", colSpan: 2 },
+        "",
+      ],
+    ],
+  },
+  layout: "noBorders",
+};
+
 // *** MASTER OTP FILES - ENDS
 
+var footer2 = function (currentPage, pageCount) {
+  return {
+    table: {
+      widths: [34, "*", "*", 34],
 
-var footer2 = function(currentPage, pageCount) {
-       return {
-  table: {
-    widths: [34,'*', '*',34],
+      body: [
+        [
+          { border: [false, false, false, false], text: "" },
+          {
+            style: "left",
+            border: [false, true, false, false],
+            text: "Brune Attorneys | nina@brune.co.za | 084 548 4808",
+          },
+          {
+            style: "right",
+            border: [false, true, false, false],
+            text: "Page " + currentPage + " of " + pageCount,
+          },
+          { border: [false, false, false, false], text: "" },
+        ],
+      ],
+    },
+  };
+};
 
-    body: [
-
-      [{border: [false, false, false, false],text:""},{style:'left',border: [false, true, false, false],text:"Brune Attorneys | nina@brune.co.za | 084 548 4808"}, {style:'right',border: [false, true, false, false],text:'Page ' +  currentPage+ " of " + pageCount, }, {border: [false, false, false, false],text:""}],
-    ]},
-  }
+function numberWithSpaces(x) {
+  var parts = x.toString().split(".");
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  return parts.join(".");
 }
-
 
 module.exports = router;

@@ -472,6 +472,8 @@ router.post("/otp_landing", (req, res) => {
 		content.push(new_seller_signature1);
 		// SIGNATURE SELLER FINAL- ENDS
 
+		var AnexA = createAnexureA();
+		content.push(AnexA);
 		let test1 = otp_master;
 
 		test1["content"] = content;
@@ -501,19 +503,22 @@ router.post("/otp_landing", (req, res) => {
 		// resolves the promise and moves on to first .then
 		resolve(obj);
 	}).then(function (obj) {
-		var emailBodyTest2 = `<!DOCTYPE html><html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width" /><meta http-equiv="X-UA-Compatible" content="IE=edge" /><meta name="x-apple-disable-message-reformatting" /><meta name="format-detection" content="telephone=no,address=no,email=no,date=no,url=no" /><meta name="color-scheme" content="light" /><meta name="supported-color-schemes" content="light" /><title></title> <!--[if gte mso 9]> <xml> <o:OfficeDocumentSettings> <o:AllowPNG /> <o:PixelsPerInch>96</o:PixelsPerInch> </o:OfficeDocumentSettings> </xml><! [endif]--> <!--[if mso ]><style>*{font-family:sans-serif !important}</style><! [endif]--><style>:root{color-scheme:light;supported-color-schemes:light}html,body{margin:0 auto !important;padding:0 !important;height:100% !important;width:100% !important}*{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}div[style*="margin: 16px 0"]{margin:0 !important}#MessageViewBody,#MessageWebViewDiv{width:100% !important}table,td{mso-table-lspace:0pt !important;mso-table-rspace:0pt !important}table{border-spacing:0 !important;table-layout:fixed !important;margin:0 auto !important}img{-ms-interpolation-mode:bicubic}a{text-decoration:none}a[x-apple-data-detectors], .unstyle-auto-detected-links a,.aBn{border-bottom:0 !important;cursor:default !important;color:inherit !important;text-decoration:none !important;font-size:inherit !important;font-family:inherit !important;font-weight:inherit !important;line-height:inherit !important}.im{color:inherit !important}.a6S{display:none !important;opacity:0.01 !important}img.g-img+div{display:none !important}@media only screen and (min-device-width: 320px) and (max-device-width: 374px){u ~ div .email-container{min-width:320px !important}}@media only screen and (min-device-width: 375px) and (max-device-width: 413px){u ~ div .email-container{min-width:375px !important}}@media only screen and (min-device-width: 414px){u ~ div .email-container{min-width:414px !important}}</style><style>.button-td,.button-a{transition:all 100ms ease-in}.button-td-primary:hover,.button-a-primary:hover{background:#555 !important;border-color:#555 !important}@media screen and (max-width: 480px){.stack-column,.stack-column-center{display:block !important;width:100% !important;max-width:100% !important;direction:ltr !important}.stack-column-center{text-align:center !important}.center-on-narrow{text-align:center !important;display:block !important;margin-left:auto !important;margin-right:auto !important;float:none !important}table.center-on-narrow{display:inline-block !important}.email-container p{font-size:17px !important}}</style></head><body width="100%" style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: none;"><center role="article" aria-roledescription="email" lang="en" style="width: 100%; background-color: none;"> <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: none;"><tr><td><![endif]--><div style="max-height: 0; overflow: hidden; mso-hide: all;" aria-hidden="true">Contract of Sale and Cost Estimate</div><div style=" display: none; font-size: 1px; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all; font-family: sans-serif; " > &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;</div><div style="max-width: 680px; margin: 0 auto;" class="email-container"> <!--[if mso]><table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="680"><tr><td><![endif]--><table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;"><tr><td style="padding: 5px 0 0px 0; text-align: center;"> <img src="https://brune.co.za/pictures/Brune_Attorneys_Logo.png" width="100%" alt="Logo Goes Here" border="0" style="padding-top: 5px; height: auto; font-family: sans-serif; font-size: 15px; line-height: 15px;" /></td></tr><tr><td style="background-color: none;"><table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"><tr align="justify"><td style="padding: 10px 10px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;"><p>Dear Client</p><p>Thank you for using our Contract of Sale Wizard. Your Contract is attached to this email.</p><p> Property transactions are always very stressful for the seller and purchaser. Starting off with a properly drafted Contract is an important first step.</p><p> The seller has the right to appoint the transferring attorney (conveyancer). It is important that you choose a conveyancer who will look after your interests.</p><p>Costs is also an important factor.</p><p> Therefore we have taken the liberty of preparing a draft cost estimate (based on the purchase price of <strong>R ${numberWithSpaces(
-			data.purchasePrice
-		)}</strong>, payable by the purchaser:</p></td></tr><tr><td style="padding: 0 20px 20px;"><table align="center" role="presentation" cellspacing="0" cellpadding="0" style="border-collapse: separate; margin: auto;"><tr><td style="border: 1px solid #555555; border-radius: 0.5em; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;" ><table style="padding: 10px 10px;" class=""><tbody><tr><td align="center" colspan="3"><strong>Transfer Cost Estimate</strong></td></tr><tr><td style="padding: 5px 10px;">Transfer Fees:</td><td style="padding: 5px 5px;"></td><td style="padding: 5px 10px;" align="right">${
-			obj.data.OTPtransfer_fees
-		}</td></tr><tr><td style="padding: 5px 10px;">Postages and Petties:</td><td style="padding: 5px 5px;"></td><td style="padding: 5px 10px;" align="right">${
-			obj.data.OTPpost_and_petties
-		}</td></tr><tr><td style="padding: 5px 10px;">Deeds Office Levy:</td><td style="padding: 5px 5px;"></td><td style="padding: 5px 10px;" align="right">${
-			obj.data.OTPd_office_levy
-		}</td></tr><tr><td style="padding: 5px 10px;">Other costs:</td><td style="padding: 5px 5px;"></td><td style="padding: 5px 10px;" align="right">${
-			obj.data.OTPother_costs
-		}</td></tr><tr><td style="padding: 5px 10px;"><strong>Total:</strong></td><td style="padding: 5px 5px;"></td><td style="padding: 5px 10px;"><strong>${
-			obj.data.OTPtotal
-		}</strong></td></tr></tbody></table></td></tr></table></td></tr><tr align="justify"><td style="padding: 10px 10px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;"><p> If you wish to instruct us to attend to the transfer on your behalf give us a call or send us an email. Our contact details are at the bottom of this mail. If you wish to use another conveyancer, you can still use the estimate to ensure that your purchaser is receiving a competitive price</p><p> If you require an estimate on the Bond Registration Cost you can use the convenient calculator on <a style="text-decoration: underline;" href="https://brune.co.za/">www.brune.co.za</a></p><p>If you require any other assistance or advice we will gladly assist.</p> <br /><p>Brune Attorneys</p></td></tr></table></td></tr></table> <!--[if mso]></td></tr></table><![endif]--></div><table align="center" role="presentation" cellspacing="0" cellpadding="0" style="border-collapse: separate; margin: auto;"><tr><td><div align="center" style="max-width: 680px; margin: auto; background-color: #006699;" class="email-container"> <!--[if mso]><table style="background-color: #006699" role="presentation" cellspacing="0" cellpadding="0" border="0" width="680" align="center"><tr><td><![endif]--><table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"><tr><td align="center" style="padding: 10px 10px 10px 0px; font-family: sans-serif; font-size: 12px; line-height: 15px; text-align: center; color: #fff;" > <strong>Brune Attorneys</strong></td></tr><tr><td style="padding: 0px 10px 10px 0px; font-family: sans-serif; font-size: 12px; line-height: 15px; text-align: center; color: #fff;"> nina@brune.co.za | 084 548 4808 | <a style="color: #fff;" href="https://www.brune.co.za">www.brune.co.za</a></td></tr><tr><td style="padding: 0px 10px 10px 0px; font-family: sans-serif; font-size: 12px; line-height: 15px; text-align: center; color: #fff;"> Postnet 246, Private Bag x37, Lynnwood Ridge, 0400</td></tr><tr><td style="padding: 0px 10px 10px 0px; font-family: sans-serif; font-size: 12px; line-height: 15px; text-align: center; color: #fff;"> <unsubscribe href="https://www.brune.co.za" style="text-decoration: underline;">unsubscribe</unsubscribe></td></tr></table> <!--[if mso]></td></tr></table><![endif]--></div></td></tr></table> <!--[if mso | IE]></td></tr></table><![endif]--></center></body></html>`;
+		if (data.purchasePrice > 5000000) {
+		} else {
+			var emailBodyTest2 = `<!DOCTYPE html><html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width" /><meta http-equiv="X-UA-Compatible" content="IE=edge" /><meta name="x-apple-disable-message-reformatting" /><meta name="format-detection" content="telephone=no,address=no,email=no,date=no,url=no" /><meta name="color-scheme" content="light" /><meta name="supported-color-schemes" content="light" /><title></title> <!--[if gte mso 9]> <xml> <o:OfficeDocumentSettings> <o:AllowPNG /> <o:PixelsPerInch>96</o:PixelsPerInch> </o:OfficeDocumentSettings> </xml><! [endif]--> <!--[if mso ]><style>*{font-family:sans-serif !important}</style><! [endif]--><style>:root{color-scheme:light;supported-color-schemes:light}html,body{margin:0 auto !important;padding:0 !important;height:100% !important;width:100% !important}*{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}div[style*="margin: 16px 0"]{margin:0 !important}#MessageViewBody,#MessageWebViewDiv{width:100% !important}table,td{mso-table-lspace:0pt !important;mso-table-rspace:0pt !important}table{border-spacing:0 !important;table-layout:fixed !important;margin:0 auto !important}img{-ms-interpolation-mode:bicubic}a{text-decoration:none}a[x-apple-data-detectors], .unstyle-auto-detected-links a,.aBn{border-bottom:0 !important;cursor:default !important;color:inherit !important;text-decoration:none !important;font-size:inherit !important;font-family:inherit !important;font-weight:inherit !important;line-height:inherit !important}.im{color:inherit !important}.a6S{display:none !important;opacity:0.01 !important}img.g-img+div{display:none !important}@media only screen and (min-device-width: 320px) and (max-device-width: 374px){u ~ div .email-container{min-width:320px !important}}@media only screen and (min-device-width: 375px) and (max-device-width: 413px){u ~ div .email-container{min-width:375px !important}}@media only screen and (min-device-width: 414px){u ~ div .email-container{min-width:414px !important}}</style><style>.button-td,.button-a{transition:all 100ms ease-in}.button-td-primary:hover,.button-a-primary:hover{background:#555 !important;border-color:#555 !important}@media screen and (max-width: 480px){.stack-column,.stack-column-center{display:block !important;width:100% !important;max-width:100% !important;direction:ltr !important}.stack-column-center{text-align:center !important}.center-on-narrow{text-align:center !important;display:block !important;margin-left:auto !important;margin-right:auto !important;float:none !important}table.center-on-narrow{display:inline-block !important}.email-container p{font-size:17px !important}}</style></head><body width="100%" style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: none;"><center role="article" aria-roledescription="email" lang="en" style="width: 100%; background-color: none;"> <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: none;"><tr><td><![endif]--><div style="max-height: 0; overflow: hidden; mso-hide: all;" aria-hidden="true">Contract of Sale and Cost Estimate</div><div style=" display: none; font-size: 1px; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all; font-family: sans-serif; " > &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;</div><div style="max-width: 680px; margin: 0 auto;" class="email-container"> <!--[if mso]><table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="680"><tr><td><![endif]--><table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;"><tr><td style="padding: 5px 0 0px 0; text-align: center;"> <img src="https://brune.co.za/pictures/Brune_Attorneys_Logo.png" width="100%" alt="Logo Goes Here" border="0" style="padding-top: 5px; height: auto; font-family: sans-serif; font-size: 15px; line-height: 15px;" /></td></tr><tr><td style="background-color: none;"><table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"><tr align="justify"><td style="padding: 10px 10px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;"><p>Dear Client</p><p>Thank you for using our Contract of Sale | OTP Generator. Your Contract is attached to this email.</p><p> Property transactions are always very stressful for the seller and purchaser. Starting off with a properly drafted Contract is an important first step.</p><p> The seller has the right to appoint the transferring attorney (conveyancer). It is important that you choose a conveyancer who will look after your interests.</p><p>Costs is also an important factor.</p><p> Therefore we have taken the liberty of preparing a draft cost estimate (based on the purchase price of <strong>R ${numberWithSpaces(
+				data.purchasePrice
+			)}</strong>, payable by the purchaser:</p></td></tr><tr><td style="padding: 0 20px 20px;"><table align="center" role="presentation" cellspacing="0" cellpadding="0" style="border-collapse: separate; margin: auto;"><tr><td style="border: 1px solid #555555; border-radius: 0.5em; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;" ><table style="padding: 10px 10px;" class=""><tbody><tr><td align="center" colspan="3"><strong>Transfer Cost Estimate</strong></td></tr><tr><td style="padding: 5px 10px;">Transfer Fees:</td><td style="padding: 5px 5px;"></td><td style="padding: 5px 10px;" align="right">${
+				obj.data.OTPtransfer_fees
+			}</td></tr><tr><td style="padding: 5px 10px;">Postages and Petties:</td><td style="padding: 5px 5px;"></td><td style="padding: 5px 10px;" align="right">${
+				obj.data.OTPpost_and_petties
+			}</td></tr><tr><td style="padding: 5px 10px;">Deeds Office Levy:</td><td style="padding: 5px 5px;"></td><td style="padding: 5px 10px;" align="right">${
+				obj.data.OTPd_office_levy
+			}</td></tr><tr><td style="padding: 5px 10px;">Other costs:</td><td style="padding: 5px 5px;"></td><td style="padding: 5px 10px;" align="right">${
+				obj.data.OTPother_costs
+			}</td></tr><tr><td style="padding: 5px 10px;"><strong>Total:</strong></td><td style="padding: 5px 5px;"></td><td style="padding: 5px 10px;"><strong>${
+				obj.data.OTPtotal
+			}</strong></td></tr></tbody></table></td></tr></table></td></tr><tr align="justify"><td style="padding: 10px 10px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;"><p> If you wish to instruct us to attend to the transfer on your behalf give us a call or send us an email. Our contact details are at the bottom of this mail. If you wish to use another conveyancer, you can still use the estimate to ensure that your purchaser is receiving a competitive price</p><p> If you require an estimate on the Bond Registration Cost you can use the convenient calculator on <a style="text-decoration: underline;" href="https://brune.co.za/">www.brune.co.za</a></p><p>If you require any other assistance or advice we will gladly assist.</p> <br /><p>Brune Attorneys</p></td></tr></table></td></tr></table> <!--[if mso]></td></tr></table><![endif]--></div><table align="center" role="presentation" cellspacing="0" cellpadding="0" style="border-collapse: separate; margin: auto;"><tr><td><div align="center" style="max-width: 680px; margin: auto; background-color: #006699;" class="email-container"> <!--[if mso]><table style="background-color: #006699" role="presentation" cellspacing="0" cellpadding="0" border="0" width="680" align="center"><tr><td><![endif]--><table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"><tr><td align="center" style="padding: 10px 10px 10px 0px; font-family: sans-serif; font-size: 12px; line-height: 15px; text-align: center; color: #fff;" > <strong>Brune Attorneys</strong></td></tr><tr><td style="padding: 0px 10px 10px 0px; font-family: sans-serif; font-size: 12px; line-height: 15px; text-align: center; color: #fff;"> nina@brune.co.za | 084 548 4808 | <a style="color: #fff;" href="https://www.brune.co.za">www.brune.co.za</a></td></tr><tr><td style="padding: 0px 10px 10px 0px; font-family: sans-serif; font-size: 12px; line-height: 15px; text-align: center; color: #fff;"> Postnet 246, Private Bag x37, Lynnwood Ridge, 0400</td></tr><tr><td style="padding: 0px 10px 10px 0px; font-family: sans-serif; font-size: 12px; line-height: 15px; text-align: center; color: #fff;"> <unsubscribe href="https://www.brune.co.za" style="text-decoration: underline;">unsubscribe</unsubscribe></td></tr></table> <!--[if mso]></td></tr></table><![endif]--></div></td></tr></table> <!--[if mso | IE]></td></tr></table><![endif]--></center></body></html>`;
+		}
 
 		// uses data to create the PDF - STARTS
 		// var pdfDoc = printer.createPdfKitDocument(obj.docDefinition);
@@ -571,12 +576,15 @@ router.get("/otp_landing2", (req, res) => {
 	console.log("opt_landing2reached");
 	console.log("sending email to anton@brune.co.za");
 
+	var emailBodyTest3 = `<!DOCTYPE html><html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width" /><meta http-equiv="X-UA-Compatible" content="IE=edge" /><meta name="x-apple-disable-message-reformatting" /><meta name="format-detection" content="telephone=no,address=no,email=no,date=no,url=no" /><meta name="color-scheme" content="light" /><meta name="supported-color-schemes" content="light" /><title></title> <!--[if gte mso 9]> <xml> <o:OfficeDocumentSettings> <o:AllowPNG /> <o:PixelsPerInch>96</o:PixelsPerInch> </o:OfficeDocumentSettings> </xml><! [endif]--> <!--[if mso]><style>*{font-family:sans-serif !important}</style><! [endif]--><style>:root{color-scheme:light;supported-color-schemes:light}html,body{margin:0 auto !important;padding:0 !important;height:100% !important;width:100% !important}*{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}div[style*="margin: 16px 0"]{margin:0 !important}#MessageViewBody,#MessageWebViewDiv{width:100% !important}table,td{mso-table-lspace:0pt !important;mso-table-rspace:0pt !important}table{border-spacing:0 !important;border-collapse:collapse !important;table-layout:fixed !important;margin:0 auto !important}img{-ms-interpolation-mode:bicubic}a{text-decoration:none}a[x-apple-data-detectors], .unstyle-auto-detected-links a,.aBn{border-bottom:0 !important;cursor:default !important;color:inherit !important;text-decoration:none !important;font-size:inherit !important;font-family:inherit !important;font-weight:inherit !important;line-height:inherit !important}.im{color:inherit !important}.a6S{display:none !important;opacity:0.01 !important}img.g-img+div{display:none !important}@media only screen and (min-device-width: 320px) and (max-device-width: 374px){u ~ div .email-container{min-width:320px !important}}@media only screen and (min-device-width: 375px) and (max-device-width: 413px){u ~ div .email-container{min-width:375px !important}}@media only screen and (min-device-width: 414px){u ~ div .email-container{min-width:414px !important}}</style><style>.button-td,.button-a{transition:all 100ms ease-in}.button-td-primary:hover,.button-a-primary:hover{background:#555 !important;border-color:#555 !important}@media screen and (max-width: 480px){.stack-column,.stack-column-center{display:block !important;width:100% !important;max-width:100% !important;direction:ltr !important}.stack-column-center{text-align:center !important}.center-on-narrow{text-align:center !important;display:block !important;margin-left:auto !important;margin-right:auto !important;float:none !important}table.center-on-narrow{display:inline-block !important}.email-container p{font-size:17px !important}}</style></head ><body width="100%" style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: none;"><center role="article" aria-roledescription="email" lang="en" style="width: 100%; background-color: none;"> <!-- [if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: none;"><tr><td><![endif]--><div style="max-width: 680px; margin: 0 auto;" class="email-container"> <!--[if mso]><table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="680"><tr><td><![endif]--><table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;"><tr><td style="padding: 5px 0 0px 0; text-align: center;"> <img src="https://brune.co.za/pictures/Brune_Attorneys_Logo.png" width="100%" alt="Logo Goes Here" border="0" style="padding-top: 5px; height: auto; font-family: sans-serif; font-size: 15px; line-height: 15px;" /></td></tr><tr><td style="background-color: none;"><table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"><tr><td style="padding: 0px 10px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;"><p style='display: none'>Generate an OTP on your mobile device and have the completed contract sent straight to your inbox</p><p>Dear Client</p><ul><li>Still completing OTP's by hand?</li><li>Manually crossing out unnecessary parts?</li><li>Clients initialing next to every change?</li><li> Struggling with access to printers and scanners during Covid-19?</li><li>Having difficulty with getting OTP's to clients?</li></ul><h3 style="margin: 0 0 10px; font-size: 15px; color: #333333; font-weight: normal; color: #006699;"> Maybe it's time to move with the times . . .</h3><h3 style="margin: 0 0 10px; font-size: 25px; font-weight: normal; color: #006699;"> Contract of Sale | OTP Generator</h3><ul><li>100% free Webapp</li><li>Accessible on pc,tablet and mobile phone</li><li>Guides you through the process</li><li>Handy and insightful information on every step</li><li> Draft, perfectly formulated OTP's on your mobile phone in minutes</li><li> Receive the completed document in PDF format right in your inbox</li></ul></td></tr><tr><td style="padding: 0 20px 20px;"><table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin: auto;"><tr><td class="button-td button-td-primary" style="border-radius: 4px; background: #006699;"> <a class="button-a button-a-primary" href="https://brune.co.za/otp.html " style=" background: #006699; border: 1px solid #006699; font-family: sans-serif; font-size: 15px; line-height: 15px; text-decoration: none; padding: 13px 17px; color: #ffffff; display: block; border-radius: 4px; " >Click here to take a look for yourself</a ></td></tr></table></td></tr></table></td></tr></table> <!--[if mso]></td></tr></table><![endif]--></div><table align="center" width="100%" role="presentation" cellspacing="0" cellpadding="0" style="border-collapse: separate; margin: auto;"><tr><td><div align="center" style="max-width: 680px; margin: auto; background-color: #006699;" class="email-container"> <!--[if mso]><table style="background-color: #006699" role="presentation" cellspacing="0" cellpadding="0" border="0" width="680" align="center"><tr><td><![endif]--><table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"><tr><td align="center" style="padding: 10px 10px 10px 0px; font-family: sans-serif; font-size: 12px; line-height: 15px; text-align: center; color: #fff;" > <strong>Brune Attorneys</strong></td></tr><tr><td style="padding: 0px 10px 10px 0px; font-family: sans-serif; font-size: 12px; line-height: 15px; text-align: center; color: #fff;"> nina@brune.co.za | 084 548 4808 | <a style="color: #fff;" href="https://www.brune.co.za">www.brune.co.za</a></td></tr><tr><td style="padding: 0px 10px 10px 0px; font-family: sans-serif; font-size: 12px; line-height: 15px; text-align: center; color: #fff;"> Postnet 246, Private Bag x37, Lynnwood Ridge, 0040</td></tr><tr><td style="padding: 0px 10px 10px 0px; font-family: sans-serif; font-size: 12px; line-height: 15px; text-align: center; color: #fff;"> <unsubscribe href="https://www.brune.co.za" style="text-decoration: underline;">unsubscribe</unsubscribe></td></tr></table> <!--[if mso]></td></tr></table><![endif]--></div></td></tr></table> <!--[if mso | IE]></td></tr></table><![endif]--></body></html>`;
+
 	// Sets the Email options for NodeMailer
 	var mailOptions = {
 		from: "Brune Attorneys <attorney@brune.co.za>",
 		to: "anton.brune@gmail.com",
-		subject: "Contract of Sale and Cost Estimate",
-		html: emailBodyTest2,
+		to: "anton.brune@gmail.com",
+		subject: "Contract of Sale | OTP Generator",
+		html: emailBodyTest3,
 	};
 
 	// Send the actual Email with NodeMailer
@@ -592,6 +600,7 @@ router.get("/otp_landing2", (req, res) => {
 // *** End of the "/otp_landing2" route
 
 // *** MASTER OTP FILES - STARTS
+// prettier-ignore
 const otp_master = {
 	footer: "",
 	styles: {
@@ -633,9 +642,15 @@ const otp_master = {
 		parSpaceAfter: {
 			margin: [0, 0, 0, 15],
 		},
+		parSpaceAfter1: {
+			margin: [0, 0, 0, 5],
+		},
 		bold: {
 			bold: true,
 			decoration: "underline",
+		},
+		bold1: {
+			bold: true,
 		},
 		right: {
 			fontSize: 8,
@@ -653,10 +668,12 @@ const otp_master = {
 };
 //{text:"", style: "parSpaceAfter"}
 var insertSpace = { text: "\n" };
+// prettier-ignore
 var part_1_heading = {
 	text: "Agreement of Purchase and Sale",
 	style: "header0",
 };
+// prettier-ignore
 var part_20_seller_heading = {
 	table: {
 		widths: [34, "*"],
@@ -672,6 +689,7 @@ var part_20_seller_heading = {
 		],
 	},
 };
+// prettier-ignore
 var part_21_seller_basic = {
 	table: {
 		widths: [34, 90, 134, 90, 134],
@@ -691,6 +709,7 @@ var part_21_seller_basic = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_22_seller_spouse = {
 	table: {
 		widths: [34, 90, 134, 90, 134],
@@ -716,6 +735,7 @@ var part_22_seller_spouse = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_23_seller_company = {
 	table: {
 		widths: [34, 100, 124, 70, 124],
@@ -734,6 +754,7 @@ var part_23_seller_company = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_24_seller_trust = {
 	table: {
 		widths: [34, 95, 134, 95, "*"],
@@ -752,6 +773,7 @@ var part_24_seller_trust = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_30_purchaser_heading = {
 	table: {
 		widths: [34, "*"],
@@ -767,6 +789,7 @@ var part_30_purchaser_heading = {
 		],
 	},
 };
+// prettier-ignore
 var part_31_purchaser_one = {
 	table: {
 		widths: [34, 90, 134, 90, 134],
@@ -785,6 +808,7 @@ var part_31_purchaser_one = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_32_purchaser_two = {
 	table: {
 		widths: [34, 90, 134, 90, 134],
@@ -816,6 +840,7 @@ var part_32_purchaser_two = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_33_purchaser_company = {
 	table: {
 		widths: [34, 95, 134, 74, 134],
@@ -850,6 +875,7 @@ var part_33_purchaser_company = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_34_purchaser_trust = {
 	table: {
 		widths: [34, 95, 134, 95, "*"],
@@ -875,6 +901,7 @@ var part_34_purchaser_trust = {
 	layout: "noBorders",
 };
 // Property - Freehold
+// prettier-ignore
 var part_41A_proptery_heading = {
 	table: {
 		widths: [34, "*"],
@@ -890,6 +917,7 @@ var part_41A_proptery_heading = {
 		],
 	},
 };
+// prettier-ignore
 var part_41A_proptery = {
 	table: {
 		widths: [34, 90, 125, 90, 125],
@@ -911,6 +939,7 @@ var part_41A_proptery = {
 	layout: "noBorders",
 };
 // Property - SECTIONAL TITLE
+// prettier-ignore
 var part_42A_proptery_heading = {
 	table: {
 		widths: [34, "*"],
@@ -926,6 +955,7 @@ var part_42A_proptery_heading = {
 		],
 	},
 };
+// prettier-ignore
 var part_42A_proptery = {
 	table: {
 		widths: [34, 145, 75, 145, "*"],
@@ -986,6 +1016,7 @@ var part_42A_proptery = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_41B_price_heading = {
 	table: {
 		widths: [34, "*"],
@@ -1001,6 +1032,7 @@ var part_41B_price_heading = {
 		],
 	},
 };
+// prettier-ignore
 var part_41B_price = {
 	table: {
 		widths: [34, 195, 60, 85, 108],
@@ -1037,6 +1069,7 @@ var part_41B_price = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_41C_occupation_heading = {
 	table: {
 		widths: [34, "*"],
@@ -1052,6 +1085,7 @@ var part_41C_occupation_heading = {
 		],
 	},
 };
+// prettier-ignore
 var part_41C_occupation = {
 	table: {
 		widths: [34, 120, 100, 120, 100],
@@ -1064,6 +1098,7 @@ var part_41C_occupation = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_41D_agent_heading = {
 	table: {
 		widths: [34, "*"],
@@ -1079,6 +1114,7 @@ var part_41D_agent_heading = {
 		],
 	},
 };
+// prettier-ignore
 var part_41D_agent = {
 	table: {
 		widths: [34, 120, 100, 120, 100],
@@ -1093,6 +1129,7 @@ var part_41D_agent = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_41E_fixtures_heading = {
 	table: {
 		widths: [34, "*"],
@@ -1108,6 +1145,7 @@ var part_41E_fixtures_heading = {
 		],
 	},
 };
+// prettier-ignore
 var part_41E_fixtures = {
 	table: {
 		widths: [34, 120, 100, 100, 100],
@@ -1118,6 +1156,7 @@ var part_41E_fixtures = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_5_fixtures = {
 	table: {
 		widths: [34, "*"],
@@ -1128,6 +1167,7 @@ var part_5_fixtures = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_6_condtitionA_heading = {
 	table: {
 		widths: [34, "*"],
@@ -1143,6 +1183,7 @@ var part_6_condtitionA_heading = {
 		],
 	},
 };
+// prettier-ignore
 var part_6_condtitionA = {
 	table: {
 		widths: [34, "*"],
@@ -1160,6 +1201,7 @@ var part_6_condtitionA = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_6_condtitionB_heading = {
 	table: {
 		widths: [34, "*"],
@@ -1175,6 +1217,7 @@ var part_6_condtitionB_heading = {
 		],
 	},
 };
+// prettier-ignore
 var part_6_condtitionB = {
 	table: {
 		widths: [34, "*"],
@@ -1192,6 +1235,7 @@ var part_6_condtitionB = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_6_condtitionC_heading = {
 	table: {
 		widths: [34, "*"],
@@ -1207,6 +1251,7 @@ var part_6_condtitionC_heading = {
 		],
 	},
 };
+// prettier-ignore
 var part_6_condtitionC = {
 	table: {
 		widths: [34, "*"],
@@ -1242,6 +1287,7 @@ var part_6_condtitionC = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_70_purchaser_heading = {
 	table: {
 		widths: [34, "*"],
@@ -1257,6 +1303,7 @@ var part_70_purchaser_heading = {
 		],
 	},
 };
+// prettier-ignore
 var part_71_signature_purchaser_one = {
 	table: {
 		widths: [34, 119, 118, 119, 118],
@@ -1282,6 +1329,7 @@ var part_71_signature_purchaser_one = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_72_signature_purchaser_two = {
 	table: {
 		widths: [34, 121, 121, 121, 121],
@@ -1323,6 +1371,7 @@ var part_72_signature_purchaser_two = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_73_signature_purchaser_company = {
 	table: {
 		widths: [34, 121, 121, 121, "*"],
@@ -1350,6 +1399,7 @@ var part_73_signature_purchaser_company = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_74_signature_purchaser_trust = {
 	table: {
 		widths: [34, 121, 121, 121, "*"],
@@ -1377,6 +1427,7 @@ var part_74_signature_purchaser_trust = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_80_seller_heading = {
 	table: {
 		widths: [34, "*"],
@@ -1392,6 +1443,7 @@ var part_80_seller_heading = {
 		],
 	},
 };
+// prettier-ignore
 var part_81_signature_seller_one = {
 	table: {
 		widths: [34, 121, 121, 121, 121],
@@ -1417,6 +1469,7 @@ var part_81_signature_seller_one = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_82_signature_seller_two = {
 	table: {
 		widths: [34, 121, 121, 121, 121],
@@ -1459,6 +1512,7 @@ var part_82_signature_seller_two = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_83_signature_seller_company = {
 	table: {
 		widths: [34, 121, 121, 121, "*"],
@@ -1486,6 +1540,7 @@ var part_83_signature_seller_company = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_84_signature_seller_trust = {
 	table: {
 		widths: [34, 121, 121, 121, "*"],
@@ -1513,6 +1568,7 @@ var part_84_signature_seller_trust = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_9_definitians = {
 	table: {
 		widths: [34, "*"],
@@ -2254,6 +2310,7 @@ var part_9_definitians = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_9_definitians_withoutEsateAgent = {
 	table: {
 		widths: [34, "*"],
@@ -2939,6 +2996,7 @@ var part_9_definitians_withoutEsateAgent = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_10_specialConditions = {
 	table: {
 		widths: [34, "*"],
@@ -2949,6 +3007,7 @@ var part_10_specialConditions = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_11_signature_purchaser_one = {
 	table: {
 		widths: [34, 119, 118, 119, 118],
@@ -2975,6 +3034,7 @@ var part_11_signature_purchaser_one = {
 	layout: "noBorders",
 	unbreakable: true,
 };
+// prettier-ignore
 var part_11_signature_purchaser_two = {
 	table: {
 		widths: [34, 121, 121, 121, 121],
@@ -3018,6 +3078,7 @@ var part_11_signature_purchaser_two = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_11_signature_purchaser_company = {
 	table: {
 		widths: [34, 121, 121, 121, "*"],
@@ -3045,6 +3106,7 @@ var part_11_signature_purchaser_company = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_11_signature_purchaser_trust = {
 	table: {
 		widths: [34, 121, 121, 121, "*"],
@@ -3072,6 +3134,7 @@ var part_11_signature_purchaser_trust = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_12_signature_seller_one = {
 	table: {
 		widths: [34, 121, 121, 121, 121],
@@ -3097,6 +3160,7 @@ var part_12_signature_seller_one = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_12_signature_seller_two = {
 	table: {
 		widths: [34, 121, 121, 121, 121],
@@ -3140,6 +3204,7 @@ var part_12_signature_seller_two = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_12_signature_seller_company = {
 	table: {
 		widths: [34, 121, 121, 121, "*"],
@@ -3167,6 +3232,7 @@ var part_12_signature_seller_company = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
 var part_12_signature_seller_trust = {
 	table: {
 		widths: [34, 121, 121, 121, "*"],
@@ -3197,6 +3263,7 @@ var part_12_signature_seller_trust = {
 
 // *** MASTER OTP FILES - ENDS
 
+// prettier-ignore
 var footer2 = function (currentPage, pageCount) {
 	return {
 		table: {
@@ -3244,7 +3311,7 @@ function storeOtpData(dataObject) {
 		});
 }
 var emailBodyTest =
-	'<!DOCTYPE html><html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" ><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width" /><meta http-equiv="X-UA-Compatible" content="IE=edge" /><meta name="x-apple-disable-message-reformatting" /><meta name="format-detection" content="telephone=no,address=no,email=no,date=no,url=no" /><meta name="color-scheme" content="light" /><meta name="supported-color-schemes" content="light" /><title></title> <!--[if gte mso 9]> <xml> <o:OfficeDocumentSettings> <o:AllowPNG /> <o:PixelsPerInch>96</o:PixelsPerInch> </o:OfficeDocumentSettings> </xml><! [endif]--> <!--[if mso]><style>*{font-family:sans-serif !important}</style><! [endif]--><style>:root{color-scheme:light;supported-color-schemes:light}html,body{margin:0 auto !important;padding:0 !important;height:100% !important;width:100% !important}*{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}div[style*="margin: 16px 0"]{margin:0 !important}#MessageViewBody,#MessageWebViewDiv{width:100% !important}table,td{mso-table-lspace:0pt !important;mso-table-rspace:0pt !important}table{border-spacing:0 !important;border-collapse:collapse !important;table-layout:fixed !important;margin:0 auto !important}img{-ms-interpolation-mode:bicubic}a{text-decoration:none}a[x-apple-data-detectors], .unstyle-auto-detected-links a,.aBn{border-bottom:0 !important;cursor:default !important;color:inherit !important;text-decoration:none !important;font-size:inherit !important;font-family:inherit !important;font-weight:inherit !important;line-height:inherit !important}.im{color:inherit !important}.a6S{display:none !important;opacity:0.01 !important}img.g-img+div{display:none !important}@media only screen and (min-device-width: 320px) and (max-device-width: 374px){u ~ div .email-container{min-width:320px !important}}@media only screen and (min-device-width: 375px) and (max-device-width: 413px){u ~ div .email-container{min-width:375px !important}}@media only screen and (min-device-width: 414px){u ~ div .email-container{min-width:414px !important}}</style><style>.button-td,.button-a{transition:all 100ms ease-in}.button-td-primary:hover,.button-a-primary:hover{background:#555 !important;border-color:#555 !important}@media screen and (max-width: 480px){.stack-column,.stack-column-center{display:block !important;width:100% !important;max-width:100% !important;direction:ltr !important}.stack-column-center{text-align:center !important}.center-on-narrow{text-align:center !important;display:block !important;margin-left:auto !important;margin-right:auto !important;float:none !important}table.center-on-narrow{display:inline-block !important}.email-container p{font-size:17px !important}}</style></head ><body width="100%" style=" margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: none; " ><center role="article" aria-roledescription="email" lang="en" style="width: 100%; background-color: none;" > <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: none;"><tr><td><![endif]--><div style="max-height: 0; overflow: hidden; mso-hide: all;" aria-hidden="true" > WebApp Subscription confirmation</div><div style=" display: none; font-size: 1px; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all; font-family: sans-serif; " > &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;</div><div style="max-width: 680px; margin: 0 auto;" class="email-container"> <!--[if mso]><table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="680"><tr><td><![endif]--><table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;" ><tr><td style="padding: 5px 0 0px 0; text-align: center;"> <a href="https://brune.co.za/otp.html" ><webversion style=" color: #cccccc; text-decoration: underline; font-weight: bold; " >View this mail in your browser</webversion ></a > <img src="https://brune.co.za/pictures/heading.png" width="100%" alt="Logo Goes Here" border="0" style=" padding-top: 5px; height: auto; font-family: sans-serif; font-size: 15px; line-height: 15px; " /></td></tr><tr><td style="background-color: none;"><table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" ><tr><td style=" padding: 10px 10px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555; " ><ul><li>Still completing OTPs by hand?</li><li>Manually crossing out unnecessary parts?</li><li>Clients initialing next to every change?</li><li> Struggling with access to printers and scanners during Covid-19?</li></ul><h3 style=" margin: 0 0 10px; font-size: 15px; color: #333333; font-weight: normal; color: #006699; " > Maybe its time to move with the times . . .</h3><h3 style=" margin: 0 0 10px; font-size: 25px; color: #333333; font-weight: normal; color: #006699; " > Contract of Sale Wizard</h3><ul><li>100% free Webapp</li><li>Accessible on pc, laptop, tablet and mobile phone</li><li>Guides you through the process</li><li>Handy and insightful information on every step</li><li> Draft, perfectly formulated OTPs on your mobile phone in minutes</li><li> Receive the completed document in PDF format right in your inbox</li></ul></td></tr><tr><td style="padding: 0 20px 20px;"><table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin: auto;" ><tr><td class="button-td button-td-primary" style="border-radius: 4px; background: #006699;" > <a class="button-a button-a-primary" href="https://brune.co.za/otp.html " style=" background: #006699; border: 1px solid #006699; font-family: sans-serif; font-size: 15px; line-height: 15px; text-decoration: none; padding: 13px 17px; color: #ffffff; display: block; border-radius: 4px; " >Click here to take a look for yourself</a ></td></tr></table></td></tr></table></td></tr></table> <!--[if mso]></td></tr></table><![endif]--></div><table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="" ><tr><td><div align="center" style="max-width: 680px; margin: auto; background-color: #006699;" class="email-container" > <!--[if mso]><table style="background-color: #006699" role="presentation" cellspacing="0" cellpadding="0" border="0" width="680" align="center"><tr><td><![endif]--><table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" ><tr><td style=" padding: 10px; font-family: sans-serif; font-size: 12px; line-height: 15px; text-align: center; color: #fff; " > Brune Attorneys<br /><span class="unstyle-auto-detected-links" >nina@brune.co.za</span > <br /> <unsubscribe style="text-decoration: underline;" >unsubscribe</unsubscribe ></td></tr></table> <!--[if mso]></td></tr></table><![endif]--></div></td></tr></table> <!--[if mso | IE]></td></tr></table><![endif]--></center></body></html> `';
+	'<!DOCTYPE html><html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" ><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width" /><meta http-equiv="X-UA-Compatible" content="IE=edge" /><meta name="x-apple-disable-message-reformatting" /><meta name="format-detection" content="telephone=no,address=no,email=no,date=no,url=no" /><meta name="color-scheme" content="light" /><meta name="supported-color-schemes" content="light" /><title></title> <!--[if gte mso 9]> <xml> <o:OfficeDocumentSettings> <o:AllowPNG /> <o:PixelsPerInch>96</o:PixelsPerInch> </o:OfficeDocumentSettings> </xml><! [endif]--> <!--[if mso]><style>*{font-family:sans-serif !important}</style><! [endif]--><style>:root{color-scheme:light;supported-color-schemes:light}html,body{margin:0 auto !important;padding:0 !important;height:100% !important;width:100% !important}*{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}div[style*="margin: 16px 0"]{margin:0 !important}#MessageViewBody,#MessageWebViewDiv{width:100% !important}table,td{mso-table-lspace:0pt !important;mso-table-rspace:0pt !important}table{border-spacing:0 !important;border-collapse:collapse !important;table-layout:fixed !important;margin:0 auto !important}img{-ms-interpolation-mode:bicubic}a{text-decoration:none}a[x-apple-data-detectors], .unstyle-auto-detected-links a,.aBn{border-bottom:0 !important;cursor:default !important;color:inherit !important;text-decoration:none !important;font-size:inherit !important;font-family:inherit !important;font-weight:inherit !important;line-height:inherit !important}.im{color:inherit !important}.a6S{display:none !important;opacity:0.01 !important}img.g-img+div{display:none !important}@media only screen and (min-device-width: 320px) and (max-device-width: 374px){u ~ div .email-container{min-width:320px !important}}@media only screen and (min-device-width: 375px) and (max-device-width: 413px){u ~ div .email-container{min-width:375px !important}}@media only screen and (min-device-width: 414px){u ~ div .email-container{min-width:414px !important}}</style><style>.button-td,.button-a{transition:all 100ms ease-in}.button-td-primary:hover,.button-a-primary:hover{background:#555 !important;border-color:#555 !important}@media screen and (max-width: 480px){.stack-column,.stack-column-center{display:block !important;width:100% !important;max-width:100% !important;direction:ltr !important}.stack-column-center{text-align:center !important}.center-on-narrow{text-align:center !important;display:block !important;margin-left:auto !important;margin-right:auto !important;float:none !important}table.center-on-narrow{display:inline-block !important}.email-container p{font-size:17px !important}}</style></head ><body width="100%" style=" margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: none; " ><center role="article" aria-roledescription="email" lang="en" style="width: 100%; background-color: none;" > <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: none;"><tr><td><![endif]--><div style="max-height: 0; overflow: hidden; mso-hide: all;" aria-hidden="true" > WebApp Subscription confirmation</div><div style=" display: none; font-size: 1px; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all; font-family: sans-serif; " > &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;</div><div style="max-width: 680px; margin: 0 auto;" class="email-container"> <!--[if mso]><table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="680"><tr><td><![endif]--><table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;" ><tr><td style="padding: 5px 0 0px 0; text-align: center;"> <a href="https://brune.co.za/otp.html" ><webversion style=" color: #cccccc; text-decoration: underline; font-weight: bold; " >View this mail in your browser</webversion ></a > <img src="https://brune.co.za/pictures/heading.png" width="100%" alt="Logo Goes Here" border="0" style=" padding-top: 5px; height: auto; font-family: sans-serif; font-size: 15px; line-height: 15px; " /></td></tr><tr><td style="background-color: none;"><table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" ><tr><td style=" padding: 10px 10px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555; " ><ul><li>Still completing OTPs by hand?</li><li>Manually crossing out unnecessary parts?</li><li>Clients initialing next to every change?</li><li> Struggling with access to printers and scanners during Covid-19?</li></ul><h3 style=" margin: 0 0 10px; font-size: 15px; color: #333333; font-weight: normal; color: #006699; " > Maybe its time to move with the times . . .</h3><h3 style=" margin: 0 0 10px; font-size: 25px; color: #333333; font-weight: normal; color: #006699; " > Contract of Sale | OTP Generator</h3><ul><li>100% free Webapp</li><li>Accessible on pc, laptop, tablet and mobile phone</li><li>Guides you through the process</li><li>Handy and insightful information on every step</li><li> Draft, perfectly formulated OTPs on your mobile phone in minutes</li><li> Receive the completed document in PDF format right in your inbox</li></ul></td></tr><tr><td style="padding: 0 20px 20px;"><table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin: auto;" ><tr><td class="button-td button-td-primary" style="border-radius: 4px; background: #006699;" > <a class="button-a button-a-primary" href="https://brune.co.za/otp.html " style=" background: #006699; border: 1px solid #006699; font-family: sans-serif; font-size: 15px; line-height: 15px; text-decoration: none; padding: 13px 17px; color: #ffffff; display: block; border-radius: 4px; " >Click here to take a look for yourself</a ></td></tr></table></td></tr></table></td></tr></table> <!--[if mso]></td></tr></table><![endif]--></div><table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="" ><tr><td><div align="center" style="max-width: 680px; margin: auto; background-color: #006699;" class="email-container" > <!--[if mso]><table style="background-color: #006699" role="presentation" cellspacing="0" cellpadding="0" border="0" width="680" align="center"><tr><td><![endif]--><table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" ><tr><td style=" padding: 10px; font-family: sans-serif; font-size: 12px; line-height: 15px; text-align: center; color: #fff; " > Brune Attorneys<br /><span class="unstyle-auto-detected-links" >nina@brune.co.za</span > <br /> <unsubscribe style="text-decoration: underline;" >unsubscribe</unsubscribe ></td></tr></table> <!--[if mso]></td></tr></table><![endif]--></div></td></tr></table> <!--[if mso | IE]></td></tr></table><![endif]--></center></body></html> `';
 
 function getOtpData(date) {
 	const today = moment(date).startOf("day");
@@ -3322,6 +3389,163 @@ function calctransferduty(purprice) {
 	return obj;
 }
 
+// prettier-ignore
+var annexureAList = [
+	["1.", "Electrical faults/ problems relating to the installation or fitted accessories?", "If Yes, details thereof"],
+	["2.","Illegal electrical extensions, disconnections or damaged or inoperative fittings or permanent appliances / equipment? E.g. Stove, extractor, oven, air conditioner, heaters, ceiling fans, or illegal extensions such as light fittings, water feature pumps etc?","If Yes, details thereof",],
+	["3.", "Faults relating to the geyser e.g. Leaks, faulty seal kits, low geyser pressure?", "If Yes, details thereof"],
+	["4.", "Faults relating to the drainage installation e.g. Blocked drains, sewers, storm water pipes or gutters?", "If Yes, details thereof"],
+	["5.", "Problems relating to leaking taps or geysers or ruptured pipes?", "If Yes, details thereof"],
+	["6.", "Are there keys to all the doors?", "If No, details thereof"],
+	["7.", "How many remote controls are there for gates, garage doors etc?", "Number of remotes"],
+	["8.", "Are all security installations in sound working order e.g. Alarms, burglar bars and security gates?", "If No, details thereof"],
+	["9.","Is the pool, its equipment, piping and pump all in good working order (consider cracks, leaks and general operation of the equipment etc.)?","If No, details thereof",],
+	["10.", "Have there been any recent repairs to any of the items specified in 9 above?", "If Yes, details thereof"],
+	["11.", "Are there damp problems in any of the buildings e.g. rising or lateral damp?", "If Yes, details thereof"],
+	["12.", "Are there roof leaks of any kind?", "If Yes, details thereof"],
+	["13.", "Are there any cracks, leaks or problems with the baths, basins toilet, cisterns or showers?", "If Yes, details thereof"],
+	["14.", "Are there any cracked or broken floor tiles or damage to wood flooring?", "If Yes, details thereof"],
+	["15.", "Are there any structural defects that you are aware of e.g. Cracks in walls, floor slab or any settlement of any kind?", "If Yes, details thereof"],
+	["16.", "Are there any burns, tears or badly worn areas relating to the fitted carpets?", "If Yes, details thereof"],
+	["17.", "Are all built-in cupboards intact?", "If No, details thereof"],
+	["18.", "Are all door handles and window catches in working order?", "If No, details thereof"],
+	["19.", "Do the physical positions of the present boundary fences/ walls represent the true boundary of the property?", "If No, details thereof"],
+	["20.", "Are there any interdicts, attachments or usufructs on or over the property?", "If Yes, details thereof"],
+	["21.", "Are there any building restrictions or registered servitudes on the property?", "If Yes, details thereof"],
+	["22.", "Do the building improvements and solid roofed areas (e.g. Carports) confirm to the registered building plans?", "If No, details thereof"],
+	["23.", "Do you possess copies of the building plans?", ""],
+  ["24.", "Is the above Property subject to a lease?", "If Yes, what date does the lease expires?"],
+  ["25.", "The following items are excluded from the sale of the Property", "fourLines"],
+  ["26.", "Comments or qualifications on any of the above", "fourLines"],
+];
+
+function createAnexureA() {
+	var AA = [
+		{ pageBreak: "before", text: "Annexure A", style: "header0" },
+		{ text: "List of defects known to the seller.", style: "bold" },
+		{ text: "\n" },
+		{
+			table: {
+				widths: [30, 394, 4, 20, 0, "*"],
+				body: [
+					[
+						{ text: "", border: [false, false, false, false] },
+						{ text: "", border: [false, false, false, false] },
+						{ text: "", border: [false, false, false, false] },
+						{ text: "YES", border: [false, false, false, false] },
+						{ text: "", border: [false, false, false, false] },
+						{ text: "NO", border: [false, false, false, false] },
+					],
+				],
+			},
+		},
+	];
+	for (let i = 0; i < annexureAList.length; i++) {
+		if (annexureAList[i][2] === "fourLines") {
+			var temp = {
+				table: {
+					widths: [30, 396, 5, 10, 5, 10],
+					body: [
+						[
+							{ text: "asdf_number_asdf", border: [false, false, false, false] },
+							{ text: "asdf_content_asdf", border: [false, false, false, false] },
+							{ text: "", border: [false, false, false, false] },
+							{ text: "", border: [false, false, false, false] },
+							{ text: "", border: [false, false, false, false] },
+							{ text: "", border: [false, false, false, false] },
+						],
+					],
+				},
+			};
+			temp = JSON.stringify(temp);
+			temp = temp.split("asdf_number_asdf").join(annexureAList[i][0]);
+			temp = temp.split("asdf_content_asdf").join(annexureAList[i][1]);
+			temp = JSON.parse(temp);
+			AA.push(temp);
+		} else {
+			var temp = {
+				table: {
+					widths: [30, 396, 5, 10, 5, 10],
+					body: [
+						[
+							{ text: "asdf_number_asdf", border: [false, false, false, false] },
+							{ text: "asdf_content_asdf", border: [false, false, false, false] },
+							{ text: "", border: [false, false, false, false] },
+							{ canvas: [{ type: "rect", x: 0, y: 0, w: 16, h: 16 }], border: [false, false, false, false] },
+							{ text: "", border: [false, false, false, false] },
+							{ canvas: [{ type: "rect", x: 0, y: 0, w: 16, h: 16 }], border: [false, false, false, false] },
+						],
+					],
+				},
+			};
+			temp = JSON.stringify(temp);
+			temp = temp.split("asdf_number_asdf").join(annexureAList[i][0]);
+			temp = temp.split("asdf_content_asdf").join(annexureAList[i][1]);
+			temp = JSON.parse(temp);
+			AA.push(temp);
+		}
+
+		if (annexureAList[i][2] === "fourLines") {
+			var temp1 = {
+				table: {
+					style: "parSpaceAfter",
+					widths: ["auto", "*"],
+					margin: [0, 0, 0, 0],
+					heights: [12, 12, 12, 12],
+					body: [
+						[
+							{ text: "", border: [false, false, false, false] },
+							{ text: "", border: [false, false, false, true] },
+						],
+						[
+							{ text: "", border: [false, false, false, false] },
+							{ text: "", border: [false, false, false, true] },
+						],
+						[
+							{ text: "", border: [false, false, false, false] },
+							{ text: "", border: [false, false, false, true] },
+						],
+						[
+							{ text: "", border: [false, false, false, false] },
+							{ text: "", border: [false, false, false, true] },
+						],
+					],
+				},
+			};
+			AA.push(temp1);
+		} else {
+			var temp1 = {
+				table: {
+					widths: ["auto", "*"],
+					margin: [0, 0, 0, 0],
+					body: [
+						[
+							{ text: "asdf_content1_asdf", border: [false, false, false, false] },
+							{ text: "", border: [false, false, false, true] },
+						],
+					],
+				},
+			};
+			temp1 = JSON.stringify(temp1);
+			temp1 = temp1.split("asdf_content1_asdf").join(annexureAList[i][2]);
+			temp1 = JSON.parse(temp1);
+			AA.push(temp1);
+		}
+
+		var temp2 = { text: "", style: "parSpaceAfter1" };
+		AA.push(temp2);
+	}
+	// prettier-ignore
+	var temp3 = [
+    {style:'bold1',text:'Dated at _______________________ on this the __________ day of ___________________ 20_____ '},
+    {text:'', style:"parSpaceAfter1"},
+    {text:'', style:"parSpaceAfter1"},
+    {text:'', style:"parSpaceAfter1"},
+    {	columns: [{width: 240,text: '______________________________________________'}, {width: 20,text: ''},{width: 240,text: '______________________________________________'},]},{columns: [{width: 240,text: 'Seller ( or authorised representative)' },{ width: 20, text:''},{width: 240,text: 'Purchaser ( or authorised representative)'},]},
+  ]
+	AA.push(temp3);
+	return AA;
+}
 // prettier-ignore
 var transfer_table = [
 	{"purchase_price1":"0","purchase_price2":"100000","transfer_fees":"5200.00","post_and_petties":"1100.00","d_office_levy":"39.00","other_costs":"3150.00"},

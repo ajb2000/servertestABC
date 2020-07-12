@@ -21,7 +21,7 @@
       crossorigin="anonymous"
     />
 
-    <title>Contract Wizard</title>
+    <title>Contract of Sale | OTP Generator</title>
     <style>
       .form-group {
         margin-bottom: 0.5rem;
@@ -54,7 +54,7 @@
   </head>
   <body>
     <div class="container">
-      <div class="text-center"><h2>Contract of Sale and Purchase Wizard</h2></div>
+      <div class="text-center"><h2>Contract of Sale and Purchase | OTP Generator</h2></div>
 
       <!-- NAVIGATION -->
       <div>
@@ -131,7 +131,7 @@
             href="#list-general"
             role="tab"
             aria-controls="general"
-            >A & A
+            >EA & C
             <span id="generalDone" class="badge badge-danger badge-pill"
               >&#10005;</span
             >
@@ -178,7 +178,7 @@
 
                 <div class="row">
                   <div class="col-12 form-group">
-                    <label class="required">Please enter Email Address where OTP will be sent</label>
+                    <label class="required">Please enter Email Address where your contract will be sent</label>
                     <input
                       type="text"
                       class="form-control form-control-sm"
@@ -260,8 +260,9 @@
               </legend>
 
               <form style="" id="privatePerson" action="">
+                <label class=""><strong>Seller 1</strong></label>
                 <div class="row">
-                  <div for='' class="col-sm-6 col-md-4 form-group">
+                                      <div for='' class="col-sm-6 col-md-4 form-group">
                     <label class="required">Name</label>
                     <input
                     name="name"
@@ -364,7 +365,7 @@
                     class="col-12 form-group"
                     style="margin-bottom: 0; line-height: 0.5em;"
                   >
-                    <label class="">Spouse:</label>
+                    <label class=""><strong>Seller 1 (Spouse):</strong></label>
                   </div>
                   <div class="col-sm-6 col-md-4 form-group">
                     <label class="spouseR">Name</label>
@@ -397,6 +398,201 @@
                     />
                   </div>
                 </div>
+                <script>
+                    function showSeller2(){
+                        var div = document.getElementById('seller_2_div')
+                        if(div.style.display === 'none') {
+                            document.getElementById("showSeller2_button").innerText = 'Remove Seller 2'
+                            div.style.display = 'block'
+
+                            let elementsToValidate2 = document.getElementsByClassName("seller2V");
+                            for (i = 0; i < elementsToValidate2.length; i++) {
+                                elementsToValidate2[i].classList.add("val_seller_pri");
+                            }
+                            validate("val_seller_pri", "sellerDone");
+                            document.getElementById('seller3_on').click()
+                        } else {
+                            
+                            document.getElementById("showSeller2_button").innerText = 'Add another Seller'
+                            div.style.display = 'none'
+
+                            let elementsToValidate2 = document.getElementsByClassName("seller2V");
+                            for (i = 0; i < elementsToValidate2.length; i++) {
+                                elementsToValidate2[i].classList.remove("val_seller_pri");
+                            }
+                            document.getElementById('seller3_off').click()
+                        }
+                    }
+                </script>
+                <button
+                onclick="showSeller2()"
+                id="showSeller2_button"
+                type="button"
+                class="btn btn-secondary btn-sm btn-block"
+                style="margin-right: 2em"
+              >
+                Add Another Seller
+              </button>
+              <!-- hidden radios te get seller 3 and four status -->
+              <div style="display: none">
+                <div class="form-check-inline">
+                    <input
+                      class="orm-check-input"
+                      type="radio"
+                      name="example99Radios"
+                      value="seller3_on"
+                      id="seller3_on"
+                      
+                    />
+                  </div>
+                  <div class="form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="example99Radios"
+                      value="seller3_on"
+                      id="seller3_off"
+                      checked
+                    />
+                  </div>
+
+            </div>
+
+
+                <!-- Seller 2 - STARTS -->
+                <div class="" style="display: none" id="seller_2_div">
+                <label class=""><strong>Seller 2</strong></label>
+                <div class="row">
+                    <div for='' class="col-sm-6 col-md-4 form-group">
+                      <label class="required">Name</label>
+                      <input
+                      name="name"
+                        type="text"
+                        class="seller2V form-control form-control-sm"
+                        id="sellerName3"
+                        placeholder="name"
+                        onchange="afterValidationChange('val_seller_pri', 'sellerDone')"
+                      />
+                    </div>
+                    <div class="col-sm-6 col-md-4 form-group">
+                      <label class="required" for="sellerSurname">Surname</label>
+                      <input
+                        type="text"
+                        class="seller2V form-control form-control-sm"
+                        id="sellerSurname3"
+                        placeholder="surname"
+                        onchange="afterValidationChange('val_seller_pri', 'sellerDone')"
+                      />
+                    </div>
+                    <div class="col-sm-6 col-md-4 form-group">
+                      <label class="required">Id Number</label>
+                      <input
+                        type="number"
+                        class="seller2V form-control form-control-sm"
+                        id="sellerIdNumber3"
+                        placeholder="id number"
+                        onchange="afterValidationChange('val_seller_pri', 'sellerDone')"
+                      />
+                    </div>
+                  </div>
+  
+                  <div class="row">
+                    <div class="col-sm-12 col-md-6 form-group">
+                      <label class="required"
+                        >Married in community of property?</label
+                      >
+                      <svg
+                        class="bi bi-info-square"
+                        width="1.2em"
+                        height="1.2em"
+                        viewBox="0 0 16 16"
+                        fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                        onclick="clickbutton('button1', 'marriedInCommunityOfProperty')"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"
+                        />
+                        <path
+                          d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"
+                        />
+                        <circle cx="8" cy="4.5" r="1" />
+                      </svg>
+                      <button
+                        style="display: none;"
+                        id="button1"
+                        type="button"
+                        class="btn btn-primary"
+                        data-toggle="modal"
+                        data-target="#moreInfoModal"
+                      >
+                        i
+                      </button>
+                      <select
+                        onchange="sellerSpouse1()"
+                        class="form-control form-control-sm"
+                        id="marriedInCommunityOfProperty1"
+                      >
+                        <option>No</option>
+                        <option>Yes</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-12 col-md-6 form-group">
+                      <label class="required">SA Resident</label>
+  
+                      <select
+                        class="val_seller_pri form-control form-control-sm"
+                        id="sellerSAResident1"
+                      >
+                        <option>Yes</option>
+                        <option>No</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row" id="spouse-row1" style="display: none;">
+                    <div
+                      class="col-12 form-group"
+                      style="margin-bottom: 0; line-height: 0.5em;"
+                    >
+                      <label class=""><strong>Seller 2 (Spouse)</strong>:</label>
+                    </div>
+                    <div class="col-sm-6 col-md-4 form-group">
+                      <label class="spouseR1">Name</label>
+                      <input
+                        type="text"
+                        class="spouseV1 form-control form-control-sm"
+                        id="sellerName4"
+                        placeholder="name"
+                        onchange="afterValidationChange('val_seller_pri', 'sellerDone')"
+                      />
+                    </div>
+                    <div class="col-sm-6 col-md-4 form-group">
+                      <label class="spouseR1">Surname</label>
+                      <input
+                        type="text"
+                        class="spouseV1 form-control form-control-sm"
+                        id="sellerSurname4"
+                        placeholder="surname"
+                        onchange="afterValidationChange('val_seller_pri', 'sellerDone')"
+                      />
+                    </div>
+                    <div class="col-sm-6 col-md-4 form-group">
+                      <label class="spouseR1">Id Number</label>
+                      <input
+                        type="number"
+                        class="spouseV1 form-control form-control-sm"
+                        id="sellerIdNumber4"
+                        placeholder="id number"
+                        onchange="afterValidationChange('val_seller_pri', 'sellerDone')"
+                      />
+                    </div>
+                  </div>
+  
+                </div>
+                <!-- Seller 2 - ENDS -->
+
+                
 
                 <div class="form-group">
                   <label class="required">Physical Address</label>
@@ -2435,7 +2631,7 @@
         <div class="modal-content">
           <div class="modal-header">
             
-            <h5 style="display:block" class="modal-title text-center" >Contract of Sale Wizard</h5>
+            <h5 style="display:block" class="modal-title text-center" >Contract of Sale | OTP Generator</h5>
             <button
             id="modal_close1"
               type="button"
@@ -2977,6 +3173,32 @@
           }
         }
       }
+      function sellerSpouse1() {
+        var state = document.getElementById("marriedInCommunityOfProperty1")
+          .value;
+        if (state === "Yes") {
+          document.getElementById("spouse-row1").style.display = "flex";
+          let elementsToValidate = document.getElementsByClassName("spouseR1");
+          for (i = 0; i < elementsToValidate.length; i++) {
+            elementsToValidate[i].classList.add("required");
+          }
+          let elementsToValidate2 = document.getElementsByClassName("spouseV1");
+          for (i = 0; i < elementsToValidate2.length; i++) {
+            elementsToValidate2[i].classList.add("val_seller_pri");
+          }
+          validate("val_seller_pri", "sellerDone");
+        } else {
+          document.getElementById("spouse-row1").style.display = "none";
+          let elementsToValidate = document.getElementsByClassName("spouseR1");
+          for (i = 0; i < elementsToValidate.length; i++) {
+            elementsToValidate[i].classList.remove("required");
+          }
+          let elementsToValidate2 = document.getElementsByClassName("spouseV1");
+          for (i = 0; i < elementsToValidate2.length; i++) {
+            elementsToValidate2[i].classList.remove("val_seller_pri");
+          }
+        }
+      }
 
       function purchaser2() {
         var state = document.getElementById("numPurchasers").value;
@@ -3022,6 +3244,14 @@
         "sellerName2",
         "sellerSurname2",
         "sellerIdNumber2",
+        "sellerName3",
+        "sellerSurname3",
+        "sellerIdNumber3",
+        "marriedInCommunityOfProperty1",
+        "sellerSAResident1",
+        "sellerName4",
+        "sellerSurname4",
+        "sellerIdNumber4",
         "sellerPhysicalAddress",
         "sellerEmailAddress",
         "sellerCellphoneNumber",
@@ -3128,7 +3358,8 @@
         "occupationCheck1",
         "occupationCheck2",
         "possessionCheck1",
-        "possessionCheck2"
+        "possessionCheck2",
+        "seller3_on"
       ];
       function getAllInfo(type) {
         //CREATES THE OBJECT TO STORE THE DATE IN - STARTS
@@ -3188,8 +3419,8 @@
           runSpinningWheel()
         // *** Make the PUSH request to the server - STARTS
         // fetch("http://localhost:5000/otp/otp_landing", {
-          fetch("https://testingwp1234.herokuapp.com/otp/otp_landing", {
-        //  fetch("http://192.168.1.200:5000/otp/otp_landing", {
+          // fetch("https://testingwp1234.herokuapp.com/otp/otp_landing", {
+          fetch("http://192.168.1.200:5000/otp/otp_landing", {
 
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -3205,7 +3436,7 @@
                 ).innerText = 'Contract Purchase and Sale sent';
                 document.getElementById(
                   "moreInfoModal_body"
-                ).innerText = 'Your contract has been emailed to: '+document.getElementById('emailToBeSent').value+". Thank you for using the Brune Attorneys contract wizard."
+                ).innerText = 'Your contract has been emailed to: '+document.getElementById('emailToBeSent').value+". Thank you for using the Brune Attorneys Contract of Sale | OTP Generator."
                 document.getElementById(
                   "moreInfoModal_buttons").innerHTML = '<button  type="button"  onclick="closeModalandDelete()" class="btn btn-secondary btn-sm btn-block"> Close and delete information </button><button  type="button"  onclick="closeModal()" class="btn btn-secondary btn-sm btn-block" > Close and retain information</button>'
                 var b = document.getElementById('button1');
@@ -3222,8 +3453,8 @@
       function pingServer(){
         // *** Make the PUSH request to the server - STARTS
         // fetch("http://localhost:5000/otp/otp_landing", {
-         fetch("https://testingwp1234.herokuapp.com/otp/serverPing", {
-        //  fetch("http://192.168.1.200:5000/otp/serverPing", {
+        //  fetch("https://testingwp1234.herokuapp.com/otp/serverPing", {
+          fetch("http://192.168.1.200:5000/otp/serverPing", {
 
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -3278,7 +3509,9 @@ function getDataAndFillFields(){
       var currentItem = allRadios[i]
       if(data[currentItem] === true){document.getElementById(currentItem).click()}
     }
+    if (data.seller3_on === true){showSeller2()}
     sellerSpouse()
+    sellerSpouse1()
     purchaser2()
     agent()
   if(document.getElementById('defaultCheck1').checked === true){validate('val_seller_pri','sellerDone')}
@@ -3330,7 +3563,7 @@ function runReadyModal(){
   ).innerText = 'Information Complete';
   document.getElementById(
     "moreInfoModal_body"
-  ).innerText = 'All the required information has been entered.  You may now proceed to the Generate OPT Tab to generate your contract.'
+  ).innerText = 'All the required information has been entered.  You may now proceed to the Generate Tab to generate your contract.'
   var b = document.getElementById('button1');
   b.click();
 }
@@ -3349,10 +3582,12 @@ function resetForm(){
     }
     for (var i = 0; i < idList.length; i++) {
       var currentItem = idList[i]
-        if(currentItem === 'marriedInCommunityOfProperty'||currentItem === 'agentInvolved'||currentItem === 'sellerSAResident'||currentItem === 'numPurchasers'){
+        if(currentItem === 'marriedInCommunityOfProperty'||currentItem === 'marriedInCommunityOfProperty1'||currentItem === 'agentInvolved'||currentItem === 'sellerSAResident'||currentItem === 'sellerSAResident1'||currentItem === 'numPurchasers'){
           if(currentItem === 'marriedInCommunityOfProperty'){document.getElementById(currentItem).value = 'No'}
+          if(currentItem === 'marriedInCommunityOfProperty1'){document.getElementById(currentItem).value = 'No'}
           if(currentItem === 'agentInvolved'){document.getElementById(currentItem).value = 'No'}
           if(currentItem === 'sellerSAResident'){document.getElementById(currentItem).value = 'Yes'}
+          if(currentItem === 'sellerSAResident1'){document.getElementById(currentItem).value = 'Yes'}
           if(currentItem === 'numPurchasers'){document.getElementById(currentItem).value = 'One'}
       } else {document.getElementById(currentItem).value = ''}
 
@@ -3368,8 +3603,10 @@ function resetForm(){
     document.getElementById('occupationCheck1').click()
     document.getElementById('possessionCheck1').click()
     sellerSpouse()
+    sellerSpouse1()
     purchaser2()
     agent()
+    showSeller2()
   }
 
 

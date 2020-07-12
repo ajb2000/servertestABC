@@ -57,10 +57,28 @@ router.post("/otp_landing", (req, res) => {
 		let new_seller = {};
 
 		if (data.defaultCheck1 === true) {
-			if (data.marriedInCommunityOfProperty === "No") {
-				new_seller = part_21_seller_basic;
+			// seller 2 ACTIVE
+			if (data.seller3_on === true) {
+				if ((data.marriedInCommunityOfProperty === "No") & (data.marriedInCommunityOfProperty1 === "No")) {
+					new_seller = part_25_seller_1_seller_2;
+				}
+				if ((data.marriedInCommunityOfProperty === "Yes") & (data.marriedInCommunityOfProperty1 === "No")) {
+					new_seller = part_26_seller_1S_seller_2;
+				}
+				if ((data.marriedInCommunityOfProperty === "Yes") & (data.marriedInCommunityOfProperty1 === "Yes")) {
+					new_seller = part_27_seller_1S_seller_2S;
+				}
+				if ((data.marriedInCommunityOfProperty === "No") & (data.marriedInCommunityOfProperty1 === "Yes")) {
+					new_seller = part_28_seller_1_seller_2S;
+				}
+
+				//  seller 2 NOT ACTIVE
 			} else {
-				new_seller = part_22_seller_spouse;
+				if (data.marriedInCommunityOfProperty === "No") {
+					new_seller = part_21_seller_basic;
+				} else {
+					new_seller = part_22_seller_spouse;
+				}
 			}
 		}
 		if (data.defaultCheck2 === true) {
@@ -76,6 +94,13 @@ router.post("/otp_landing", (req, res) => {
 		} else {
 			new_seller_string = new_seller_string.split("asdf___saresident___asdf").join("(Who warrants that he/she is not a South African resident)");
 		}
+
+		if (data.sellerSAResident1 === "Yes") {
+			new_seller_string = new_seller_string.split("asdf___saresident1___asdf").join("(Who warrants that he/she is a South African resident)");
+		} else {
+			new_seller_string = new_seller_string.split("asdf___saresident1___asdf").join("(Who warrants that he/she is not a South African resident)");
+		}
+
 		if (data.sellerPhoneNumber === "") {
 			new_seller_string = new_seller_string.split("sellerPhoneNumber").join("");
 		}
@@ -383,12 +408,31 @@ router.post("/otp_landing", (req, res) => {
 		// SIGNATURE SELLER - STARTS
 		let new_seller_signature = {};
 		if (data.defaultCheck1 === true) {
-			if (data.marriedInCommunityOfProperty === "No") {
-				new_seller_signature = part_81_signature_seller_one;
+			// seller 2 ACTIVE
+			if (data.seller3_on === true) {
+				if ((data.marriedInCommunityOfProperty === "No") & (data.marriedInCommunityOfProperty1 === "No")) {
+					new_seller_signature = part_85_signature_seller_1_seller_2;
+				}
+				if ((data.marriedInCommunityOfProperty === "Yes") & (data.marriedInCommunityOfProperty1 === "No")) {
+					new_seller_signature = part_86_signature_seller_1S_seller_2;
+				}
+				if ((data.marriedInCommunityOfProperty === "Yes") & (data.marriedInCommunityOfProperty1 === "Yes")) {
+					new_seller_signature = part_87_signature_seller_1S_seller_2S;
+				}
+				if ((data.marriedInCommunityOfProperty === "No") & (data.marriedInCommunityOfProperty1 === "Yes")) {
+					new_seller_signature = part_88_signature_seller_1_seller_2S;
+				}
+
+				//  seller 2 NOT ACTIVE
 			} else {
-				new_seller_signature = part_82_signature_seller_two;
+				if (data.marriedInCommunityOfProperty === "No") {
+					new_seller_signature = part_81_signature_seller_one;
+				} else {
+					new_seller_signature = part_82_signature_seller_two;
+				}
 			}
 		}
+
 		if (data.defaultCheck2 === true) {
 			new_seller_signature = part_83_signature_seller_company;
 		}
@@ -457,12 +501,31 @@ router.post("/otp_landing", (req, res) => {
 		// SIGNATURE SELLER FINAL- STARTS
 		let new_seller_signature1 = {};
 		if (data.defaultCheck1 === true) {
-			if (data.marriedInCommunityOfProperty === "No") {
-				new_seller_signature1 = part_12_signature_seller_one;
+			// seller 2 ACTIVE
+			if (data.seller3_on === true) {
+				if ((data.marriedInCommunityOfProperty === "No") & (data.marriedInCommunityOfProperty1 === "No")) {
+					new_seller_signature1 = part_12_signature_seller1_seller3;
+				}
+				if ((data.marriedInCommunityOfProperty === "Yes") & (data.marriedInCommunityOfProperty1 === "No")) {
+					new_seller_signature1 = part_12_signature_seller1S_seller3;
+				}
+				if ((data.marriedInCommunityOfProperty === "Yes") & (data.marriedInCommunityOfProperty1 === "Yes")) {
+					new_seller_signature1 = part_12_signature_seller1S_seller3S;
+				}
+				if ((data.marriedInCommunityOfProperty === "No") & (data.marriedInCommunityOfProperty1 === "Yes")) {
+					new_seller_signature1 = part_12_signature_seller1_seller3S;
+				}
+
+				//  seller 2 NOT ACTIVE
 			} else {
-				new_seller_signature1 = part_12_signature_seller_two;
+				if (data.marriedInCommunityOfProperty === "No") {
+					new_seller_signature1 = part_12_signature_seller_one;
+				} else {
+					new_seller_signature1 = part_12_signature_seller_two;
+				}
 			}
 		}
+
 		if (data.defaultCheck2 === true) {
 			new_seller_signature1 = part_12_signature_seller_company;
 		}
@@ -773,6 +836,151 @@ var part_24_seller_trust = {
 	},
 	layout: "noBorders",
 };
+// prettier-ignore
+var part_25_seller_1_seller_2 = {
+	table: {
+		widths: [34, 90, 134, 90, 134],
+		body: [
+			["", "", { text: "" }, "", ""],
+			[
+				"1.1",
+				"Seller 1:",
+				{ style: "bold", text: "sellerName1 sellerSurname1", colSpan: 1 },
+				"",
+				{ style: "bold", text: "" },
+			],
+			["", { text: "asdf___saresident___asdf", colSpan: 4 }, "", "", ""],
+			["", "", { text: "" }, "", ""],
+			["1.1.1", "Identity Number:", { style: "bold", text: "sellerIdNumber1" }, "", { style: "bold", text: "" }],
+			[
+				"1.2",
+				"Seller 2:",
+				{ style: "bold", text: "sellerName3 sellerSurname3", colSpan: 1 },
+				"",
+				{ style: "bold", text: "" },
+			],
+			["", { text: "asdf___saresident1___asdf", colSpan: 4 }, "", "", ""],
+			["", "", { text: "" }, "", ""],
+			["1.2.1", "Identity Number:", { style: "bold", text: "sellerIdNumber3" }, "", { style: "bold", text: "" }],
+			["", "", { text: "" }, "", ""],
+			["1.3", "Physical Address:", { style: "bold", text: "sellerPhysicalAddress", colSpan: 3 }, "", ""],
+			["", "", { text: "" }, "", ""],
+			["1.4", "Cell No:", { style: "bold", text: "sellerCellphoneNumber" }, "Email:", { style: "bold", text: "sellerEmailAddress" }],
+			["", "", { text: "" }, "", ""],
+			["", "Phone No:", { style: "bold", text: "sellerPhoneNumber" }, "Fax No:", { style: "bold", text: "sellerFaxNumber" }],
+		],
+	},
+	layout: "noBorders",
+}
+// prettier-ignore
+var part_26_seller_1S_seller_2 = {
+	table: {
+		widths: [34, 90, 134, 90, 134],
+		body: [
+			["", "", { text: "" }, "", ""],
+			[
+				"1.1",
+				"Seller 1:",
+				{ style: "bold", text: "sellerName1 sellerSurname1", colSpan: 1 },
+				"Seller 2:",
+				{ style: "bold", text: "sellerName2 sellerSurname2" },
+			],
+			["", { text: "asdf___saresident___asdf", colSpan: 4 }, "", "", ""],
+			["", "", { text: "" }, "", ""],
+			["1.1.1", "Identity Number:", { style: "bold", text: "sellerIdNumber1" }, "Identity Number:", { style: "bold", text: "sellerIdNumber2" }],
+			[
+				"1.2",
+				"Seller 3:",
+				{ style: "bold", text: "sellerName3 sellerSurname3", colSpan: 1 },
+				"",
+				{ style: "bold", text: "" },
+			],
+			["", { text: "asdf___saresident2___asdf", colSpan: 4 }, "", "", ""],
+			["", "", { text: "" }, "", ""],
+			["1.2.1", "Identity Number:", { style: "bold", text: "sellerIdNumber3" }, "", { style: "bold", text: "" }],
+			["", "", { text: "" }, "", ""],
+			["1.3", "Physical Address:", { style: "bold", text: "sellerPhysicalAddress", colSpan: 3 }, "", ""],
+			["", "", { text: "" }, "", ""],
+			["1.4", "Cell No:", { style: "bold", text: "sellerCellphoneNumber" }, "Email:", { style: "bold", text: "sellerEmailAddress" }],
+			["", "", { text: "" }, "", ""],
+			["", "Phone No:", { style: "bold", text: "sellerPhoneNumber" }, "Fax No:", { style: "bold", text: "sellerFaxNumber" }],
+		],
+	},
+	layout: "noBorders",
+}
+// prettier-ignore
+var part_27_seller_1S_seller_2S = {
+	table: {
+		widths: [34, 90, 134, 90, 134],
+		body: [
+			["", "", { text: "" }, "", ""],
+			[
+				"1.1",
+				"Seller 1:",
+				{ style: "bold", text: "sellerName1 sellerSurname1", colSpan: 1 },
+				"Seller 2:",
+				{ style: "bold", text: "sellerName2 sellerSurname2" },
+			],
+			["", { text: "asdf___saresident___asdf", colSpan: 4 }, "", "", ""],
+			["", "", { text: "" }, "", ""],
+			["1.1.1", "Identity Number:", { style: "bold", text: "sellerIdNumber1" }, "Identity Number:", { style: "bold", text: "sellerIdNumber2" }],
+			[
+				"1.2",
+				"Seller 3:",
+				{ style: "bold", text: "sellerName3 sellerSurname3", colSpan: 1 },
+				"Seller 4:",
+				{ style: "bold", text: "sellerName4 sellerSurname4" },
+			],
+			["", { text: "asdf___saresident1___asdf", colSpan: 4 }, "", "", ""],
+			["", "", { text: "" }, "", ""],
+			["1.2.1", "Identity Number:", { style: "bold", text: "sellerIdNumber3" }, "Identity Number:", { style: "bold", text: "sellerIdNumber4" }],
+			["", "", { text: "" }, "", ""],
+			["1.3", "Physical Address:", { style: "bold", text: "sellerPhysicalAddress", colSpan: 3 }, "", ""],
+			["", "", { text: "" }, "", ""],
+			["1.4", "Cell No:", { style: "bold", text: "sellerCellphoneNumber" }, "Email:", { style: "bold", text: "sellerEmailAddress" }],
+			["", "", { text: "" }, "", ""],
+			["", "Phone No:", { style: "bold", text: "sellerPhoneNumber" }, "Fax No:", { style: "bold", text: "sellerFaxNumber" }],
+		],
+	},
+	layout: "noBorders",
+}
+// prettier-ignore
+var part_28_seller_1_seller_2S = {
+	table: {
+		widths: [34, 90, 134, 90, 134],
+		body: [
+			["", "", { text: "" }, "", ""],
+			[
+				"1.1",
+				"Seller 1:",
+				{ style: "bold", text: "sellerName1 sellerSurname1", colSpan: 1 },
+				"",
+				{ style: "bold", text: "" },
+			],
+			["", { text: "asdf___saresident___asdf", colSpan: 4 }, "", "", ""],
+			["", "", { text: "" }, "", ""],
+			["1.1.1", "Identity Number:", { style: "bold", text: "sellerIdNumber1" }, "", { style: "bold", text: "" }],
+			[
+				"1.2",
+				"Seller 2:",
+				{ style: "bold", text: "sellerName3 sellerSurname3", colSpan: 1 },
+				"Seller 3:",
+				{ style: "bold", text: "sellerName4 sellerSurname4" },
+			],
+			["", { text: "asdf___saresident1___asdf", colSpan: 4 }, "", "", ""],
+			["", "", { text: "" }, "", ""],
+			["1.2.1", "Identity Number:", { style: "bold", text: "sellerIdNumber3" }, "Identity Number:", { style: "bold", text: "sellerIdNumber4" }],
+			["", "", { text: "" }, "", ""],
+			["1.3", "Physical Address:", { style: "bold", text: "sellerPhysicalAddress", colSpan: 3 }, "", ""],
+			["", "", { text: "" }, "", ""],
+			["1.4", "Cell No:", { style: "bold", text: "sellerCellphoneNumber" }, "Email:", { style: "bold", text: "sellerEmailAddress" }],
+			["", "", { text: "" }, "", ""],
+			["", "Phone No:", { style: "bold", text: "sellerPhoneNumber" }, "Fax No:", { style: "bold", text: "sellerFaxNumber" }],
+		],
+	},
+	layout: "noBorders",
+}
+
 // prettier-ignore
 var part_30_purchaser_heading = {
 	table: {
@@ -1568,6 +1776,256 @@ var part_84_signature_seller_trust = {
 	},
 	layout: "noBorders",
 };
+
+// prettier-ignore
+var part_85_signature_seller_1_seller_2 = {
+	table: {
+		widths: [34, 121, 121, 121, 121],
+		body: [
+			["", "", "", "", ""],
+			["12.1", { text: "Seller 1", style: "header4" }, { text: "", colSpan: 3 }, "", ""],
+			[
+				"",
+				{
+					style: "signed",
+					text: "Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",
+					colSpan: 4,
+				},
+				"",
+				"",
+			],
+			["", { text: "As Witneses", colSpan: 2 }, "", { text: "", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "1.  ______________________________", colSpan: 2 }, "", { text: " ______________________________", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "2.  ______________________________", colSpan: 2 }, "", { text: "sellerName1 sellerSurname1", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["12.2", { text: "Seller 2", style: "header4" }, { text: "", colSpan: 3 }, "", ""],
+			[
+				"",
+				{
+					style: "signed",
+					text: "Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",
+					colSpan: 4,
+				},
+				"",
+				"",
+			],
+			["", { text: "As Witneses", colSpan: 2 }, "", { text: "", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "1.  ______________________________", colSpan: 2 }, "", { text: " ______________________________", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "2.  ______________________________", colSpan: 2 }, "", { text: "sellerName3 sellerSurname3", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+		
+			
+		],
+	},
+	layout: "noBorders",
+}
+// prettier-ignore
+var part_86_signature_seller_1S_seller_2 = {
+	table: {
+		widths: [34, 121, 121, 121, 121],
+		body: [
+			["", "", "", "", ""],
+			["12.1", { text: "Seller 1", style: "header4" }, { text: "", colSpan: 3 }, "", ""],
+			[
+				"",
+				{
+					style: "signed",
+					text: "Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",
+					colSpan: 4,
+				},
+				"",
+				"",
+			],
+			["", { text: "As Witneses", colSpan: 2 }, "", { text: "", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "1.  ______________________________", colSpan: 2 }, "", { text: " ______________________________", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "2.  ______________________________", colSpan: 2 }, "", { text: "sellerName1 sellerSurname1", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["12.2", { text: "Seller 2", style: "header4" }, { text: "", colSpan: 3 }, "", ""],
+			[
+				"",
+				{
+					style: "signed",
+					text: "Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",
+					colSpan: 4,
+				},
+				"",
+				"",
+			],
+			["", { text: "As Witneses", colSpan: 2 }, "", { text: "", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "1.  ______________________________", colSpan: 2 }, "", { text: " ______________________________", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "2.  ______________________________", colSpan: 2 }, "", { text: "sellerName2 sellerSurname2", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["12.3", { text: "Seller 3", style: "header4" }, { text: "", colSpan: 3 }, "", ""],
+			[
+				"",
+				{
+					style: "signed",
+					text: "Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",
+					colSpan: 4,
+				},
+				"",
+				"",
+			],
+			["", { text: "As Witneses", colSpan: 2 }, "", { text: "", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "1.  ______________________________", colSpan: 2 }, "", { text: " ______________________________", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "2.  ______________________________", colSpan: 2 }, "", { text: "sellerName3 sellerSurname3", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+		],
+	},
+	layout: "noBorders",
+}
+
+// prettier-ignore
+var part_87_signature_seller_1S_seller_2S = {
+	table: {
+		widths: [34, 121, 121, 121, 121],
+		body: [
+			["", "", "", "", ""],
+			["12.1", { text: "Seller 1", style: "header4" }, { text: "", colSpan: 3 }, "", ""],
+			[
+				"",
+				{
+					style: "signed",
+					text: "Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",
+					colSpan: 4,
+				},
+				"",
+				"",
+			],
+			["", { text: "As Witneses", colSpan: 2 }, "", { text: "", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "1.  ______________________________", colSpan: 2 }, "", { text: " ______________________________", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "2.  ______________________________", colSpan: 2 }, "", { text: "sellerName1 sellerSurname1", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["12.2", { text: "Seller 2", style: "header4" }, { text: "", colSpan: 3 }, "", ""],
+			[
+				"",
+				{
+					style: "signed",
+					text: "Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",
+					colSpan: 4,
+				},
+				"",
+				"",
+			],
+			["", { text: "As Witneses", colSpan: 2 }, "", { text: "", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "1.  ______________________________", colSpan: 2 }, "", { text: " ______________________________", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "2.  ______________________________", colSpan: 2 }, "", { text: "sellerName2 sellerSurname2", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["12.3", { text: "Seller 3", style: "header4" }, { text: "", colSpan: 3 }, "", ""],
+			[
+				"",
+				{
+					style: "signed",
+					text: "Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",
+					colSpan: 4,
+				},
+				"",
+				"",
+			],
+			["", { text: "As Witneses", colSpan: 2 }, "", { text: "", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "1.  ______________________________", colSpan: 2 }, "", { text: " ______________________________", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "2.  ______________________________", colSpan: 2 }, "", { text: "sellerName3 sellerSurname3", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["12.4", { text: "Seller 4", style: "header4" }, { text: "", colSpan: 3 }, "", ""],
+			[
+				"",
+				{
+					style: "signed",
+					text: "Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",
+					colSpan: 4,
+				},
+				"",
+				"",
+			],
+			["", { text: "As Witneses", colSpan: 2 }, "", { text: "", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "1.  ______________________________", colSpan: 2 }, "", { text: " ______________________________", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "2.  ______________________________", colSpan: 2 }, "", { text: "sellerName4 sellerSurname4", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+		],
+	},
+	layout: "noBorders",
+}
+// prettier-ignore
+var part_88_signature_seller_1_seller_2S = {
+	table: {
+		widths: [34, 121, 121, 121, 121],
+		body: [
+			["", "", "", "", ""],
+			["12.1", { text: "Seller 1", style: "header4" }, { text: "", colSpan: 3 }, "", ""],
+			[
+				"",
+				{
+					style: "signed",
+					text: "Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",
+					colSpan: 4,
+				},
+				"",
+				"",
+			],
+			["", { text: "As Witneses", colSpan: 2 }, "", { text: "", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "1.  ______________________________", colSpan: 2 }, "", { text: " ______________________________", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "2.  ______________________________", colSpan: 2 }, "", { text: "sellerName1 sellerSurname1", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["12.2", { text: "Seller 2", style: "header4" }, { text: "", colSpan: 3 }, "", ""],
+			[
+				"",
+				{
+					style: "signed",
+					text: "Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",
+					colSpan: 4,
+				},
+				"",
+				"",
+			],
+			["", { text: "As Witneses", colSpan: 2 }, "", { text: "", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "1.  ______________________________", colSpan: 2 }, "", { text: " ______________________________", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "2.  ______________________________", colSpan: 2 }, "", { text: "sellerName3 sellerSurname3", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["12.3", { text: "Seller 3", style: "header4" }, { text: "", colSpan: 3 }, "", ""],
+			[
+				"",
+				{
+					style: "signed",
+					text: "Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",
+					colSpan: 4,
+				},
+				"",
+				"",
+			],
+			["", { text: "As Witneses", colSpan: 2 }, "", { text: "", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "1.  ______________________________", colSpan: 2 }, "", { text: " ______________________________", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "2.  ______________________________", colSpan: 2 }, "", { text: "sellerName4 sellerSurname4", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			
+		],
+	},
+	layout: "noBorders",
+}
+
 // prettier-ignore
 var part_9_definitians = {
 	table: {
@@ -3039,7 +3497,7 @@ var part_11_signature_purchaser_two = {
 	table: {
 		widths: [34, 121, 121, 121, 121],
 		body: [
-			[{ text: "36" }, { style: "header2", text: "PURCHASER SIGNATURE", colSpan: 2 }, "", "", ""],
+			[{ text: "36" }, { style: "header2", text: "PURCHASER SIGNATURES", colSpan: 2 }, "", "", ""],
 			[{ text: "" }, { text: "" }, "", "", ""],
 			["", { text: "Purchaser 1", style: "header4" }, { text: "", colSpan: 3 }, "", ""],
 			[
@@ -3204,6 +3662,252 @@ var part_12_signature_seller_two = {
 	},
 	layout: "noBorders",
 };
+
+// prettier-ignore
+var part_12_signature_seller1_seller3 = {
+	table: {
+		widths: [34, 121, 121, 121, 121],
+		body: [
+			[{ text: "37" }, { style: "header2", text: "SELLER SIGNATURES", colSpan: 2 }, "", "", ""],
+			[{ text: "" }, { text: "" }, "", "", ""],
+			["", { text: "Seller 1", style: "header4" }, { text: "", colSpan: 3 }, "", ""],
+			[
+				"",
+				{
+					style: "signed",
+					text: "Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",
+					colSpan: 4,
+				},
+				"",
+				"",
+			],
+			["", { text: "As Witneses", colSpan: 2 }, "", { text: "", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "1.  ______________________________", colSpan: 2 }, "", { text: " ______________________________", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "2.  ______________________________", colSpan: 2 }, "", { text: "sellerName1 sellerSurname1", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "Seller 2", style: "header4" }, { text: "", colSpan: 3 }, "", ""],
+			[
+				"",
+				{
+					style: "signed",
+					text: "Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",
+					colSpan: 4,
+				},
+				"",
+				"",
+			],
+			["", { text: "As Witneses", colSpan: 2 }, "", { text: "", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "1.  ______________________________", colSpan: 2 }, "", { text: " ______________________________", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "2.  ______________________________", colSpan: 2 }, "", { text: "sellerName3 sellerSurname3", colSpan: 2 }, ""],
+		],
+	},
+	layout: "noBorders",
+}
+// prettier-ignore
+var part_12_signature_seller1S_seller3 = {
+	table: {
+		widths: [34, 121, 121, 121, 121],
+		body: [
+			[{ text: "37" }, { style: "header2", text: "SELLER SIGNATURES", colSpan: 2 }, "", "", ""],
+			[{ text: "" }, { text: "" }, "", "", ""],
+			["", { text: "Seller 1", style: "header4" }, { text: "", colSpan: 3 }, "", ""],
+			[
+				"",
+				{
+					style: "signed",
+					text: "Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",
+					colSpan: 4,
+				},
+				"",
+				"",
+			],
+			["", { text: "As Witneses", colSpan: 2 }, "", { text: "", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "1.  ______________________________", colSpan: 2 }, "", { text: " ______________________________", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "2.  ______________________________", colSpan: 2 }, "", { text: "sellerName1 sellerSurname1", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "Seller 2", style: "header4" }, { text: "", colSpan: 3 }, "", ""],
+			[
+				"",
+				{
+					style: "signed",
+					text: "Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",
+					colSpan: 4,
+				},
+				"",
+				"",
+			],
+			["", { text: "As Witneses", colSpan: 2 }, "", { text: "", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "1.  ______________________________", colSpan: 2 }, "", { text: " ______________________________", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "2.  ______________________________", colSpan: 2 }, "", { text: "sellerName2 sellerSurname2", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "Seller 3", style: "header4" }, { text: "", colSpan: 3 }, "", ""],
+			[
+				"",
+				{
+					style: "signed",
+					text: "Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",
+					colSpan: 4,
+				},
+				"",
+				"",
+			],
+			["", { text: "As Witneses", colSpan: 2 }, "", { text: "", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "1.  ______________________________", colSpan: 2 }, "", { text: " ______________________________", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "2.  ______________________________", colSpan: 2 }, "", { text: "sellerName3 sellerSurname3", colSpan: 2 }, ""],
+		],
+	},
+	layout: "noBorders",
+}
+// prettier-ignore
+var part_12_signature_seller1S_seller3S = {
+	table: {
+		widths: [34, 121, 121, 121, 121],
+		body: [
+			[{ text: "37" }, { style: "header2", text: "SELLER SIGNATURES", colSpan: 2 }, "", "", ""],
+			[{ text: "" }, { text: "" }, "", "", ""],
+			["", { text: "Seller 1", style: "header4" }, { text: "", colSpan: 3 }, "", ""],
+			[
+				"",
+				{
+					style: "signed",
+					text: "Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",
+					colSpan: 4,
+				},
+				"",
+				"",
+			],
+			["", { text: "As Witneses", colSpan: 2 }, "", { text: "", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "1.  ______________________________", colSpan: 2 }, "", { text: " ______________________________", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "2.  ______________________________", colSpan: 2 }, "", { text: "sellerName1 sellerSurname1", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "Seller 2", style: "header4" }, { text: "", colSpan: 3 }, "", ""],
+			[
+				"",
+				{
+					style: "signed",
+					text: "Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",
+					colSpan: 4,
+				},
+				"",
+				"",
+			],
+			["", { text: "As Witneses", colSpan: 2 }, "", { text: "", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "1.  ______________________________", colSpan: 2 }, "", { text: " ______________________________", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "2.  ______________________________", colSpan: 2 }, "", { text: "sellerName2 sellerSurname2", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "Seller 3", style: "header4" }, { text: "", colSpan: 3 }, "", ""],
+			[
+				"",
+				{
+					style: "signed",
+					text: "Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",
+					colSpan: 4,
+				},
+				"",
+				"",
+			],
+			["", { text: "As Witneses", colSpan: 2 }, "", { text: "", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "1.  ______________________________", colSpan: 2 }, "", { text: " ______________________________", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "2.  ______________________________", colSpan: 2 }, "", { text: "sellerName3 sellerSurname3", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "Seller 4", style: "header4" }, { text: "", colSpan: 3 }, "", ""],
+			[
+				"",
+				{
+					style: "signed",
+					text: "Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",
+					colSpan: 4,
+				},
+				"",
+				"",
+			],
+			["", { text: "As Witneses", colSpan: 2 }, "", { text: "", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "1.  ______________________________", colSpan: 2 }, "", { text: " ______________________________", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "2.  ______________________________", colSpan: 2 }, "", { text: "sellerName4 sellerSurname4", colSpan: 2 }, ""],
+		],
+	},
+	layout: "noBorders",
+}
+// prettier-ignore
+var part_12_signature_seller1_seller3S = {
+	table: {
+		widths: [34, 121, 121, 121, 121],
+		body: [
+			[{ text: "37" }, { style: "header2", text: "SELLER SIGNATURES", colSpan: 2 }, "", "", ""],
+			[{ text: "" }, { text: "" }, "", "", ""],
+			["", { text: "Seller 1", style: "header4" }, { text: "", colSpan: 3 }, "", ""],
+			[
+				"",
+				{
+					style: "signed",
+					text: "Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",
+					colSpan: 4,
+				},
+				"",
+				"",
+			],
+			["", { text: "As Witneses", colSpan: 2 }, "", { text: "", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "1.  ______________________________", colSpan: 2 }, "", { text: " ______________________________", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "2.  ______________________________", colSpan: 2 }, "", { text: "sellerName1 sellerSurname1", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "Seller 2", style: "header4" }, { text: "", colSpan: 3 }, "", ""],
+			[
+				"",
+				{
+					style: "signed",
+					text: "Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",
+					colSpan: 4,
+				},
+				"",
+				"",
+			],
+			["", { text: "As Witneses", colSpan: 2 }, "", { text: "", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "1.  ______________________________", colSpan: 2 }, "", { text: " ______________________________", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "2.  ______________________________", colSpan: 2 }, "", { text: "sellerName3 sellerSurname3", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "Seller 3", style: "header4" }, { text: "", colSpan: 3 }, "", ""],
+			[
+				"",
+				{
+					style: "signed",
+					text: "Signed at _______________ at ________ am/pm on this _____ day of ____________ 20___.",
+					colSpan: 4,
+				},
+				"",
+				"",
+			],
+			["", { text: "As Witneses", colSpan: 2 }, "", { text: "", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "1.  ______________________________", colSpan: 2 }, "", { text: " ______________________________", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "2.  ______________________________", colSpan: 2 }, "", { text: "sellerName4 sellerSurname4", colSpan: 2 }, ""],
+		],
+	},
+	layout: "noBorders",
+}
+
 // prettier-ignore
 var part_12_signature_seller_company = {
 	table: {

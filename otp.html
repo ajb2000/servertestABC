@@ -54,7 +54,7 @@
   </head>
   <body>
     <div class="container">
-      <div class="text-center"><h2>Contract of Sale and Purchase | OTP Generator</h2></div>
+      <div class="text-center"><h2>Contract of Sale | OTP Generator</h2></div>
 
       <!-- NAVIGATION -->
       <div>
@@ -161,7 +161,7 @@
             aria-labelledby="list-generateOTP-list"
           >
 
-            <div class="text-center"><h3>Generate Contract of Sale and Purchase</h3></div>
+            <div class="text-center"><h3>Generate Contract of Sale | OTP</h3></div>
             <fieldset
               id=""
               style="padding: 5px 20px; max-width: 1366px;"
@@ -171,14 +171,20 @@
                 style="margin-left: 10px; padding: 0 5px; font-size: 1.2rem;"
                 class="w-auto"
               >
-                Generate Offer To Purchase
+                Email & Terms and conditions
 			  </legend>
 
 			  <form action="">
-
+                <div class=Row>
+                  <div class="form-check">
+                    <input id="acknowledgeTnC" type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label  class="form-check-label" for="exampleCheck1">I have read the <a style="color:blue; text-decoration: underline;" onclick="clickbutton('button1', 'termsAndConditions')">terms and conditions</a></label>
+                  </div>
+                </div>
+                <br>
                 <div class="row">
                   <div class="col-12 form-group">
-                    <label class="required">Please enter Email Address where your contract will be sent</label>
+                    <label class="required">Please enter your Email Address</label>
                     <input
                       type="text"
                       class="form-control form-control-sm"
@@ -353,9 +359,8 @@
                   function afterValidationChange(group, step){
                     let isValidated = document.getElementById(step).classList.contains('badge-success') 
                       if (isValidated){
-                        console.log('isAlreadyValidated . . . validating again')
                         validate(group, step)
-                      } else{ console.log('isNotAlreadyValidated . . . doing nothing')}
+                      } else{ }
                     
 
                   }
@@ -1656,12 +1661,12 @@
                 </div>
                 <div class="row">
                   <div class="col-sm-12 col-md-4 form-group">
-                    <label class="required">Section Number</label>
+                    <label class="required">Section Number and Name</label>
                     <input
                       type="text"
                       class="val_property_sec form-control form-control-sm"
                       id="propertySTSectionNumber"
-                      placeholder="section number"
+                      placeholder="section number and name"
                       onchange="afterValidationChange('val_property_sec', 'propertyDone')"
                     />
                   </div>
@@ -1828,7 +1833,6 @@
                     // function that shows hides elements depending on whether there are exclusive use areas or not 
                     // a1 = elements to show/hide a2 = elements that become required for validation a3 = the source element that is changing
                     var state = document.getElementById(a3).value
-                    console.log(state)
                     if (state === '') {
                       document.getElementsByClassName(a1)[0].style.display = 'none'
                       document.getElementsByClassName(a1)[1].style.display = 'none'
@@ -2081,7 +2085,7 @@
             role="tabpanel"
             aria-labelledby="list-general-list"
           >
-          <div class="text-center"><h3>Estate Angent and Conveyancer</h3></div>
+          <div class="text-center"><h3>Estate Agent and Conveyancer</h3></div>
             <fieldset
               id="estateAgent"
               style="padding: 5px 20px; max-width: 1366px;"
@@ -2377,7 +2381,6 @@
 <script>
   function possession(){
     var status = document.getElementById('possessionCheck1').checked
-    console.log(status)
     if(status === false) {
       document.getElementById('possessionRow').style.display = 'flex'
       document.getElementById('possessionDate').classList.add('val_general2')
@@ -2388,7 +2391,6 @@
   }
   function occupation(){
     var status = document.getElementById('occupationCheck1').checked
-    console.log(status)
     if(status === false) {
       document.getElementById('occupationRow').style.display = 'block'
       document.getElementById('occupationDate').classList.add('val_general2')
@@ -2604,7 +2606,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div id="moreInfoModal_body" class="modal-body"></div>
+          <div id="moreInfoModal_body" class="modal-body text-justify"></div>
           <div id="moreInfoModal_buttons" class="modal-footer">
             <button
               type="button"
@@ -2795,7 +2797,6 @@
       document
         .getElementById("propertyCheck1")
         .addEventListener("change", function () {
-          console.log(event.target.value);
           focusOnSection("propertyChooser_group", event.target.value);
         });
       document
@@ -2830,6 +2831,9 @@
             "Sectional Plan Number",
             "If you are unsure of the Sectional Plan Number, contact our offices to assist you.",
           ],
+          termsAndConditions:[
+            'Terms and Conditions',
+            'The information contained on this website is aimed at providing members of the public with guidance on the law, specifically related to Contracts of Sale, in South Africa. This information has not been provided to meet the individual requirements of a specific person or circumstance and Brune Attorneys insists that legal advice be obtained to address a persons unique circumstances. Brune Attorneys, its employees, independent contractors, associates or third parties will under no circumstances accept liability or be held liable, for any innocent or negligent actions or omissions by Brune Attorneys, which may result in any harm or liability flowing from the use of or the inability to use the information provided'],
           propertySTRightToExtend: [
             "Right to Extend",
             "Sometimes a sectional title scheme is built, and the developer reserves the right to erect further sections over a period of time. A right to extend must be disclosed in the OTP – if you are unsure whether there is a right to extend registered over the scheme, please contact our offices and we will assist you.",
@@ -2846,7 +2850,17 @@
             "Acceptance Period",
             "After the purchaser makes an offer, the seller has until this date and time to accept the offer, whereafter it expires",
           ],
-          purchasePricesDontMatch: ['Purchase Price Calculation','The Purchase Price must be equel to the sum of the deposit amount, the cash amount, the loan amount and the proceeds from the sale of the purchasers property']
+          acknowledgeTnC: [
+            'Terms and Conditions',
+            'Please acknowledge that you have read the terms and conditions'
+          ],
+          enterEmailAddress: [
+            'Email Address',
+            'Please enter an email address where your contract will be sent.'
+          ],
+          purchasePricesDontMatch: [
+            'Purchase Price Calculation',
+            'The Purchase Price must be equel to the sum of the deposit amount, the cash amount, the loan amount and the proceeds from the sale of the purchasers property']
         };
 
         function addCondition() {
@@ -3038,7 +3052,6 @@
 
       function focusOnSection(groupName, focusSection) {
         var allInGroup = document.getElementsByClassName(groupName);
-        // console.log(allInGroup);
         for (let i = 0; i < allInGroup.length; i++) {
           if (allInGroup[i].id === focusSection) {
             allInGroup[i].style.display = "block";
@@ -3064,9 +3077,8 @@
 
 	  }
       function validate(toValidate, step) {
-        console.log(step+' '+toValidate)
         let isValid = true;
-		let elementsToValidate = document.getElementsByClassName(toValidate);
+		    let elementsToValidate = document.getElementsByClassName(toValidate);
         for (i = 0; i < elementsToValidate.length; i++) {
 
           elementsToValidate[i].classList.remove("is-valid");
@@ -3406,7 +3418,6 @@
 
         // *** GET ALL THE SPECIAL CONDITIONS - ENDS
         if(type === 'store'){
-          console.log(allInfoObject)
           Store.editStoredData(allInfoObject)
         }
         if(type === 'send'){
@@ -3419,8 +3430,8 @@
           runSpinningWheel()
         // *** Make the PUSH request to the server - STARTS
         // fetch("http://localhost:5000/otp/otp_landing", {
-           fetch("https://testingwp1234.herokuapp.com/otp/otp_landing", {
-          // fetch("http://192.168.1.200:5000/otp/otp_landing", {
+         fetch("https://testingwp1234.herokuapp.com/otp/otp_landing", {
+        // fetch("http://192.168.1.200:5000/otp/otp_landing", {
 
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -3428,15 +3439,18 @@
         }).then(response => response.json())
           .then((res) => {
             closeSpinningWheel()
-            console.log(res.txt)
           // MODAL POPUP - STARTS
           if(res.txt === 'success'){
                 document.getElementById(
                   "moreInfoModal_header"
                 ).innerText = 'Contract Purchase and Sale sent';
+                // document.getElementById(
+                //   "moreInfoModal_body"
+                // ).innerText = 'Your contract has been emailed to: '+document.getElementById('emailToBeSent').value+". Thank you for using the Brune Attorneys Contract of Sale | OTP Generator."
                 document.getElementById(
                   "moreInfoModal_body"
-                ).innerText = 'Your contract has been emailed to: '+document.getElementById('emailToBeSent').value+". Thank you for using the Brune Attorneys Contract of Sale | OTP Generator."
+                ).innerHTML = `<p>Your contract has been emailed to:</p><p class="text-center"><strong>${document.getElementById('emailToBeSent').value}</strong></p>Thank you for using the Brune Attorneys Contract of Sale | OTP Generator.<p></p>This is a new service we are providing to our clients and we would appreciate any feedback you may have on how we can improve the service. You can send feedback to <a href = "mailto: nina@brune.co.za">nina@brune.co.za.</a><p>`
+
                 document.getElementById(
                   "moreInfoModal_buttons").innerHTML = '<button  type="button"  onclick="closeModalandDelete()" class="btn btn-secondary btn-sm btn-block"> Close and delete information </button><button  type="button"  onclick="closeModal()" class="btn btn-secondary btn-sm btn-block" > Close and retain information</button>'
                 var b = document.getElementById('button1');
@@ -3453,8 +3467,8 @@
       function pingServer(){
         // *** Make the PUSH request to the server - STARTS
         // fetch("http://localhost:5000/otp/otp_landing", {
-           fetch("https://testingwp1234.herokuapp.com/otp/serverPing", {
-          // fetch("http://192.168.1.200:5000/otp/serverPing", {
+         fetch("https://testingwp1234.herokuapp.com/otp/serverPing", {
+        //  fetch("http://192.168.1.200:5000/otp/serverPing", {
 
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -3536,8 +3550,18 @@ function clearForm(){
 
 function sendEmail(){
   event.preventDefault();
-    if (document.getElementById('emailToBeSent').value === ''){alert('Please enter a email address!')} else {
+  if (document.getElementById('acknowledgeTnC').checked === false){
+    clickbutton('button1', 'acknowledgeTnC')
+
+  } else {
+
+    if (document.getElementById('emailToBeSent').value === ''){
+      clickbutton('button1', 'enterEmailAddress')
+      } else {
     getAllInfo('send')
+  }
+  
+    
 
 }
 }

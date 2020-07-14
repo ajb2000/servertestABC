@@ -108,6 +108,18 @@ router.post("/otp_landing", (req, res) => {
 		if (data.sellerFaxNumber === "") {
 			new_seller_string = new_seller_string.split("sellerFaxNumber").join("");
 		}
+		if (data.sellerCompanyPhoneNumber === "") {
+			new_seller_string = new_seller_string.split("sellerCompanyPhoneNumber").join("");
+		}
+		if (data.sellerCompanyFaxNumber === "") {
+			new_seller_string = new_seller_string.split("sellerCompanyFaxNumber").join("");
+		}
+		if (data.sellerTrustPhoneNumber === "") {
+			new_seller_string = new_seller_string.split("sellerTrustPhoneNumber").join("");
+		}
+		if (data.sellerTrustFaxNumber === "") {
+			new_seller_string = new_seller_string.split("sellerTrustFaxNumber").join("");
+		}
 
 		// String back to Object
 		var final_seller = JSON.parse(new_seller_string);
@@ -139,6 +151,18 @@ router.post("/otp_landing", (req, res) => {
 		}
 		if (data.purchaserFaxNumber === "") {
 			new_purchaser1 = new_purchaser1.split("purchaserFaxNumber").join("");
+		}
+		if (data.purchaserCompanyPhoneNumber === "") {
+			new_purchaser1 = new_purchaser1.split("purchaserCompanyPhoneNumber").join("");
+		}
+		if (data.purchaserCompanyFaxNumber === "") {
+			new_purchaser1 = new_purchaser1.split("purchaserCompanyFaxNumber").join("");
+		}
+		if (data.purchaserTrustPhoneNumber === "") {
+			new_purchaser1 = new_purchaser1.split("purchaserTrustPhoneNumber").join("");
+		}
+		if (data.purchaserTrustFaxNumber === "") {
+			new_purchaser1 = new_purchaser1.split("purchaserTrustFaxNumber").join("");
 		}
 		// String back to Object
 		new_purchaser = JSON.parse(new_purchaser1);
@@ -841,7 +865,7 @@ var part_24_seller_trust = {
 			["", "", { text: "" }, "", ""],
 			["1.4", "Cell No:", { style: "bold", text: "sellerTrustCellphoneNumber" }, "Email:", { style: "bold", text: "sellerTrustEmail" }],
 			["", "", { text: "" }, "", ""],
-			["", "Phone No:", { style: "bold", text: "sellerTrustPhoneNumberF" }, "Fax No:", { style: "bold", text: "sellerTrustFaxNumber" }],
+			["", "Phone No:", { style: "bold", text: "sellerTrustPhoneNumber" }, "Fax No:", { style: "bold", text: "sellerTrustFaxNumber" }],
 		],
 	},
 	layout: "noBorders",

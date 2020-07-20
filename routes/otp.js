@@ -10,6 +10,8 @@ const mongoose = require("mongoose");
 
 //IMPORT MODELS FOR MONGOOSE DB
 const otpStorage = require("../models/otp_data_storage");
+const emailContacts = require("../models/emailContacts");
+const email = require("../models/email");
 
 //*** SETUP pdfmake - STARTS
 // Define font files
@@ -40,6 +42,29 @@ router.post("/serverPing", (req, res) => {
 	console.log("Server Received Ping From: " + req.connection.remoteAddress);
 	res.send({ txt: "Ping Received By Server" });
 });
+
+async function emailOpenedUpdate(UUID) {
+	const filter = { emailUUID: UUID };
+	const update = { opened: true };
+
+	try {
+		let emailToUpdate = await email.findOneAndUpdate(filter, update);
+		console.log(`Email with UUID : ${UUID} ; updated to true`);
+	} catch (err) {
+		console.log(`Email with UUID : ${UUID} ; could not be updated to true`);
+	}
+}
+
+router.get("/email_opened_confirmation/:id", function (req, res) {
+	console.log(`email opened received for: ${req.params.id}`);
+	emailOpenedUpdate(req.params.id);
+	// prettier-ignore
+	let buffer = Buffer.alloc(35)
+	buffer.write("R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=", "base64");
+	res.writeHead("200", { "Content-Type": "image/gif" });
+	res.end(buffer, "binary");
+});
+
 
 // *** Route the receives object form FrontEnd, conttructs the OTP and changes the data out
 router.post("/otp_landing", (req, res) => {
@@ -1851,8 +1876,8 @@ var part_85_signature_seller_1_seller_2 = {
 			["\n", "", "", "", ""],
 			["", { text: "2.  ______________________________", colSpan: 2 }, "", { text: "sellerName3 sellerSurname3", colSpan: 2 }, ""],
 			["\n", "", "", "", ""],
-		
-			
+
+
 		],
 	},
 	layout: "noBorders",
@@ -2054,7 +2079,7 @@ var part_88_signature_seller_1_seller_2S = {
 			["\n", "", "", "", ""],
 			["", { text: "2.  ______________________________", colSpan: 2 }, "", { text: "sellerName4 sellerSurname4", colSpan: 2 }, ""],
 			["\n", "", "", "", ""],
-			
+
 		],
 	},
 	layout: "noBorders",

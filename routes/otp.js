@@ -37,11 +37,37 @@ var transporter = nodemailer.createTransport({
 	},
 });
 // *** SETUP NODEMAILER - ENDS
-// *** Route the receives object form FrontEnd, conttructs the OTP and changes the data out
+
+// *** Pings Server to wake it up
 router.post("/serverPing", (req, res) => {
 	console.log("Server Received Ping From: " + req.connection.remoteAddress);
 	res.send({ txt: "Ping Received By Server" });
 });
+
+// *** Unsubscribe -page render- Request received
+router.get("/unsubscribe", (req, res) => {
+	console.log("Unsubscribe Page Server");
+	res.render("unsubscribe");
+});
+
+// *** Unsubscribe -page render- Request received
+router.post("/unsubscribe", (req, res) => {
+	console.log(`Unsubscribe request received for: ${req.body.unsubscribeEmail}`);
+	unsubscribeEmail(req.body.unsubscribeEmail);
+	res.render("unsubscribeDone");
+});
+
+async function unsubscribeEmail(address) {
+	const filter = { emailAddress: address };
+	const update = { status: "Unsubscribed" };
+
+	try {
+		let emailToUpdate = await emailContacts.findOneAndUpdate(filter, update);
+		console.log(`Email address: ${address} ; unsubscribed`);
+	} catch (err) {
+		console.log(`Email with UUID : ${address} ; could not be unsubscribed`);
+	}
+}
 
 async function emailOpenedUpdate(UUID) {
 	const filter = { emailUUID: UUID };
@@ -64,7 +90,6 @@ router.get("/email_opened_confirmation/:id", function (req, res) {
 	res.writeHead("200", { "Content-Type": "image/gif" });
 	res.end(buffer, "binary");
 });
-
 
 // *** Route the receives object form FrontEnd, conttructs the OTP and changes the data out
 router.post("/otp_landing", (req, res) => {

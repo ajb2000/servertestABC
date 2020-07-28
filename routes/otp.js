@@ -25,6 +25,7 @@ var fonts = {
 };
 
 var PdfPrinter = require("pdfmake");
+const { AggregationCursor } = require("mongodb");
 var printer = new PdfPrinter(fonts);
 //*** SETUP pdfmake - ENDS
 
@@ -63,9 +64,9 @@ async function unsubscribeEmail(address) {
 
 	try {
 		let emailToUpdate = await emailContacts.findOneAndUpdate(filter, update);
-		console.log(`Email address: ${address} ; unsubscribed`);
+		console.log(`Email address: ${address} : unsubscribed`);
 	} catch (err) {
-		console.log(`Email with UUID : ${address} ; could not be unsubscribed`);
+		console.log(`Email with UUID : ${address} : could not be unsubscribed`);
 	}
 }
 
@@ -100,6 +101,24 @@ router.post("/otp_landing", (req, res) => {
 	new Promise(function (resolve, reject) {
 		// Pick the correct parts of OTP to user
 		let content = [];
+		var agentsDetails = {
+			"5555": ["Aloe Real Estate", "pixie@aloerealestate.co.za", "073 353 0881"],
+		};
+		var agents = ["5555"];
+		if (data.agentCode != "" || data.agentCode != undefined) {
+			if (agents.includes(data.agentCode)) {
+				let agentLogo = fs.readFileSync(path.join(__dirname, "../agentFiles/" + data.agentCode + ".png"), { encoding: "base64" });
+				let agentHeader = {
+					image: "data:image/jpeg;base64," + agentLogo,
+					width: "588",
+					alignment: "center",
+				};
+				content.push(agentHeader);
+				content.push(insertSpace);
+				agentLogo = "";
+				agentHeader = {};
+			}
+		}
 		// Heading - Starts
 		content.push(part_1_heading);
 		// Heading - Ends
@@ -630,7 +649,38 @@ router.post("/otp_landing", (req, res) => {
 		// Change data back into an object
 		var replacedBack = JSON.parse(string_object);
 		// Insert the Footer (after all the changes are complete)
-		replacedBack["footer"] = footer2;
+		if (data.agentCode != "" || data.agentCode != undefined) {
+			if (agents.includes(data.agentCode)) {
+				var newFooter = new Function(
+					["currentPage", "pageCount"],
+					`return {
+								table: {
+									widths: [34, "*", "*", 34],
+
+									body: [
+										[
+											{ border: [false, false, false, false], text: "" },
+											{
+												style: "left",
+												border: [false, true, false, false],
+												text: "${agentsDetails["5555"][0]} | ${agentsDetails["5555"][1]} | ${agentsDetails["5555"][2]}",
+											},
+											{
+												style: "right",
+												border: [false, true, false, false],
+												text: "Page " + currentPage + " of " + pageCount,
+											},
+											{ border: [false, false, false, false], text: "" },
+										],
+									],
+								},
+							}`
+				);
+				replacedBack["footer"] = newFooter;
+			}
+		} else {
+			replacedBack["footer"] = footer2;
+		}
 
 		var obj = {};
 		obj["email"] = data.emailToBeSent;
@@ -4064,6 +4114,31 @@ var footer2 = function (currentPage, pageCount) {
 						style: "left",
 						border: [false, true, false, false],
 						text: "Brune Attorneys | nina@brune.co.za | 084 548 4808",
+					},
+					{
+						style: "right",
+						border: [false, true, false, false],
+						text: "Page " + currentPage + " of " + pageCount,
+					},
+					{ border: [false, false, false, false], text: "" },
+				],
+			],
+		},
+	};
+};
+
+var footer3 = function (currentPage, pageCount) {
+	return {
+		table: {
+			widths: [34, "*", "*", 34],
+
+			body: [
+				[
+					{ border: [false, false, false, false], text: "" },
+					{
+						style: "left",
+						border: [false, true, false, false],
+						text: "asdf-Name-asdf | asdf-Email-asdf | asdf-number-asdf",
 					},
 					{
 						style: "right",

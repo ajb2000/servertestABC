@@ -1,0 +1,28 @@
+{
+    "agents": ["5555", "demo-left", "demo-right", "demo-banner"],
+    "5555":[
+      "Aloe Real Estate",
+      "pixie@aloerealestate.co.za",
+      "073 353 0881",
+      "banner"
+   ],
+   "demo-left":[
+      "Estate Agency Name",
+      "estate@agent.co.za",
+      "xxx-xxx-xxxx",
+      "left"
+   ],
+   "demo-right":[
+      "Estate Agency Name",
+      "estate@agent.co.za",
+      "xxx-xxx-xxxx",
+      "right"
+   ],
+   "demo-banner":[
+      "Estate Agency Name",
+      "estate@agent.co.za",
+      "xxx-xxx-xxxx",
+      "banner"
+   ] 
+}
+  

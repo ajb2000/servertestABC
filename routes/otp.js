@@ -101,18 +101,40 @@ router.post("/otp_landing", (req, res) => {
 	new Promise(function (resolve, reject) {
 		// Pick the correct parts of OTP to user
 		let content = [];
-		var agentsDetails = {
-			"5555": ["Aloe Real Estate", "pixie@aloerealestate.co.za", "073 353 0881"],
-		};
-		var agents = ["5555"];
+		let agentsDetails = fs.readFileSync(path.join(__dirname, "../agentFiles/agentDetails.txt"));
+		agentsDetails = JSON.parse(agentsDetails);
+		// var agentsDetails = {
+		// 	"5555": ["Aloe Real Estate", "pixie@aloerealestate.co.za", "073 353 0881"],
+		// };
+		// var agents = ["5555", "demo-left", "demo-right", "demo-banner"];
+		var agents = agentsDetails["agents"];
 		if (data.agentCode != "" || data.agentCode != undefined) {
 			if (agents.includes(data.agentCode)) {
 				let agentLogo = fs.readFileSync(path.join(__dirname, "../agentFiles/" + data.agentCode + ".png"), { encoding: "base64" });
-				let agentHeader = {
-					image: "data:image/jpeg;base64," + agentLogo,
-					width: "588",
-					alignment: "center",
-				};
+				console.log("after getimmage");
+				if (agentsDetails[data.agentCode][3] == "left") {
+					var agentHeader = {
+						image: "data:image/npg;base64," + agentLogo,
+						width: 240,
+						alignment: "left",
+					};
+				}
+				if (agentsDetails[data.agentCode][3] == "right") {
+					var agentHeader = {
+						image: "data:image/png;base64," + agentLogo,
+						width: 240,
+						alignment: "right",
+					};
+				}
+				if (agentsDetails[data.agentCode][3] == "banner") {
+					var agentHeader = {
+						image: "data:image/png;base64," + agentLogo,
+						width: 510,
+						height: 150,
+						alignment: "center",
+					};
+				}
+
 				content.push(agentHeader);
 				content.push(insertSpace);
 				agentLogo = "";
@@ -663,7 +685,7 @@ router.post("/otp_landing", (req, res) => {
 											{
 												style: "left",
 												border: [false, true, false, false],
-												text: "${agentsDetails["5555"][0]} | ${agentsDetails["5555"][1]} | ${agentsDetails["5555"][2]}",
+												text: "${agentsDetails[data.agentCode][0]} | ${agentsDetails[data.agentCode][1]} | ${agentsDetails[data.agentCode][2]}",
 											},
 											{
 												style: "right",

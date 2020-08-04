@@ -12,6 +12,7 @@ const mongoose = require("mongoose");
 const otpStorage = require("../models/otp_data_storage");
 const emailContacts = require("../models/emailContacts");
 const email = require("../models/email");
+const calculatorUsage = require("../models/calculatorUsage");
 
 //*** SETUP pdfmake - STARTS
 // Define font files
@@ -43,6 +44,13 @@ var transporter = nodemailer.createTransport({
 router.post("/serverPing", (req, res) => {
 	console.log("Server Received Ping From: " + req.connection.remoteAddress);
 	res.send({ txt: "Ping Received By Server" });
+});
+
+// *** Pings Server for Transfer Cost / Bond Cost / Bond Repayment Download
+router.post("/serverPingCalculator/:id", (req, res) => {
+	console.log("Server Received Ping For Calculator:" + req.params.id);
+	res.send({ txt: "Calculator Ping Received By Server" });
+	storeCalculatorData(req.params.id);
 });
 
 // *** Unsubscribe -page render- Request received
@@ -4190,6 +4198,22 @@ function storeOtpData(dataObject) {
 		.save()
 		.then((result) => {
 			console.log("Opt saved to DB");
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+}
+
+function storeCalculatorData(_calculatorUsed, _time) {
+	const new_calculatorUsage = new calculatorUsage({
+		_id: new mongoose.Types.ObjectId(),
+		calculatorUsed: _calculatorUsed,
+	});
+
+	new_calculatorUsage
+		.save()
+		.then((result) => {
+			console.log("Calculator usage saved to DB");
 		})
 		.catch((err) => {
 			console.log(err);

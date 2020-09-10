@@ -440,9 +440,25 @@ router.post("/otp_landing", (req, res) => {
 		if (data.agentInvolved === "No") {
 			new_agent_string = new_agent_string.split("agencyName").join("(not applicable)");
 			new_agent_string = new_agent_string.split("agentName").join("(not applicable)");
+			new_agent_string = new_agent_string.split("agency_Name_listing").join("(not applicable)");
+			new_agent_string = new_agent_string.split("agent_Name_listing").join("(not applicable)");
+			new_agent_string = new_agent_string.split("commissionPercentage").join("(not applicable)");
+			new_agent_string = new_agent_string.split("sellingSplit").join("(not applicable)");
+			new_agent_string = new_agent_string.split("listingSplit").join("(not applicable)");
 			new_agent_string = new_agent_string.split("commissionPercentage").join("(not applicable)");
 		}
+
 		new_agent = JSON.parse(new_agent_string);
+
+		if (data.agency_Name_listing === "") {
+			// console.log(new_agent);
+			new_agent.table.body.splice(2, 1);
+			new_agent.table.body.splice(4, 1);
+			let new_agent_string = JSON.stringify(new_agent);
+			new_agent_string = new_agent_string.split("6.1.1").join("6.1");
+			new_agent_string = new_agent_string.split("6.2.1").join("6.2");
+			new_agent = JSON.parse(new_agent_string);
+		}
 
 		var tt4 = [];
 		tt4.push(part_41D_agent_heading);
@@ -1492,9 +1508,11 @@ var part_41D_agent = {
 		widths: [34, 120, 100, 120, 100],
 		body: [
 			["", "", { text: "" }, "", ""],
-			["6.1", "Agency:", { style: "bold", text: "agencyName" }, "Agent:", { style: "bold", text: "agentName" }],
+			["6.1.1", "Selling Agency:", { style: "bold", text: "agencyName" }, "Agent:", { style: "bold", text: "agentName" }],
+			["6.1.2", "Listing Agency:", { style: "bold", text: "agency_Name_listing" }, "Agent:", { style: "bold", text: "agent_Name_listing" }],
 			["", "", { text: "" }, "", ""],
-			["6.2", { text: "Commission Percentage" }, { style: "bold", text: "commissionPercentage %" }, "", ""],
+			["6.2.1", { text: "Commission Percentage" }, { style: "bold", text: "commissionPercentage %" }, "", ""],
+			["6.2.2", { text: "Commission Split" }, { style: "bold", text: "Selling Agency: sellingSplit%" }, "", { style: "bold", text: "Listing Agency: listingSplit%" }],
 			["", "", { text: "" }, "", ""],
 			["6.3", "Conveyancer:", { style: "bold", text: "conveyancerName" }, "Tel No:", { style: "bold", text: "conveyancerTelNumber" }],
 		],

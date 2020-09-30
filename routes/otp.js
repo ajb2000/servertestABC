@@ -105,7 +105,7 @@ router.post("/otp_landing", (req, res) => {
 	console.log("*  *  *  new call received from frontend  *  *  * ");
 	console.log(moment().format("DD MMMM YYYY hh:mm:ss"));
 	let data = req.body;
-
+	console.log(data);
 	new Promise(function (resolve, reject) {
 		// Pick the correct parts of OTP to user
 		let content = [];
@@ -365,21 +365,21 @@ router.post("/otp_landing", (req, res) => {
 			new_price_string = new_price_string.split("depositDatePayable").join("(not applicable)");
 		} else {
 			new_price_string = new_price_string.split("depositAmount").join(numberWithSpaces(data.depositAmount));
-			new_price_string = new_price_string.split("depositDatePayable").join(moment(data.depositDatePayable).utc().format("D MMMM YYYY"));
+			new_price_string = new_price_string.split("depositDatePayable").join(moment(data.depositDatePayable).format("D MMMM YYYY"));
 		}
 		if (data.loanAmount === "") {
 			new_price_string = new_price_string.split("loanAmount").join(" 0");
 			new_price_string = new_price_string.split("loanDatePayable").join("(not applicable)");
 		} else {
 			new_price_string = new_price_string.split("loanAmount").join(numberWithSpaces(data.loanAmount));
-			new_price_string = new_price_string.split("loanDatePayable").join(moment(data.loanDatePayable).utc().format("D MMMM YYYY"));
+			new_price_string = new_price_string.split("loanDatePayable").join(moment(data.loanDatePayable).format("D MMMM YYYY"));
 		}
 		if (data.cashAmount === "") {
 			new_price_string = new_price_string.split("cashAmount").join(" 0");
 			new_price_string = new_price_string.split("cashDatePayable").join("(not applicable)");
 		} else {
 			new_price_string = new_price_string.split("cashAmount").join(numberWithSpaces(data.cashAmount));
-			new_price_string = new_price_string.split("cashDatePayable").join(moment(data.cashDatePayable).utc().format("D MMMM YYYY"));
+			new_price_string = new_price_string.split("cashDatePayable").join(moment(data.cashDatePayable).format("D MMMM YYYY"));
 		}
 
 		if (data.proceedsFromSaleOfPurchaserPropertyAmount === "") {
@@ -390,7 +390,7 @@ router.post("/otp_landing", (req, res) => {
 			new_price_string = new_price_string
 				.split("proceedsFromSaleOfPurchaserPropertyAmount")
 				.join(numberWithSpaces(data.proceedsFromSaleOfPurchaserPropertyAmount));
-			new_price_string = new_price_string.split("saleOfPropertyLastDateOfSale").join(moment(data.saleOfPropertyLastDateOfSale).utc().format("D MMMM YYYY"));
+			new_price_string = new_price_string.split("saleOfPropertyLastDateOfSale").join(moment(data.saleOfPropertyLastDateOfSale).format("D MMMM YYYY"));
 		}
 
 		new_price = JSON.parse(new_price_string);
@@ -414,13 +414,13 @@ router.post("/otp_landing", (req, res) => {
 		if (data.occupationCheck1 === true) {
 			new_occupation_string = new_occupation_string.split("occupationDate").join("On Transfer");
 		} else {
-			new_occupation_string = new_occupation_string.split("occupationDate").join(moment(data.occupationDate).utc().format("D MMMM YYYY"));
+			new_occupation_string = new_occupation_string.split("occupationDate").join(moment(data.occupationDate).format("D MMMM YYYY"));
 		}
 
 		if (data.possessionCheck1 === true) {
 			new_occupation_string = new_occupation_string.split("possessionDate").join("On Transfer");
 		} else {
-			new_occupation_string = new_occupation_string.split("possessionDate").join(moment(data.possessionDate).utc().format("D MMMM YYYY"));
+			new_occupation_string = new_occupation_string.split("possessionDate").join(moment(data.possessionDate).format("D MMMM YYYY"));
 		}
 		final_occupation_string = JSON.parse(new_occupation_string);
 
@@ -589,6 +589,27 @@ router.post("/otp_landing", (req, res) => {
 		content.push(temp_stack10);
 		// SIGNATURE SELLER - ENDS
 
+		// SIGNATURE AGENT - STARTS
+		let new_part_12A_signature_agent = {};
+		if (data.agentInvolved === "Yes") {
+			new_part_12A_signature_agent = JSON.stringify(part_12A_signature_agent);
+			new_part_12A_signature_agent = new_part_12A_signature_agent.split("agencyName_signature").join(data.agencyName);
+			new_part_12A_signature_agent = JSON.parse(new_part_12A_signature_agent);
+
+			var tt21 = [];
+			tt21.push(part_80_agent_heading);
+			tt21.push(new_part_12A_signature_agent);
+			var temp_stack21 = {
+				stack: tt21,
+				unbreakable: true,
+			};
+			content.push(temp_stack21);
+			content.push(insertSpace);
+		} else {
+		}
+
+		// SIGNATURE AGENT- ENDS
+
 		// DEFINITIONS - STARTS
 		var definitions_heading = {
 			pageBreak: "before",
@@ -616,8 +637,9 @@ router.post("/otp_landing", (req, res) => {
 			newConditions.table.body[1][1].ul = req.body.specialConditions;
 		}
 
-		content.push(part_10_specialConditions);
+		content.push(newConditions);
 		// SPECIAL CONDITIONS - Ends
+
 		// SIGNATURE PURCHASER FINAL- STARTS
 		let new_purchaser_signature1 = {};
 		if (data.purchaserCheck1 === true) {
@@ -674,6 +696,20 @@ router.post("/otp_landing", (req, res) => {
 		}
 		content.push(new_seller_signature1);
 		// SIGNATURE SELLER FINAL- ENDS
+
+		// SIGNATURE AGENT FINAL- STARTS
+		let new_part_12B_agent_signature = {};
+		if (data.agentInvolved === "Yes") {
+			new_part_12B_agent_signature = JSON.stringify(part_12B_agent_signature);
+			new_part_12B_agent_signature = new_part_12B_agent_signature.split("agencyName_signature").join(data.agencyName);
+			new_part_12B_agent_signature = JSON.parse(new_part_12B_agent_signature);
+
+			content.push(new_part_12B_agent_signature);
+			content.push(insertSpace);
+		} else {
+		}
+
+		// SIGNATURE AGENT FINAL - ENDS
 
 		var AnexA = createAnexureA();
 		content.push(AnexA);
@@ -3675,6 +3711,49 @@ var part_11_signature_purchaser_one = {
 	unbreakable: true,
 };
 // prettier-ignore
+var part_12A_signature_agent = {
+	table: {
+		widths: [34, 121, 121, 121, 121],
+		body: [
+			["", "", "", "", ""],
+			["13.1", { text: "Agent", style: "header4" }, { text: "", colSpan: 3 }, "", ""],
+			[
+				"",
+				{
+					style: "signed",
+					text: "Signed at ____________________ at ________ am/pm on this ______ day of ____________ 20___.",
+					colSpan: 4,
+				},
+				"",
+				"",
+			],
+			["", { text: "As Witneses", colSpan: 2 }, "", { text: "", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "1.  ______________________________", colSpan: 2 }, "", { text: " ______________________________", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "2.  ______________________________", colSpan: 2 }, "", { text: "agencyName_signature", colSpan: 2 }, ""],
+		],
+	},
+	layout: "noBorders",
+};
+
+var part_80_agent_heading = {
+	table: {
+		widths: [34, "*"],
+		body: [
+			[
+				{ text: "", border: [false, false, false, false] },
+				{
+					margin: [-5, 0, 0, 0],
+					text: "Agent Signature",
+					border: [false, false, false, true],
+				},
+			],
+		],
+	},
+};
+
+// prettier-ignore
 var part_11_signature_purchaser_two = {
 	table: {
 		widths: [34, 121, 121, 121, 121],
@@ -4142,6 +4221,33 @@ var part_12_signature_seller_trust = {
 			["", { text: "1.  ______________________________", colSpan: 2 }, "", { text: " ______________________________", colSpan: 2 }, ""],
 			["\n", "", "", "", ""],
 			["", { text: "2.  ______________________________", colSpan: 2 }, "", { text: "sellerTrustRepresentativeName", colSpan: 2 }, ""],
+		],
+	},
+	layout: "noBorders",
+};
+
+// prettier-ignore
+var part_12B_agent_signature = {
+	table: {
+		widths: [34, 121, 121, 121, 121],
+		body: [
+			[{ text: "38" }, { style: "header2", text: "AGENT SIGNATURE", colSpan: 2 }, "", "", ""],
+			["", "", "", "", ""],
+			[
+				"",
+				{
+					style: "signed",
+					text: "Signed at ____________________ at ________ am/pm on this ______ day of ____________ 20___.",
+					colSpan: 4,
+				},
+				"",
+				"",
+			],
+			["", { text: "As Witneses", colSpan: 2 }, "", { text: "", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "1.  ______________________________", colSpan: 2 }, "", { text: " ______________________________", colSpan: 2 }, ""],
+			["\n", "", "", "", ""],
+			["", { text: "2.  ______________________________", colSpan: 2 }, "", { text: "agencyName_signature", colSpan: 2 }, ""],
 		],
 	},
 	layout: "noBorders",

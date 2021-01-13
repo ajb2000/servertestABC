@@ -478,10 +478,10 @@ router.post("/otp_landing", (req, res) => {
 		tt5.push(insertSpace);
 
 		var newFixtures = part_5_fixtures;
-		if (req.body.fixtures.length === 0) {
+		if (req.body.fixtures_ASDF.length === 0) {
 			newFixtures.table.body[1][1].ul = ["None"];
 		} else {
-			newFixtures.table.body[1][1].ul = req.body.fixtures;
+			newFixtures.table.body[1][1].ul = req.body.fixtures_ASDF;
 		}
 		tt5.push(newFixtures);
 		var temp_stack5 = {
@@ -721,8 +721,9 @@ router.post("/otp_landing", (req, res) => {
 		var docDefinition = test1;
 		let string_object = JSON.stringify(docDefinition);
 
-		// Make the changes according to die object received from FrontEnd
+		// Make the changes according to die object received from FrontEnd excluding undefined values and the fixture entry to avoid the issue at par 32
 		let replaced = "";
+		console.log(req.body)
 		Object.keys(req.body).forEach((key, i) => {
 			if ((req.body[key] != "") & (req.body[key] != undefined)) {
 				string_object = string_object.split(key).join(req.body[key]);
@@ -2948,7 +2949,7 @@ var part_9_definitians = {
 				},
 			],
 			["31.", { style: "header2", text: "ACCEPTANCE PERIOD" }],
-			["", { style: "parEnd", text: "Refer to clause 20." }],
+			["", { style: "parEnd", text: "Refer to clause 8.2." }],
 			["32", { style: "header2", text: "FIXTURES AND FITTINGS:" }],
 			[
 				"",

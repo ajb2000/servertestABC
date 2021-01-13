@@ -3635,7 +3635,7 @@ var part_9_definitians_withoutEsateAgent = {
 				},
 			],
 			["31.", { style: "header2", text: "ACCEPTANCE PERIOD" }],
-			["", { style: "parEnd", text: "Refer to clause 20." }],
+			["", { style: "parEnd", text: "Refer to clause 8.2." }],
 			["32", { style: "header2", text: "FIXTURES AND FITTINGS:" }],
 			[
 				"",

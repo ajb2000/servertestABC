@@ -246,7 +246,7 @@ router.get('/sendDocBase64/:id', (req, res) =>{
   Documents_in_db_test.findOne({_id: req.params.id})
   .then(doc => {
     // Render the <Embed> element with the PDF data and send to browser
-    res.render('fileuploadNew', {'pdfBuffer': doc.pdf}, (err, html) => {
+    res.render('fileUploadMem1', {'pdfBuffer': doc.pdf}, (err, html) => {
       if(err) {return console.error(err);}
       res.send({'data': html})
       });

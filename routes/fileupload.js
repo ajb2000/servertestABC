@@ -91,6 +91,7 @@ router.post('/addNewCase', (req, res) =>{
 
 // Update CaseData in Db
 router.post('/updateCaseData', (req, res) =>{
+  var obj = {}
   obj[req.body.obj.field] = req.body.obj.value
   CaseData.findByIdAndUpdate(req.body.obj.id,obj, function(err, result){
     if(err){

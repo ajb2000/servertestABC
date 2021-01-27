@@ -4,7 +4,7 @@ const multer = require('multer')
 const mongoose = require("mongoose");
 const path = require('path')
 const bodyParser = require("body-parser");
-// const fs = require('fs')
+const fs = require('fs')
 
 const User = require("../models/users");
 const Documents_in_db_test = require("../models/documents_in_db_test");
@@ -94,6 +94,24 @@ router.post('/updateCaseData', (req, res) =>{
   var obj = {}
   obj[req.body.obj.field] = req.body.obj.value
   CaseData.findByIdAndUpdate(req.body.obj.id,obj, function(err, result){
+    if(err){
+        console.log('Failure: '+err)
+        res.send({'data': 'failure'})
+    } else {
+        console.log('Success: Date updated in DB')
+        res.send({'data': 'success'})
+    }
+})
+})
+
+// Update CaseData in Db
+router.post('/updateCaseDataBulk', (req, res) =>{
+  var id = req.body.obj._id
+  var obj = {}
+  obj = req.body.obj
+  delete obj['_id']
+  console.log(obj)
+  CaseData.findByIdAndUpdate(id,obj, function(err, result){
     if(err){
         console.log('Failure: '+err)
         res.send({'data': 'failure'})
@@ -241,44 +259,49 @@ router.get('/deleteDocById/:id', (req, res) =>{
 }); 
 })
 
+
 router.get('/sendDocBase64/:id', (req, res) =>{
-  console.log('request received for MEm doc')
+  var str = ''
+  var str2 = ''
+  console.log('request received for BASE64 document data')
+
   Documents_in_db_test.findOne({_id: req.params.id})
   .then(doc => {
-    // Render the <Embed> element with the PDF data and send to browser
-    res.render('fileUploadMem1', {'pdfBuffer': doc.pdf}, (err, html) => {
-      if(err) {return console.error(err);}
-      res.send({'data': html})
-      });
-  })
+     // Render the <Embed> element with the PDF data and send to browser
+    //  res.render('fileUploadMem1', {'pdfBuffer': doc.pdf}, (err, html) => {
+      res.render('fileUploadMem1', {'pdfBuffer': doc.pdf}, (err, html) => {
+      // str = html.substring(54)
+      // str2 = str.substring(0, str.length - 58);
+      // res.send({'data': str2,'name': doc.docName})
+      res.send({'data': html,'name': doc.docName})
+     })
+    })
   .catch(err =>{
     console.log(err)
     res.send('error')
   })
 })
 
-router.get('/sendDocBackAsFile/:id', (req, res) =>{
-  console.log('request received for MEm doc')
+router.get('/sendDocBase64Only/:id', (req, res) =>{
+  console.log('request received for BASE64 document data')
+
   Documents_in_db_test.findOne({_id: req.params.id})
   .then(doc => {
-    // Render the <Embed> element with the PDF data and send to browser
-    res.render('fileuploadMem1', {'pdfBuffer': doc.pdf}, (err, html) => {
-      if(err) {return console.error(err);}
-      // res.send({'data': html})
-     
-      var str = html.substring(25);
-      var str2 = str.substring(0, str.length - 64);
-      str3 = str2+'='
-      res.set("Content-disposition", "attachment; filename=" + `PDFtestABC` + `.pdf`);
-      res.contentType("application/pdf");
-      res.send(str3)
-      });
-  })
+     // Render the <Embed> element with the PDF data and send to browser
+    //  res.render('fileUploadMem1', {'pdfBuffer': doc.pdf}, (err, html) => {
+      res.render('fileUploadMem2', {'pdfBuffer': doc.pdf}, (err, html) => {
+      // str = html.substring(54)
+      // str2 = str.substring(0, str.length - 58);
+      // res.send({'data': str2,'name': doc.docName})
+      res.send({'data': html,'name': doc.docName})
+     })
+    })
   .catch(err =>{
     console.log(err)
     res.send('error')
   })
 })
+
 
 router.get('/getAllDocs/', (req, res) =>{
   var mySort={date:-1}

@@ -1,10 +1,16 @@
 {
-    "agents": ["5555", "demo-left", "demo-right", "demo-banner"],
+    "agents": ["5555", "2244","demo-left", "demo-right", "demo-banner"],
     "5555":[
       "Aloe Real Estate",
       "pixie@aloerealestate.co.za",
       "073 353 0881",
       "banner"
+   ],
+    "2244":[
+      "Property Connexion",
+      "info@propertyconnexion.co.za",
+      "011- 432-6970",
+      "right"
    ],
    "demo-left":[
       "Estate Agency Name",

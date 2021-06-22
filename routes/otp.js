@@ -3634,8 +3634,40 @@ var part_9_definitians_withoutEsateAgent = {
 						"Should the SIGNATORY be acting in a representative capacity on behalf of an entity or trust and should that entity breach any of the terms of this agreement then he/she agrees to stand as surety and co-principal debtor with the entity and further shall become personally liable, in solidum therewith. The SIGNATORY specifically and waives the benefit of excussion, division, non causa debiti and revision of accounts.",
 				},
 			],
-			["31.", { style: "header2", text: "ACCEPTANCE PERIOD" }],
-			["", { style: "parEnd", text: "Refer to clause 8.1." }],
+			["31.", { style: "header2", text: "CONSENT TO PROCESS AND USE PERSONAL INFORMATION IN TERM OF THE POPI ACT" }],
+			[
+				"",
+				{
+					style: "parEnd",
+					text:
+						"The Seller and the Purchaser hereby give the Agent consent for the processing and use of their personal information for the purposes of carrying out the following work:",
+				},
+			],
+			[
+				"31.1",
+				{
+					style: "parEnd",
+					text:
+						"Assisting with the sale of the Property.",
+				},
+			],
+			[
+				"31.2",
+				{
+					style: "parEnd",
+					text:
+						"Assisting with the purchase of the Property.",
+				},
+			],
+			[
+				"",
+				{
+					style: "parEnd",
+					text:
+						"This consent specifically includes the right to work with bank account details as and when required to ensure that the Parties receive payments and refunds due to them.  The consent is given on condition that the Parties personal information shall be processed and used in accordance with the Protection of Personal Information Act.",
+				},
+			],
+
 			["32", { style: "header2", text: "FIXTURES AND FITTINGS:" }],
 			[
 				"",
